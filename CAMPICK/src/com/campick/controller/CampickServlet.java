@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CampickServlet
  */
-@WebServlet("main.do")
+@WebServlet("/main.do")
 public class CampickServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,7 +47,6 @@ public class CampickServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		if(command.equals("/main.do")) {
-			response.sendRedirect("Borads.do");
 			System.out.println("mainDODODODO 입성");
 		}
 	}
