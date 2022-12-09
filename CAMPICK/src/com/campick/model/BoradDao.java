@@ -2,6 +2,9 @@ package com.campick.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -69,6 +72,36 @@ public class BoradDao {
 			}
 		}
 		return ri;
+	}
+	//게시판 작성 글 목록을 불러오는 메소드
+	public ArrayList<BoradDto> getDBList(){
+		
+		ArrayList<BoradDto> boradList = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "select * from borad order by borad_id desc";
+		
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoradDto dto = new BoradDto();
+				
+				dto.setBorad_id(rs.getInt("borad_id"));
+				dto.setBorad_name(rs.getString("borad_name"));
+				dto.setUser_name(rs.getString("user_name"));
+				dto.setBorad_date(rs.getString("borad_date"));
+				dto.setBorad_img(rs.getString("borad_img"));
+				boradList.add(dto);
+			}
+			rs.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return boradList;
 	}
 	
 }
