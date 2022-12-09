@@ -103,5 +103,36 @@ public class BoradDao {
 		}
 		return boradList;
 	}
+	public BoradDto getDB(int borad_id) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "select * from borad where borad_id=?";
+		BoradDto dto = new BoradDto();
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, borad_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			rs.next();
+			dto.setBorad_id(rs.getInt("borad_id"));
+			dto.setBorad_visit(rs.getInt("borad_visit"));
+			dto.setBorad_suggestion(rs.getInt("borad_suggestion"));
+			dto.setBorad_date(rs.getString("borad_date"));
+			dto.setCamp_name(rs.getString("camp_name"));
+			dto.setBorad_period_first(rs.getString("borad_period_first"));
+			dto.setBorad_period_second(rs.getString("borad_period_second"));
+			dto.setBorad_name(rs.getString("borad_name"));
+			dto.setUser_name(rs.getString("user_name"));
+			dto.setBorad_text(rs.getString("borad_text"));
+			dto.setBorad_img(rs.getString("borad_img"));
+			rs.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
 }

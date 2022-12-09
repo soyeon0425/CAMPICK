@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.campick.model.*"%>
+<%
+	BoradDao dao = BoradDao.getInstance();
+	BoradDto dto = dao.getDB((int)session.getAttribute("boradid"));
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,7 +29,7 @@
                 <li><a href="search.html">캠핑장찾기</a></li>
                 <li><a href="tagSearch.html">태그로 찾기</a></li>
                 <li><a href="analysis.html">캠핑 예측Pick</a></li>
-                <li><a href="comunity.html">커뮤니티</a></li>
+                <li><a href="borad.do?action=list">커뮤니티</a></li>
                 <li><a href="mypage.html">마이페이지</a></li>            </ul>
             </nav>
         </header>
@@ -35,37 +39,36 @@
             <table id="table1">
                 <tr>
                     <td class="title">글번호</td>
-                    <td>1</td>
+                    <td><%=dto.getBorad_id() %></td>
                     <td class="title">조회수</td>
-                    <td>1233</td>
+                    <td><%=dto.getBorad_visit() %></td>
                     <td class="title">추천수</td>
-                    <td>1323</td>
+                    <td><%=dto.getBorad_suggestion() %></td>
                     <td class="title">글작성일</td>
-                    <td>2022.10.25 17:25:30</td>
+                    <td><%=dto.getBorad_date() %></td>
                 </tr>
             </table>
             <table id="table2">
                 <tr>
                     <td class="title">캠핑장</td>
-                    <td>중앙정보 캠핑장</td>
+                    <td><%=dto.getCamp_name() %></td>
                     <td class="title">기간</td>
-                    <td>2022.10.15 ~ 2022.10.16</td>
+                    <td><%=dto.getBorad_period_first() %> ~ <%=dto.getBorad_period_second() %></td>
 
                 </tr>
                 <tr>
                     <td class="title">글제목</td>
-                    <td colspan="3">가을여행 다녀왔습니다!</td>
+                    <td colspan="3"><%=dto.getBorad_name() %></td>
                 </tr>
             </table>
-            <span id="writer">작성자 김도경</span>
+            <span id="writer">작성자 <%=dto.getUser_name() %></span>
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
             <form action="writepage.html" name="form1">
-                <img src="image/1.jpg" alt="이미지" width="500px">
+                <img src="<%=dto.getBorad_img()%>" alt="이미지" width="500px">
                 <p>
-                    안녕하세요 가을 캠핑가서 찍은 단풍잎 사진입니다.
-                    이쁘지 않나요?
+                	<%=dto.getBorad_text() %>
                 </p>
                 <button onclick="w_edit()" id="w_edit">수정</button>
             </form>
