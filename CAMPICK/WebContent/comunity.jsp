@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.campick.model.*,java.util.*" %>
+<jsp:useBean id="boradList" scope="request" class="java.util.ArrayList"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,24 +33,33 @@
     	</header>
         <div id="headline">
             <h2>커뮤니티</h2>
-      		<button type="button" onclick="location.href='writepage.html'"> 글쓰기 </button>
+      		<button type="button" onclick="readWrite()"> 글쓰기 </button>
     	</div>
     	<br><br><br>
         <ul id="gallery">
-            <a href="writedetail.html"><li><img src="image/1.jpg" alt="1"></li></a>
-            <a href=""><li><img src="image/2.jpg" alt="2"></li></a>
-            <a href=""><li><img src="image/3.jpg" alt="3"></li></a>
-            <a href=""><li><img src="image/4.jpg" alt="4"></li></a>
-            <a href=""><li><img src="image/5.jpg" alt="5"></li></a>
-            <a href=""><li><img src="image/6.jpg" alt="6"></li></a>
+        <%
+        	for(BoradDto  dto : (ArrayList<BoradDto>)boradList){        
+        %>
+        		<a href="writedetail.jsp">
+        			<li>
+        		</a>
+<!--             <a href="writedetail.html"><li><img src="image/1.jpg" alt="1"></li></a> -->
+<!--             <a href=""><li><img src="image/2.jpg" alt="2"></li></a> -->
+<!--             <a href=""><li><img src="image/3.jpg" alt="3"></li></a> -->
+<!--             <a href=""><li><img src="image/4.jpg" alt="4"></li></a> -->
+<!--             <a href=""><li><img src="image/5.jpg" alt="5"></li></a> -->
+<!--             <a href=""><li><img src="image/6.jpg" alt="6"></li></a> -->
+		<%
+        	}
+		%>
         </ul>
     </div>
     <footer>
     </footer>
     <script>
-    function readWrite(){
-        document.location.href="writedetail.html";
-    }
+	    function readWrite(){
+	        document.location.href="writedetail.jsp";
+	    }
 </script>
 </body>
 </html>
