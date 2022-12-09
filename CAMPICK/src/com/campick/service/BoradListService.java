@@ -7,6 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.campick.model.BoradDto;
 
-public interface ListService {
+public interface BoradListService {
 	public ArrayList<BoradDto> execute(HttpServletRequest request, HttpServletResponse response);
 }

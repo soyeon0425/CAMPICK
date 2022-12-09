@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.campick.model.BoradDao;
 import com.campick.model.BoradDto;
 
-public class ListServiceImpl implements ListService{
+public class BoradListServiceImpl implements BoradListService{
 	BoradDao dao;
-	public ListServiceImpl() {
+	public BoradListServiceImpl() {
 		// TODO Auto-generated constructor stub
 		dao = BoradDao.getInstance();
 	}

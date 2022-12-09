@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.campick.service.ListService;
-import com.campick.service.ListServiceImpl;
+import com.campick.service.BoradListService;
+import com.campick.service.BoradListServiceImpl;
 
 /**
  * Servlet implementation class BoradServlet
@@ -58,8 +58,8 @@ public class BoradServlet extends HttpServlet {
 //			rd.forward(request, response);
 //		}
 		if(action.equals("list")) {
-			System.out.println("리스트입니다!");
-			ListService listservice = new ListServiceImpl();
+			System.out.println("由ъ뒪�듃�엯�땲�떎!");
+			BoradListService listservice = new BoradListServiceImpl();
 			listservice.execute(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("comunity.jsp");
 			rd.forward(request, response);
