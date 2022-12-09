@@ -96,7 +96,7 @@
     </footer>
     <script>
     function writeBorad(){
-        document.location.href="borad.do?action=write";
+        document.location.href="/CAMPICK/writePage.jsp";
     }
 </script>
 </body>

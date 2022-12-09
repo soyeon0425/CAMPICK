@@ -38,8 +38,8 @@ public class BoradDao {
 	}
 	
 	//게시판에 글 등록
-	public int insertBorad(BoradDto dto) {
-		int ri = 0;
+	public boolean insertBorad(BoradDto dto) {
+//		int ri = 0;
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		//DB에 insert할 sql문
@@ -60,9 +60,10 @@ public class BoradDao {
 			pstmt.setString(9, dto.getBorad_text());
 			pstmt.setString(10, dto.getBorad_img());
 			pstmt.executeUpdate();
-			ri = BORAD_INSERT_SUCCESS;
+//			ri = BORAD_INSERT_SUCCESS;
 		}catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}finally {
 			try {
 				if(pstmt != null) pstmt.close();
@@ -71,7 +72,7 @@ public class BoradDao {
 				e2.printStackTrace();
 			}
 		}
-		return ri;
+		return true;
 	}
 	//게시판 작성 글 목록을 불러오는 메소드
 	public ArrayList<BoradDto> getDBList(){
