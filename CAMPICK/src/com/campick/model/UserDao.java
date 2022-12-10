@@ -2,6 +2,7 @@ package com.campick.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -70,6 +71,44 @@ public class UserDao {
 		
 	}
 	
+	public UserDto login(String loginId, String loginPw) {
+		System.out.println("로그인 dao까지 넘어옴~");
+		UserDto loginUser = null;
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+		
+		try {
+			conn=getConnection();
+			pstmt= conn.prepareStatement("SELECT * FROM USER_TB WHERE ID=? AND PW=?");
+			pstmt.setString(1, loginId); //비워둔 부분에 받아온 id를 넣음
+			pstmt.setString(2, loginPw); //비워둔 부분에 받아온 pw를 넣음
+			rs = pstmt.executeQuery(); //그 결과를 rs에 저장
+			   
+			rs.next();
+			String id = rs.getString("id");
+			String pw = rs.getString("pw");
+			String name = rs.getString("name");
+			String phone = rs.getString("phone");
+			String email = rs.getString("email");
+			String addr = rs.getString("addr");
+			   
+			loginUser=new UserDto(id, pw, name, phone, email, addr);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return loginUser;
+	}
 	
 	
 }
