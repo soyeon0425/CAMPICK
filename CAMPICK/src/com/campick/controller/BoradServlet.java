@@ -52,11 +52,12 @@ public class BoradServlet extends HttpServlet {
 
 	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String action = request.getParameter("action"); //action 변수로 기능 판별
-		
 		request.setCharacterEncoding("UTF-8");
+		
+		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
 		
+		String action = request.getParameter("action"); //action 변수로 기능 판별
 		//커뮤니티 글 목록으로 이동
 		if(action.equals("list")) {
 			System.out.println("list 진입");
@@ -75,7 +76,7 @@ public class BoradServlet extends HttpServlet {
 		}else if(action.equals("insert")){
 			BoradDto dto = new BoradDto();
 			dto.setBorad_name(request.getParameter("borad_name"));
-			dto.setCamp_name(request.getParameter("Camp_name"));
+			dto.setCamp_name(request.getParameter("camp_name"));
 			dto.setBorad_period_first(request.getParameter("borad_period_first"));
 			dto.setBorad_period_second(request.getParameter("borad_period_second"));
 			dto.setBorad_text(request.getParameter("borad_text"));

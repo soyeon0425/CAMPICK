@@ -45,21 +45,19 @@ public class BoradDao {
 		//DB에 insert할 sql문
 		String sql = "insert into borad(borad_id,borad_visit,borad_suggestion,borad_date,camp_name,"
 				+ "borad_period_first,borad_period_second,borad_name,user_name,borad_text,borad_img)"
-				+ " values (borad_seq.nextval?,?,?,?,?,?,?,?,?,?)";
+				+ " values (borad_seq.nextval,0,0,to_char(sysdate,'yyyy.mm.dd hh24:mi'),?,?,?,?,'임시',?,?)";
 		try {
 			connection = getConnection();
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, dto.getBorad_visit());
-			pstmt.setInt(2, dto.getBorad_suggestion());
-			pstmt.setString(3, dto.getBorad_date());
-			pstmt.setString(4, dto.getCamp_name());
-			pstmt.setString(5, dto.getBorad_period_first());
-			pstmt.setString(6, dto.getBorad_period_second());
-			pstmt.setString(7, dto.getBorad_name());
-			pstmt.setString(8, dto.getUser_name());
-			pstmt.setString(9, dto.getBorad_text());
-			pstmt.setString(10, dto.getBorad_img());
+			pstmt.setString(1, dto.getCamp_name());
+			pstmt.setString(2, dto.getBorad_period_first());
+			pstmt.setString(3, dto.getBorad_period_second());
+			pstmt.setString(4, dto.getBorad_name());
+//			pstmt.setString(5, dto.getUser_name());
+			pstmt.setString(5, dto.getBorad_text());
+			pstmt.setString(6, dto.getBorad_img());
 			pstmt.executeUpdate();
+			System.out.println(dto.getCamp_name());
 //			ri = BORAD_INSERT_SUCCESS;
 		}catch(Exception e) {
 			e.printStackTrace();

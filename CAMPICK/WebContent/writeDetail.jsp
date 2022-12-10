@@ -101,16 +101,16 @@
 </div>
     <script>
         function goList(){
-            document.location.href="comunity.html";
+            document.location.href="borad.do?action=list";
         }
         function w_edit(){
-            document.location.href="writepage.html";
+            document.location.href="borad.do?action=edit";
         }
         function w_remove(){
             var check = confirm("삭제 하시겠습니까?");
             if(check === true){
                 alert('삭제 되었습니다.');
-                document.location.href="comunity.html"
+                document.location.href="borad.do?action=delete"
             }
         }
     </script>
