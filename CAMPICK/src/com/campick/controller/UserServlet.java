@@ -91,6 +91,10 @@ public class UserServlet extends HttpServlet {
 			UserDto User = (UserDto)session.getAttribute("loginUser");
 			
 			System.out.println("로그인한 사람은 "+User.getId());
+			System.out.println("로그인한 사람 메일은 "+User.getEmail());
+			System.out.println("로그인한 사람 이름은 "+User.getName());
+
+			
 			out.println ("<script>alert ('환영합니다!'); location.href='index.jsp'; </script>"); 
 			out.close ();
 

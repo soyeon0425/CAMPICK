@@ -93,7 +93,7 @@ public class UserDao {
 			String email = rs.getString("email");
 			String addr = rs.getString("addr");
 			   
-			loginUser=new UserDto(id, pw, name, phone, email, addr);
+			loginUser=new UserDto(id, pw, name, addr, phone, email);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
