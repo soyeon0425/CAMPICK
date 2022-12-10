@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.*, com.campick.model.*" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,11 +20,29 @@
                     <h1>CAMPICK</h1>
                 </a>
             </div>
+            
             <div id="inform">
-                <ul>
+            <c:choose>
+            <c:when test="${loginUser==null}">
+            <ul>
+              <li><a href="login.html">로그인</a></li>
+            </ul>
+            </c:when>
+            <c:otherwise>
+            <ul>
+            <li style="color:white;"><%=loginUser.getName() %>님</li>
+            <li><a href="myPage.jsp">마이페이지</a></li>
+            <li><a href="user.do?action=logout">로그아웃</a></li>
+            </ul>
+            </c:otherwise>
+            </c:choose>
+            
+<!--                 <ul>
                     <li><a href="login.html">로그인</a></li>
-                </ul>
+                </ul> -->
+                
             </div>
+            
         <nav>
             <ul id="topMenu">
                 <li><a href="search.html">캠핑장찾기</a></li>

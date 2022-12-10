@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,9 +21,9 @@
 
             <div id="loginInform">
                 <ul>
-                    <li><a href="register.html">회원가입</a></li>
-                    <li><a href="searchid.html">ID 찾기</a></li>
-                    <li><a href="searchpw.html">PW 찾기</a></li>
+                    <li><a href="register.jsp">회원가입</a></li>
+                    <li><a href="searchid.jsp">ID 찾기</a></li>
+                    <li><a href="searchpw.jsp">PW 찾기</a></li>
                 </ul>
             </div>
             <button type="submit"> LOGIN </button> 

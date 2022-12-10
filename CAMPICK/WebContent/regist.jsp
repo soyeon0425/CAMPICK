@@ -43,7 +43,6 @@
                     <td><input type="text" name="user_id" required autofocus ></td>
                        <td><button onclick="idCheck()">중복체크</button></td>
                        <input type="hidden" name="idDuplication" value="idNotOK"/>
-                  
                 </tr>
                 <tr>
                     <td>비밀번호</td>
