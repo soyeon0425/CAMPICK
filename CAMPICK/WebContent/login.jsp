@@ -10,9 +10,9 @@
 <body>
 
     <div id="logo">
-            <h1> <a href="search.html">CAMPICK</a></h1>
+            <h1> <a href="main.do">CAMPICK</a></h1>
     </div>
-    <form class="wrapper">
+    <form class="wrapper" method="post" action="user.do?action=login">
       <h1>어서오세요!</h1>
               <input id="userid" name="userid" type="text" placeholder="id 입력" required autofocus><br>
               <input id="password" name="password" type="password" placeholder="password 입력" required>

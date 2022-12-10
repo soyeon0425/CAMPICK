@@ -12,13 +12,13 @@
     <div id="container">
         <header>
             <div id="logo">
-                <a href="search.html">
+                <a href="main.do">
                     <h1>CAMPICK</h1>
                 </a>
             </div>
             <div id="inform">
                 <ul>
-                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="login.jsp">로그인</a></li>
                 </ul>
             </div>    
         	<nav>
@@ -32,7 +32,7 @@
       	  	</nav>
     	</header>
 
-    <form method="post" action="search.html">
+    <form name="joinForm" >
         <div id="registerForm">
         <h1>회원 가입</h1>
         
@@ -40,37 +40,39 @@
             <table>
                 <tr>
                     <td>아이디</td>
-                    <td><input type="text" id="user-id" required autofocus ></td>
+                    <td><input type="text" name="user_id" required autofocus ></td>
                        <td><button onclick="idCheck()">중복체크</button></td>
+                       <input type="hidden" name="idDuplication" value="idNotOK"/>
+                  
                 </tr>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password" id="user-pw" required placeholder="비밀번호 8~12자리 특수기호 포함"></td>
+                    <td><input type="password" name="user_pw" required placeholder="비밀번호 8~12자리 특수기호 포함"></td>
                 </tr>
                 <tr>
                     <td>비밀번호 확인</td>
-                    <td><input type="password" id="user-pw2" required></td>
+                    <td><input type="password" name="user_pw2" required></td>
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td><input type="text" id="user-name" required></td>
+                    <td><input type="text" name="user_name" required></td>
                 </tr>
                 <tr>
                     <td>주소</td>
-                    <td><input type="text" id="user-addr" required></td>
+                    <td><input type="text" name="user_addr" required></td>
                 </tr>
                 <tr>
                     <td>이메일</td>
-                    <td><input type="email" id="user-email" required></td>
+                    <td><input type="email" name="user_email" required></td>
                 </tr>
                 <tr>
                     <td>전화번호</td>
-                    <td><input type="tel" id="user-tel" required></td>
+                    <td><input type="tel" name="user_tel" required></td>
                 </tr>
             </table>
         </fieldset>
         </div>
-        <div id="favoriteForm">
+<!--         <div id="favoriteForm">
         <h1>취향 선택 (필수x)</h1>
         <fieldset>
             <table>
@@ -132,7 +134,9 @@
     
         </fieldset>
       </div>
-        <button onclick="register()" value="가입하기">가입하기</button>
+       -->
+  
+        <button type="submit" onclick="register();">가입하기</button>
         <button type="reset" value="다시 작성">다시작성</button>
     </form>
     </div>
@@ -142,8 +146,18 @@
     </footer>
     <script>
         function register(){
-            alert('가입되었습니다..!');
-            document.location.href="search.html";
+        	var joinForm = document.joinForm;
+        	var pw = joinForm.user_pw.value;
+        	var pw2 = joinForm.user_pw2.value;
+        	var idcheck = joinForm.idDuplication.value;
+        	if(pw!=pw2){
+        		alert('비밀번호를 다시 입력해 주세요.');
+        		joinForm.pw2.focus();
+        	}
+        	else{
+            joinForm.method="post";
+            joinForm.action="user.do?action=register";
+        	}
         }
 
         function idCheck(){

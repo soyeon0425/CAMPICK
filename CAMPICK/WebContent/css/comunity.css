@@ -136,7 +136,7 @@ ul#gallery{
       list-style: none;
       padding: 0;
       width: 1000px;
-      height: 1000px;
+      height: 1000px
   }
   
   ul#gallery> a> li{

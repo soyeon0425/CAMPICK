@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.campick.model.UserDto;
+import com.campick.service.UserService;
+import com.campick.service.UserServicelmpl;
 
 /**
  * Servlet implementation class UserServlet
@@ -39,16 +41,31 @@ public class UserServlet extends HttpServlet {
 		System.out.println("user.do 들어옴!!!!!");
 		
 		String action=request.getParameter("action");
+		
+		
 		if(action.equals("register")) {
 			System.out.println("Register 들어옴!!!!!");
 		
 			UserDto regUser = new UserDto();
+			
 			regUser.setId(request.getParameter("user_id"));
 			regUser.setPw(request.getParameter("user_pw"));
 			regUser.setName(request.getParameter("user_name"));
+			regUser.setPhone(request.getParameter("user_tel"));
+			regUser.setEmail(request.getParameter("user_email"));
 			regUser.setAddr(request.getParameter("user_addr"));
-			regUser.setPhone(request.getParameter(""));
+			
 
+			request.setAttribute("regUser", regUser);
+			UserService userService = new UserServicelmpl();
+			userService.execute(request, response);
+			response.sendRedirect("login.jsp");
+			//response.sendRedirect("main.do");
+		}
+		
+		if(action.equals("login")){
+			System.out.println("로그인페이지 들어옴~");
+			
 		}
 		
 		
