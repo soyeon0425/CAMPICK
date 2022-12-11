@@ -42,7 +42,7 @@
                     <li>
                         <div class="photo"><img src=<%=dto.getBorad_img() %>></div>
                         <div class="title"><%=dto.getBorad_name()%></div>
-                        <div class="writer"><%=dto.getUser_name() %> </div>
+                        <div class="writer"><%=dto.getName() %> </div>
                         <div class="date"><%=dto.getBorad_date() %> </div>
                     </li></a>
                <%

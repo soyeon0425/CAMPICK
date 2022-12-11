@@ -9,7 +9,7 @@ public class BoradDto {
 	private String borad_period_first;
 	private String borad_period_second;
 	private String borad_name;
-	private String user_name;
+	private String name;
 	private String borad_text;
 	private String borad_img;
 	
@@ -61,11 +61,11 @@ public class BoradDto {
 	public void setBorad_name(String borad_name) {
 		this.borad_name = borad_name;
 	}
-	public String getUser_name() {
-		return user_name;
+	public String getName() {
+		return name;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getBorad_text() {
 		return borad_text;

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*, com.campick.model.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+     
     <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
             <c:choose>
             <c:when test="${loginUser==null}">
             <ul>
-              <li><a href="login.html">로그인</a></li>
+              <li><a href="login.jsp">로그인</a></li>
             </ul>
             </c:when>
             <c:otherwise>

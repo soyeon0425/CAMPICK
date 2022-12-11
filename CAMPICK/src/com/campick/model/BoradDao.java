@@ -8,6 +8,7 @@ import java.util.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 public class BoradDao {
@@ -38,14 +39,14 @@ public class BoradDao {
 	}
 	
 	//게시판에 글 등록
-	public boolean insertBorad(BoradDto dto) {
+	public boolean insertBorad(BoradDto dto,String name) {
 //		int ri = 0;
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		//DB에 insert할 sql문
 		String sql = "insert into borad(borad_id,borad_visit,borad_suggestion,borad_date,camp_name,"
-				+ "borad_period_first,borad_period_second,borad_name,user_name,borad_text,borad_img)"
-				+ " values (borad_seq.nextval,0,0,to_char(sysdate,'yyyy.mm.dd hh24:mi'),?,?,?,?,'임시',?,?)";
+				+ "borad_period_first,borad_period_second,borad_name,name,borad_text,borad_img)"
+				+ " values (borad_seq.nextval,0,0,to_char(sysdate,'yyyy.mm.dd hh24:mi'),?,?,?,?,?,?,?)";
 		try {
 			connection = getConnection();
 			pstmt = connection.prepareStatement(sql);
@@ -53,9 +54,9 @@ public class BoradDao {
 			pstmt.setString(2, dto.getBorad_period_first());
 			pstmt.setString(3, dto.getBorad_period_second());
 			pstmt.setString(4, dto.getBorad_name());
-//			pstmt.setString(5, dto.getUser_name());
-			pstmt.setString(5, dto.getBorad_text());
-			pstmt.setString(6, dto.getBorad_img());
+			pstmt.setString(5, name);
+			pstmt.setString(6, dto.getBorad_text());
+			pstmt.setString(7, dto.getBorad_img());
 			pstmt.executeUpdate();
 			System.out.println(dto.getCamp_name());
 //			ri = BORAD_INSERT_SUCCESS;
@@ -91,7 +92,7 @@ public class BoradDao {
 				
 				dto.setBorad_id(rs.getInt("borad_id"));
 				dto.setBorad_name(rs.getString("borad_name"));
-				dto.setUser_name(rs.getString("user_name"));
+				dto.setName(rs.getString("name"));
 				dto.setBorad_date(rs.getString("borad_date"));
 				dto.setBorad_img(rs.getString("borad_img"));
 				boradList.add(dto);
@@ -123,7 +124,7 @@ public class BoradDao {
 			dto.setBorad_period_first(rs.getString("borad_period_first"));
 			dto.setBorad_period_second(rs.getString("borad_period_second"));
 			dto.setBorad_name(rs.getString("borad_name"));
-			dto.setUser_name(rs.getString("user_name"));
+			dto.setName(rs.getString("name"));
 			dto.setBorad_text(rs.getString("borad_text"));
 			dto.setBorad_img(rs.getString("borad_img"));
 			rs.close();

@@ -21,7 +21,7 @@
 
             <div id="loginInform">
                 <ul>
-                    <li><a href="register.jsp">회원가입</a></li>
+                    <li><a href="regist.jsp">회원가입</a></li>
                     <li><a href="searchid.jsp">ID 찾기</a></li>
                     <li><a href="searchpw.jsp">PW 찾기</a></li>
                 </ul>

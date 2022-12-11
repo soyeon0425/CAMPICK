@@ -61,7 +61,7 @@
                     <td colspan="3"><%=dto.getBorad_name() %></td>
                 </tr>
             </table>
-            <span id="writer">작성자 <%=dto.getUser_name() %></span>
+            <span id="writer">작성자 <%=dto.getName() %></span>
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
