@@ -96,7 +96,6 @@ public class BoradServlet extends HttpServlet {
 			bwds.execute(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("writeDetail.jsp");
 			rd.forward(request, response);
-			
 		}
 	}
 

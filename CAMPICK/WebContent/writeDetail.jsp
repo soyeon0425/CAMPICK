@@ -15,13 +15,13 @@
     <div id="container">
         <header>
             <div id="logo">
-                <a href="search.html">
+                <a href="main.do">
                     <h1>CAMPICK</h1>
                 </a>
             </div>
             <div id="inform">
                 <ul>
-                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="login.jsp">로그인</a></li>
                 </ul>
             </div>
            <nav>
@@ -30,7 +30,7 @@
                 <li><a href="tagSearch.html">태그로 찾기</a></li>
                 <li><a href="analysis.html">캠핑 예측Pick</a></li>
                 <li><a href="borad.do?action=list">커뮤니티</a></li>
-                <li><a href="mypage.html">마이페이지</a></li>            </ul>
+                </ul>
             </nav>
         </header>
 
