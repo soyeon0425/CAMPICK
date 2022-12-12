@@ -83,6 +83,7 @@ public class UserServlet extends HttpServlet {
 		//로그인할 객체가 없으면 null. 있으면 로그인 세션값에 담은 후 search.jsp
 
 			PrintWriter out = response.getWriter();
+			
 			if(loginUser!=null) {
 			System.out.println("로그인 성공!");
 			HttpSession session=request.getSession();

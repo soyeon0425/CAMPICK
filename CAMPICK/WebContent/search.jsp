@@ -30,9 +30,9 @@
             </c:when>
             <c:otherwise>
             <ul>
-            <li style="color:white;"><%=loginUser.getName() %>님</li>
-            <li><a href="myPage.jsp">마이페이지</a></li>
             <li><a href="user.do?action=logout">로그아웃</a></li>
+            <li><a href="myPage.jsp">마이페이지</a></li>
+            <li style="color:white;"><%=loginUser.getName() %>님</li>
             </ul>
             </c:otherwise>
             </c:choose>
