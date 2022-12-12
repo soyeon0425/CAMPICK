@@ -13,14 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.campick.model.BoradDto;
-import com.campick.service.BoradEditService;
-import com.campick.service.BoradEditServiceImpl;
+import com.campick.service.BoradUpdateService;
+import com.campick.service.BoradUpdateServiceImpl;
+import com.campick.service.BoradDeleteService;
+import com.campick.service.BoradDeleteServiceImpl;
 import com.campick.service.BoradListService;
 import com.campick.service.BoradListServiceImpl;
 import com.campick.service.BoradWriteDetailService;
 import com.campick.service.BoradWriteDtailServiceImpl;
 import com.campick.service.BoradWriteService;
 import com.campick.service.BoradWriteServiceImpl;
+import java.io.File;
+import java.util.Enumeration;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class BoradServlet
@@ -45,7 +51,6 @@ public class BoradServlet extends HttpServlet {
 		try {
 			actionDo(request,response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -58,7 +63,6 @@ public class BoradServlet extends HttpServlet {
 		try {
 			actionDo(request,response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -80,22 +84,36 @@ public class BoradServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("comunity.jsp");
 			rd.forward(request, response);
 			
-//		//글쓰기 화면으로 이동
-//		}else if(action.equals("write")) {
-//			System.out.println("write 진입");
-//			response.sendRedirect("writePage.jsp");
-//			
 		//글쓰기 화면에서 db로 입력
 		}else if(action.equals("insert")){
+//			BoradDto dto = new BoradDto();
+//			dto.setBorad_name(request.getParameter("borad_name"));
+//			dto.setCamp_name(request.getParameter("camp_name"));
+//			dto.setBorad_period_first(request.getParameter("borad_period_first"));
+//			dto.setBorad_period_second(request.getParameter("borad_period_second"));
+//			dto.setBorad_text(request.getParameter("borad_text"));
+//			dto.setBorad_img(request.getParameter("borad_img"));
+//			
+//			request.setAttribute("dto", dto);
+			
+			String saveFolder = "C:\\Project_camp\\CAMPICK\\CAMPICK\\WebContent\\image";		//사진을 저장할 경로
+			String encType = "utf-8";				//변환형식
+			int maxSize=5*1024*1024;				//사진의 size
+			
+			MultipartRequest multi = null;
+			
+			multi = new MultipartRequest(request,saveFolder,maxSize,encType,new DefaultFileRenamePolicy());
+			
 			BoradDto dto = new BoradDto();
-			dto.setBorad_name(request.getParameter("borad_name"));
-			dto.setCamp_name(request.getParameter("camp_name"));
-			dto.setBorad_period_first(request.getParameter("borad_period_first"));
-			dto.setBorad_period_second(request.getParameter("borad_period_second"));
-			dto.setBorad_text(request.getParameter("borad_text"));
-			dto.setBorad_img(request.getParameter("borad_img"));
+			dto.setBorad_name(multi.getParameter("borad_name"));
+			dto.setCamp_name(multi.getParameter("camp_name"));
+			dto.setBorad_period_first(multi.getParameter("borad_period_first"));
+			dto.setBorad_period_second(multi.getParameter("borad_period_second"));
+			dto.setBorad_text(multi.getParameter("borad_text"));
+			dto.setBorad_img(multi.getFilesystemName("borad_img"));
 			
 			request.setAttribute("dto", dto);
+			
 			BoradWriteService bws = new BoradWriteServiceImpl();
 			bws.execute(request, response);
 			response.sendRedirect("borad.do?action=list");
@@ -109,12 +127,47 @@ public class BoradServlet extends HttpServlet {
 			bwds.execute(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("writeDetail.jsp");
 			rd.forward(request, response);
+
+		//수정화면으로 이동
 		}else if(action.equals("edit")) {
 			System.out.println("edit 진입");
-			BoradEditService bes = new BoradEditServiceImpl();
-			bes.execute(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("writePage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("writeEdit.jsp");
 			rd.forward(request, response);
+			
+		//수정 데이터 DB 변경	
+		}else if(action.equals("update")) {
+			System.out.println("update 진입");
+			
+			String saveFolder = "C:\\Project_camp\\CAMPICK\\CAMPICK\\WebContent\\image";		//사진을 저장할 경로
+			String encType = "utf-8";				//변환형식
+			int maxSize=5*1024*1024;				//사진의 size
+			
+			MultipartRequest multi = null;
+			
+			multi = new MultipartRequest(request,saveFolder,maxSize,encType,new DefaultFileRenamePolicy());
+			
+			BoradDto dto = new BoradDto();
+			dto.setBorad_name(multi.getParameter("borad_name"));
+			dto.setCamp_name(multi.getParameter("camp_name"));
+			dto.setBorad_period_first(multi.getParameter("borad_period_first"));
+			dto.setBorad_period_second(multi.getParameter("borad_period_second"));
+			dto.setBorad_text(multi.getParameter("borad_text"));
+			dto.setBorad_img(multi.getFilesystemName("borad_img"));
+			
+			request.setAttribute("dto", dto);
+			
+			BoradUpdateService bus = new BoradUpdateServiceImpl();
+			bus.execute(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("writeDetail.jsp");
+			rd.forward(request, response);
+			
+		//게시판 삭제
+		}else if(action.equals("delete")) {
+			System.out.println("delete 진입");
+			
+			BoradDeleteService bds = new BoradDeleteServiceImpl();
+			bds.execute(request, response);
+			response.sendRedirect("borad.do?action=list");
 		}
 	}
 

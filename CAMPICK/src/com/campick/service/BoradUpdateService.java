@@ -7,6 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.campick.model.BoradDto;
 
-public interface BoradEditService {
-	public BoradDto execute(HttpServletRequest request, HttpServletResponse response) throws SQLException;
+public interface BoradUpdateService {
+	public boolean execute(HttpServletRequest request, HttpServletResponse response) throws SQLException;
 }

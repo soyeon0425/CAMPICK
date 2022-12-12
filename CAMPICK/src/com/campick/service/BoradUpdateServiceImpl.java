@@ -9,18 +9,16 @@ import javax.servlet.http.HttpSession;
 import com.campick.model.BoradDao;
 import com.campick.model.BoradDto;
 
-public class BoradEditServiceImpl implements BoradEditService{
+public class BoradUpdateServiceImpl implements BoradUpdateService{
 	BoradDao dao;
 	
-	public BoradEditServiceImpl() {
-		// TODO Auto-generated constructor stub
+	public BoradUpdateServiceImpl() {
 		dao = BoradDao.getInstance();
 	}
 	@Override
-	public BoradDto execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		HttpSession session = request.getSession();
-		return dao.getWriteDB((int)session.getAttribute("boradid"));
+		return dao.updateDB((int)session.getAttribute("boradid"), (BoradDto)request.getAttribute("dto"));
 	}
 
 }

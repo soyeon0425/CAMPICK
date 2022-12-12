@@ -2,8 +2,7 @@
     pageEncoding="UTF-8" import="com.campick.model.*" %>
 
 <%
-	BoradDto dto = new BoradDto();
-	
+	BoradDto dto = BoradDao.getInstance().getDB((int)session.getAttribute("boradid"));
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,27 +43,27 @@
   		</div>
     <div class="tab">
         <div class="main" style="text-align:center">
-	        <form id="form2" method="post" action="borad.do?action=insert">
+	        <form id="form2" method="post" action="borad.do?action=update" enctype="multipart/form-data">
 	            <ul>
-		        	<li><dt>제목<span class="font05"> *</span></dt><dd><input type="text" style="width:100%;" name="borad_name"></input></dd></li>
+		        	<li><dt>제목<span class="font05"> *</span></dt><dd><input type="text" style="width:100%;" name="borad_name" value="<%=dto.getBorad_name() %>" required></input></dd></li>
                   	<li>
-                          <dt>캠핑장 이름</dt>
-                          <dd>
-                              <input type="text" style="width:100%;" name="camp_name">
+                        <dt>캠핑장 이름</dt>
+                        <dd>
+                            <input type="text" style="width:100%;" name="camp_name" value="<%=dto.getCamp_name() %>" required>
                           </dd>
                  	 </li>
              		 <li>
                          <dt>여행일자</dt>
                          <dd>
-                             <input type="date" style="width:130px;" value="2018.01.12" name="borad_period_first">
+                             <input type="date" style="width:130px;" name="borad_period_first" value="<%=dto.getBorad_period_first() %>" required>
                              &nbsp;~&nbsp;
-                             <input type="date" style="width:130px;" value="2018.01.12" name="borad_period_second">
+                             <input type="date" style="width:130px;" name="borad_period_second" value="<%=dto.getBorad_period_second() %>" required>
                          </dd>
                         </li>
                      <li class="textarea" style="height:180px;">
                          <dt>내용<span class="font05"> *</span></dt>
                          <dd>
-    	                        <p><textarea style="width:100%; height:180px" name="borad_text"></textarea></p>
+    	                        <p><textarea style="width:100%; height:180px" name="borad_text" required><%=dto.getBorad_text() %></textarea></p>
     	                       
                          </dd>
                      </li>
@@ -72,14 +71,14 @@
                          <dt>첨부파일</dt>
                          <dd>
                              <div class="filebox">
-                                 <input class="upload-name" value="대표 사진 선택" readonly>
+                                 <input class="upload-name" id="fileName" value="<%=dto.getBorad_img() %>" readonly>
                                  <label for="filename">업로드</label> 
-                                 <input type="file" id="filename" class="upload-hidden" name="borad_img"> 
+                                 <input type="file" id="filename" class="upload-hidden" name="borad_img" accept=".gif, .jpg, .png" onchange="javascript:document.getElementById('fileName').value = this.value"> 
                              </div>
                          </dd>
                      </li>
                  </ul>
-                 <button onclick="submitWriter()"> 제출하기 </button> 
+                 <button onclick="submitWriter()"> 수정하기 </button> 
              </form>
          </div>
      </div>
@@ -91,7 +90,7 @@
 <script>
 
     function submitWriter(){
-        alert("등록 되었습니다.");
+        alert("수정 되었습니다.");
     }
 </script>
 </body>
