@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="15">
     <title>CAMPICK</title>
     <link rel="stylesheet" href="css/comunity.css">
 </head>
@@ -57,7 +57,7 @@
             	%>
                 <a href="borad.do?action=detail&borad_id=<%=dto.getBorad_id()%>">
                     <li>
-                        <div class="photo"><img src=<%=dto.getBorad_img() %>></div>
+                        <div class="photo"><img src="image/<%=dto.getBorad_img() %>"></div>
                         <div class="title"><%=dto.getBorad_name()%></div>
                         <div class="writer"><%=dto.getName() %> </div>
                         <div class="date"><%=dto.getBorad_date() %> </div>

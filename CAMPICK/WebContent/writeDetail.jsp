@@ -66,7 +66,7 @@
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
             <form action="borad.do?action=edit" name="form1" method="post">
-                <img src="<%=dto.getBorad_img()%>" alt="이미지" width="500px">
+                <img src="image/<%=dto.getBorad_img()%>" alt="이미지" width="500px">
                 <p>
                 	<%=dto.getBorad_text() %>
                 </p>
