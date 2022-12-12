@@ -3,6 +3,7 @@ package com.campick.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.campick.model.UserDto;
 import com.campick.service.LoginService;
 import com.campick.service.LoginServicelmpl;
+import com.campick.service.SearchIdService;
+import com.campick.service.SearchIdServicelmpl;
 import com.campick.service.UserService;
 import com.campick.service.UserServicelmpl;
 
@@ -114,6 +117,35 @@ public class UserServlet extends HttpServlet {
 			HttpSession session= request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+		}
+		
+//패스워드, id 찾기---------------------------------------------------------------
+		
+		if(action.equals("searchID")) {
+			System.out.println("searchid 들어옴~");
+			
+			String s_name = request.getParameter("s_name");
+			String tel = request.getParameter("s_tel");
+			String s_tel = tel.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
+			System.out.println(s_name);
+			System.out.println(s_tel);
+			
+
+			  SearchIdService searchIdServlet = new SearchIdServicelmpl();
+			  String searchUser = searchIdServlet.execute(s_name, s_tel);
+			  
+			  PrintWriter out = response.getWriter(); if(searchUser!=null) {
+			  request.setAttribute("searchUser", searchUser);
+			  
+			  
+			  RequestDispatcher requestDispatcher =
+			  request.getRequestDispatcher("/searchId.jsp");
+			  requestDispatcher.forward(request, response);
+			  
+			  } else { out.println
+			  ("<script>alert ('이름 또는 번호를 다시 확인해 주세요.'); location.href='searchId.jsp'; </script>"
+			  ); out.close (); }
+			
 		}
 		
 		

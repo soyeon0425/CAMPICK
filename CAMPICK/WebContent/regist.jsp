@@ -41,7 +41,7 @@
                     <td>아이디</td>
                     <td><input type="text" name="user_id" required autofocus ></td>
                        <td><button onclick="idCheck()">중복체크</button></td>
-                       <input type="hidden" name="idDuplication" value="idNotOk"/>
+                       <input type="hidden" name="idCheckResult" value="idNotOk"/>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
@@ -134,7 +134,7 @@
       </div>
        -->
   
-        <button type="submit" onclick="register();">가입하기</button>
+        <button type="submit" onclick="register()">가입하기</button>
         <button type="reset" value="다시 작성">다시작성</button>
     </form>
     </div>
@@ -142,26 +142,6 @@
     <footer>
 
     </footer>
-    <script>
-        function register(){
-        	var joinForm = document.joinForm;
-        	var pw = joinForm.user_pw.value;
-        	var pw2 = joinForm.user_pw2.value;
-        	var idcheck = joinForm.idDuplication.value;
-        	if(pw!=pw2){
-        		alert('비밀번호를 다시 입력해 주세요.');
-        		joinForm.pw2.focus();
-        	}
-        	else{
-            joinForm.method="post";
-            joinForm.action="user.do?action=register";
-        	}
-        }
-
-        function idCheck(){
-            alert("id 중복입니다. 다시 입력!");
-        }
-    </script>
 
 </body>
 </html>

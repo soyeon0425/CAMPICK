@@ -73,6 +73,8 @@ public class UserDao {
 	
 	public UserDto login(String loginId, String loginPw) {
 		System.out.println("로그인 dao까지 넘어옴~");
+		System.out.println(loginId);
+		
 		UserDto loginUser = null;
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -84,7 +86,8 @@ public class UserDao {
 			pstmt.setString(1, loginId); //비워둔 부분에 받아온 id를 넣음
 			pstmt.setString(2, loginPw); //비워둔 부분에 받아온 pw를 넣음
 			rs = pstmt.executeQuery(); //그 결과를 rs에 저장
-			   
+			
+			
 			rs.next();
 			String id = rs.getString("id");
 			String pw = rs.getString("pw");
@@ -94,6 +97,7 @@ public class UserDao {
 			String addr = rs.getString("addr");
 			   
 			loginUser=new UserDto(id, pw, name, addr, phone, email);
+			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -108,6 +112,43 @@ public class UserDao {
 		}
 		
 		return loginUser;
+	}
+	
+	
+	public String SearchID(String s_name, String s_tel) {
+		System.out.println("searchId DAo 넘어옴~");
+		System.out.println("dao에 넘어온ㄴ s_name"+ s_name);
+		System.out.println("dao에 넘어온ㄴ s_tel"+ s_tel);
+		
+		UserDto searchUser = null;
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String id = null;
+	    try{
+	    	conn = getConnection();
+	    	pstmt = conn.prepareStatement("select id FROM USER_TB WHERE name=? AND phone=?");
+	    	pstmt.setString(1, s_name);
+	    	pstmt.setString(2, s_tel);
+	    	rs = pstmt.executeQuery();
+	    	
+	    	rs.next();
+	    	id = rs.getString("id");
+			   
+
+	    } catch(SQLException e){
+	    	e.printStackTrace();
+	    }finally {
+	    	try {
+	    	rs.close();
+	    	pstmt.close();
+	    	conn.close();
+	    	
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}
+	    }
+		return id;
 	}
 	
 	
