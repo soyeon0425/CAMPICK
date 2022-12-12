@@ -110,11 +110,6 @@
                 document.location.href="borad.do?action=delete"
             }
         }
-//         function goEdit(){
-//         	form1.method="post";
-// 			form1.action="/AddrBook/delete.do";
-// 			form1.submit();
-//         }
     </script>
 </body>
 </html>
