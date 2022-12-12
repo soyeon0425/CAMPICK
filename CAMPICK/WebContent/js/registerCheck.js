@@ -1,13 +1,16 @@
 /**
  * 
  */
-
   function register(){
         	var joinForm = document.joinForm;
         	var pw = joinForm.user_pw.value;
         	var pw2 = joinForm.user_pw2.value;
-        	var idcheck = joinForm.idDuplication.value;
-        	if(pw!=pw2){
+        	//var idCheck = joinForm.idDuplication.value;
+/*        	if(joinForm.idDuplication.value!="idOk"){
+        		alert('아이디 중복 체크를 해주세요.');
+        		joinForm.pw2.focus();
+        	}
+        	else */if(pw!=pw2){
         		alert('비밀번호를 다시 입력해 주세요.');
         		joinForm.pw2.focus();
         	}

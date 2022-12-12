@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CAMPICK</title>
+    <script src="js/registerCheck.js"></script>
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
@@ -40,7 +41,7 @@
                     <td>아이디</td>
                     <td><input type="text" name="user_id" required autofocus ></td>
                        <td><button onclick="idCheck()">중복체크</button></td>
-                       <input type="hidden" name="idDuplication" value="idNotOK"/>
+                       <input type="hidden" name="idDuplication" value="idNotOk"/>
                 </tr>
                 <tr>
                     <td>비밀번호</td>

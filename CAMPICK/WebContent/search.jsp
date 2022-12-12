@@ -45,9 +45,9 @@
             
         <nav>
             <ul id="topMenu">
-                <li><a href="search.html">캠핑장찾기</a></li>
-                <li><a href="tagSearch.html">태그로 찾기</a></li>
-                <li><a href="analysis.html">캠핑 예측Pick</a></li>
+                <li><a href="search.jsp">캠핑장찾기</a></li>
+                <li><a href="tagSearch.jsp">태그로 찾기</a></li>
+                <li><a href="analysis.jsp">캠핑 예측Pick</a></li>
                 <li><a href="borad.do?action=list">커뮤니티</a></li>
             </ul>
         </nav>
@@ -95,13 +95,13 @@
                         <input type="checkbox" id="site_03" name="siteType"  value="site_03">카라반
                         <input type="checkbox" id="site_04" name="siteType" value="site_04">글램핑
                     </p>
-                    <button type="button" onclick = "location.href = 'searchResult.html'"> 검색하기 </button> 
+                    <button type="button" onclick = "location.href = 'searchResult.jsp'"> 검색하기 </button> 
                 </form>
                 <button id="detailbutton" onclick="showPopup(true)">+</button>
             </fieldset>
         <div id="popup" class="hide">
             <div class="content">
-                <form action="searchResult.html" method="post" id="popupform">
+                <form action="searchResult.jsp" method="post" id="popupform">
                     <h2>원하는 정보를 상세하게 입력해 보세요!</h2>
                     <ul>
                         <h3>입지구분</h3>
