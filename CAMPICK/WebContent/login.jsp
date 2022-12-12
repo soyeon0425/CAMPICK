@@ -22,8 +22,8 @@
             <div id="loginInform">
                 <ul>
                     <li><a href="regist.jsp">회원가입</a></li>
-                    <li><a href="searchid.jsp">ID 찾기</a></li>
-                    <li><a href="searchpw.jsp">PW 찾기</a></li>
+                    <li><a href="searchId.jsp">ID 찾기</a></li>
+                    <li><a href="searchPw.jsp">PW 찾기</a></li>
                 </ul>
             </div>
             <button type="submit"> LOGIN </button> 
