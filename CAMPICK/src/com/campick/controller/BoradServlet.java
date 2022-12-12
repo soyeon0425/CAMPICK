@@ -1,6 +1,7 @@
 package com.campick.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.campick.model.BoradDto;
+import com.campick.service.BoradEditService;
+import com.campick.service.BoradEditServiceImpl;
 import com.campick.service.BoradListService;
 import com.campick.service.BoradListServiceImpl;
 import com.campick.service.BoradWriteDetailService;
@@ -39,7 +42,12 @@ public class BoradServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		actionDo(request,response);
+		try {
+			actionDo(request,response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -47,10 +55,15 @@ public class BoradServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		actionDo(request,response);
+		try {
+			actionDo(request,response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -95,6 +108,12 @@ public class BoradServlet extends HttpServlet {
 			BoradWriteDetailService bwds = new BoradWriteDtailServiceImpl();
 			bwds.execute(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("writeDetail.jsp");
+			rd.forward(request, response);
+		}else if(action.equals("edit")) {
+			System.out.println("edit 진입");
+			BoradEditService bes = new BoradEditServiceImpl();
+			bes.execute(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("writePage.jsp");
 			rd.forward(request, response);
 		}
 	}
