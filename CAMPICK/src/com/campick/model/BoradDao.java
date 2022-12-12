@@ -36,10 +36,9 @@ public class BoradDao {
 			e.printStackTrace();
 		}
 		return connection;
-	}
-	
+	}	
 	//게시판에 글 등록
-	public boolean insertBorad(BoradDto dto,String name) {
+	public boolean insertBorad(BoradDto dto,String name) throws SQLException {
 //		int ri = 0;
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -69,12 +68,15 @@ public class BoradDao {
 				if(connection != null) connection.close();
 			}catch (Exception e2) {
 				e2.printStackTrace();
+			}finally {
+				connection.close();
+				pstmt.close();
 			}
 		}
 		return true;
 	}
 	//게시판 작성 글 목록을 불러오는 메소드
-	public ArrayList<BoradDto> getDBList(){
+	public ArrayList<BoradDto> getDBList() throws SQLException{
 		
 		ArrayList<BoradDto> boradList = new ArrayList<>();
 		Connection connection = null;
@@ -100,14 +102,19 @@ public class BoradDao {
 			rs.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
 		}
 		return boradList;
 	}
-	public BoradDto getDB(int borad_id) {
+	
+	//게시판 글 상세 페이지 정보를 불러오는 메세지
+	public BoradDto getDB(int borad_id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "select * from borad where borad_id=?";
+		String sql = "select borad_id,borad_visit,borad_suggestion,borad_date,camp_name,to_char(borad_period_first,'YYYY-MM-DD') as \"borad_period_first\",to_char(borad_period_second,'YYYY-MM-DD')as \"borad_period_second\",borad_name,name,borad_text,borad_img from borad where borad_id=?";
 		BoradDto dto = new BoradDto();
 		try {
 			connection = getConnection();
@@ -128,9 +135,84 @@ public class BoradDao {
 			dto.setBorad_text(rs.getString("borad_text"));
 			dto.setBorad_img(rs.getString("borad_img"));
 			rs.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+		return dto;
+	}
+	//게시판 조회수 올려주는 메소드
+	public void increaseVisit(int borad_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "update borad set borad_visit=borad_visit+1 where borad_id="+borad_id;
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate(sql);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+	}
+	//게시판 수정 메소드
+	public boolean updateDB(int id,BoradDto boradDto) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "update borad set borad_name=?,camp_name=?,borad_period_first=?,borad_period_second=?,borad_text=?,borad_img=? where borad_id="+id;
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1,boradDto.getBorad_name());
+			pstmt.setString(2,boradDto.getCamp_name());
+			pstmt.setString(3,boradDto.getBorad_period_first());
+			pstmt.setString(4,boradDto.getBorad_period_second());
+			pstmt.setString(5,boradDto.getBorad_text());
+			pstmt.setString(6,boradDto.getBorad_img());
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+		return true;
+	}
+	
+	//게시판 수정 데이터 가져오는 메소드
+	public BoradDto getWriteDB(int borad_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "select * from borad where borad_id=?";
+		BoradDto dto = new BoradDto();
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, borad_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			rs.next();
+			dto.setCamp_name(rs.getString("camp_name"));
+			dto.setBorad_period_first(rs.getString("borad_period_first"));
+			dto.setBorad_period_second(rs.getString("borad_period_second"));
+			dto.setBorad_name(rs.getString("borad_name"));
+			dto.setBorad_text(rs.getString("borad_text"));
+			dto.setBorad_img(rs.getString("borad_img"));
+			rs.close();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
 		}
 		return dto;
 	}

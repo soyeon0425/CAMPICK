@@ -15,13 +15,13 @@
     <div id="container">
         <header>
             <div id="logo">
-                <a href="search.html">
+                <a href="main.do">
                     <h1>CAMPICK</h1>
                 </a>
             </div>
             <div id="inform">
                 <ul>
-                    <li><a href="login.html">로그인</a></li>
+                    <li><a href="login.jsp">로그인</a></li>
                 </ul>
             </div>
            <nav>
@@ -30,7 +30,7 @@
                 <li><a href="tagSearch.html">태그로 찾기</a></li>
                 <li><a href="analysis.html">캠핑 예측Pick</a></li>
                 <li><a href="borad.do?action=list">커뮤니티</a></li>
-                <li><a href="mypage.html">마이페이지</a></li>            </ul>
+                </ul>
             </nav>
         </header>
 
@@ -65,12 +65,12 @@
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
-            <form action="writepage.html" name="form1">
+            <form action="borad.do?action=edit" name="form1" method="post">
                 <img src="<%=dto.getBorad_img()%>" alt="이미지" width="500px">
                 <p>
                 	<%=dto.getBorad_text() %>
                 </p>
-                <button onclick="w_edit()" id="w_edit">수정</button>
+                <button id="w_edit">수정</button>
             </form>
             <button onclick="goList()" id="goList">목록</button>
             <button onclick="w_remove()" id="w_remove">삭제</button>
@@ -103,9 +103,6 @@
         function goList(){
             document.location.href="borad.do?action=list";
         }
-        function w_edit(){
-            document.location.href="borad.do?action=edit";
-        }
         function w_remove(){
             var check = confirm("삭제 하시겠습니까?");
             if(check === true){
@@ -113,6 +110,11 @@
                 document.location.href="borad.do?action=delete"
             }
         }
+//         function goEdit(){
+//         	form1.method="post";
+// 			form1.action="/AddrBook/delete.do";
+// 			form1.submit();
+//         }
     </script>
 </body>
 </html>

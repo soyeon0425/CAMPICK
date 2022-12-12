@@ -9,22 +9,18 @@ import javax.servlet.http.HttpSession;
 import com.campick.model.BoradDao;
 import com.campick.model.BoradDto;
 
-public class BoradWriteDtailServiceImpl implements BoradWriteDetailService{
+public class BoradEditServiceImpl implements BoradEditService{
 	BoradDao dao;
 	
-	public BoradWriteDtailServiceImpl() {
+	public BoradEditServiceImpl() {
 		// TODO Auto-generated constructor stub
 		dao = BoradDao.getInstance();
 	}
-	//글 디테일 페이지 보여주는 메소드
 	@Override
 	public BoradDto execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		int boradId = (int)session.getAttribute("boradid");
-		BoradDto dto = dao.getDB(boradId);
-		dao.increaseVisit(boradId);
-		return dto;
+		return dao.getWriteDB((int)session.getAttribute("boradid"));
 	}
 
 }
