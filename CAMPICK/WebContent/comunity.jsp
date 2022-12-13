@@ -49,7 +49,13 @@
     </header>
         <div id="headline">
             <h2>커뮤니티</h2>
-        <button type="button" onclick="writeBorad()"> 글쓰기 </button>
+             <c:choose>
+           	 <c:when test="${loginUser==null}">
+           	 </c:when>	
+           	 <c:otherwise>
+        		<button type="button" onclick="writeBorad()"> 글쓰기 </button>
+           	 </c:otherwise>
+           	 </c:choose>
     </div><br><br><br>
             <ul id="gallery">
             	<%
