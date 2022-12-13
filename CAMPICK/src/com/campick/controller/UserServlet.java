@@ -11,11 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.campick.model.UserDao;
 import com.campick.model.UserDto;
+import com.campick.service.IDCheckService;
+import com.campick.service.IDCheckServicelmpl;
 import com.campick.service.LoginService;
 import com.campick.service.LoginServicelmpl;
 import com.campick.service.SearchIdService;
 import com.campick.service.SearchIdServicelmpl;
+import com.campick.service.SearchPwService;
+import com.campick.service.SearchPwServicelmpl;
+import com.campick.service.UnregisterService;
+import com.campick.service.UnregisterServicelmpl;
 import com.campick.service.UserService;
 import com.campick.service.UserServicelmpl;
 
@@ -127,9 +134,6 @@ public class UserServlet extends HttpServlet {
 			String s_name = request.getParameter("s_name");
 			String tel = request.getParameter("s_tel");
 			String s_tel = tel.replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]", "");
-			System.out.println(s_name);
-			System.out.println(s_tel);
-			
 
 			  SearchIdService searchIdServlet = new SearchIdServicelmpl();
 			  String searchUser = searchIdServlet.execute(s_name, s_tel);
@@ -144,11 +148,75 @@ public class UserServlet extends HttpServlet {
 			  
 			  } else { out.println
 			  ("<script>alert ('이름 또는 번호를 다시 확인해 주세요.'); location.href='searchId.jsp'; </script>"
-			  ); out.close (); }
+			  ); out.close ();
+			  }
 			
 		}
 		
 		
+		if(action.equals("searchPW")){
+			System.out.println("search PW 들어옴~");
+
+			String s_id = request.getParameter("s_id");
+			String s_email = request.getParameter("s_email");
+			String s_tel = request.getParameter("s_tel");
+			
+			SearchPwService searchpw = new SearchPwServicelmpl();
+			
+			String searchPw = searchpw.execute(s_id, s_email, s_tel);
+			
+			  PrintWriter out = response.getWriter();
+			  if(searchPw!=null) {
+			  request.setAttribute("searchPw", searchPw);
+			 
+			  RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/searchPw.jsp");
+			  requestDispatcher.forward(request, response);
+			  
+			  } else {
+			  out.println ("<script>alert ('해당 회원이 없습니다. 정보를 다시 확인해 주세요.'); location.href='searchPw.jsp'; </script>");
+			  out.close ();
+			  }
+			  
+		}
+		
+		
+		if(action.equals("unregister")) {
+			System.out.println("회원 탈퇴 들어옴!!");
+
+			HttpSession session = request.getSession();
+			String deletID = (String) session.getAttribute("deletID");
+
+			request.setAttribute("deletID", deletID);
+			
+			UnregisterService unregisterService = new UnregisterServicelmpl();
+			
+			unregisterService.execute(request, response);
+			session.invalidate();
+			response.sendRedirect("search.jsp");
+		}
+		
+		if(action.contentEquals("checkID")) {
+			System.out.println("idcheck 들어옴");
+			String checkID = request.getParameter("user_id");
+			System.out.println(checkID);
+			request.setAttribute("checkID", checkID);
+			
+			IDCheckService idCheckService = new IDCheckServicelmpl();
+			
+			boolean result = idCheckService.execute(request, response);
+			request.setAttribute("result", result);
+			
+			  RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
+			  requestDispatcher.forward(request, response);
+			/*
+			 * PrintWriter out = response.getWriter(); if(result) { out.println
+			 * ("<script>alert ('사용할 수 있는 아이디입니다.')</script>");
+			 * request.setAttribute("result", result); RequestDispatcher requestDispatcher =
+			 * request.getRequestDispatcher("/regist.jsp");
+			 * requestDispatcher.forward(request, response); }else { out.println
+			 * ("<script>alert ('사용할 수 없는 아이디입니다.')</script>"); }
+			 */
+		}
 	}
 
 }

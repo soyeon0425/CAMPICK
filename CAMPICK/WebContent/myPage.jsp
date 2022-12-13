@@ -2,7 +2,11 @@
     pageEncoding="UTF-8" import = "java.util.*, com.campick.model.*"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
      
-    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
+    <% 
+    UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+  	session.setAttribute("deletID", loginUser.getId());
+    %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,7 +62,7 @@
                     <input type="radio" id="select2" name="side_menu"><label for="select2">캠핑장 찜 리스트</label>
                 </li>
             </ul>
-            <form action="search.jsp">
+            <form name="unregister" method="post">
                 <button onclick="exit()">탈퇴하기</button>
             </form>
         </div>
@@ -100,7 +104,13 @@
     </div>
     <script>
         function exit(){
-            alert('탈퇴 하였습니다..!');
+        	var result=confirm("정말로 탈퇴하시겠습니까?");
+        	
+        	if(result){
+        		var unregister = document.unregister;
+        		unregister.action ="user.do?action=unregister";
+        		//unregister.submit();
+        	}
         }
 
         function edit(){

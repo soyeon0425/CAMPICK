@@ -117,14 +117,13 @@ public class UserDao {
 	
 	public String SearchID(String s_name, String s_tel) {
 		System.out.println("searchId DAo 넘어옴~");
-		System.out.println("dao에 넘어온ㄴ s_name"+ s_name);
-		System.out.println("dao에 넘어온ㄴ s_tel"+ s_tel);
-		
-		UserDto searchUser = null;
+
+		//UserDto searchUser = null;
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    String id = null;
+	    
 	    try{
 	    	conn = getConnection();
 	    	pstmt = conn.prepareStatement("select id FROM USER_TB WHERE name=? AND phone=?");
@@ -135,7 +134,6 @@ public class UserDao {
 	    	rs.next();
 	    	id = rs.getString("id");
 			   
-
 	    } catch(SQLException e){
 	    	e.printStackTrace();
 	    }finally {
@@ -151,5 +149,91 @@ public class UserDao {
 		return id;
 	}
 	
+
+	public String SearchPW(String s_id, String s_email, String s_tel) {
+		System.out.println("searchpw DAO 넘어옴~");
+
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String pw = null;
+	    
+	    try{
+	    	conn = getConnection();
+	    	pstmt = conn.prepareStatement("select pw FROM USER_TB WHERE id=? AND email=? AND phone=?");
+	    	pstmt.setString(1, s_id);
+	    	pstmt.setString(2, s_email);
+	    	pstmt.setString(3, s_tel);
+	    	
+	    	rs = pstmt.executeQuery();
+	    	
+	    	rs.next();
+	    	pw = rs.getString("pw");
+			   
+	    } catch(SQLException e){
+	    	e.printStackTrace();
+	    }finally {
+	    	try {
+	    	rs.close();
+	    	pstmt.close();
+	    	conn.close();
+	    	
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}
+	    }
+		return pw;
+	}
 	
+	
+	public void unregister(String deletID) {
+		
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+		try{
+	    	conn = getConnection();
+	        System.out.println("넘어온 delete id는"+deletID);
+	    	pstmt = conn.prepareStatement("DELETE FROM USER_TB WHERE id="+"'"+deletID+"'");
+	    	pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public boolean idCheck(String checkID) {
+
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs= null;
+	    boolean result = false;
+	    
+	    try {
+	    	conn = getConnection();
+	        System.out.println("넘어온 id는"+checkID);
+	        pstmt=conn.prepareStatement("select id FROM USER_TB WHERE id=?");
+	        pstmt.setString(1, checkID);
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        if(rs.next()){
+	        	result = false;
+	        }else {
+	        	result = true;
+	        }
+	    	
+	    }catch(SQLException e) {
+	    	e.printStackTrace();
+	    }
+	    return result;
+	}
 }
