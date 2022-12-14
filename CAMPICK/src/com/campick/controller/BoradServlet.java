@@ -23,6 +23,12 @@ import com.campick.service.BoradWriteDetailService;
 import com.campick.service.BoradWriteDtailServiceImpl;
 import com.campick.service.BoradWriteService;
 import com.campick.service.BoradWriteServiceImpl;
+import com.comment.model.CommentDto;
+import com.comment.service.CommentListService;
+import com.comment.service.CommentListServiceImpl;
+import com.comment.service.CommentService;
+import com.comment.service.CommentServiceImpl;
+
 import java.io.File;
 import java.util.Enumeration;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -115,6 +121,11 @@ public class BoradServlet extends HttpServlet {
 			session.setAttribute("boradid", Integer.parseInt(request.getParameter("borad_id")));
 			BoradWriteDetailService bwds = new BoradWriteDtailServiceImpl();
 			bwds.execute(request, response);
+			
+			CommentListService cls = new CommentListServiceImpl();
+			ArrayList<CommentDto> commentList = cls.execute(request, response);
+			request.setAttribute("commentList", commentList);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("writeDetail.jsp");
 			rd.forward(request, response);
 
@@ -158,7 +169,19 @@ public class BoradServlet extends HttpServlet {
 			BoradDeleteService bds = new BoradDeleteServiceImpl();
 			bds.execute(request, response);
 			response.sendRedirect("borad.do?action=list");
+		//댓글 입력
+		}else if(action.equals("comment")) {
+			System.out.println("comment 진입");
+			
+			CommentDto cDto = new CommentDto();
+			cDto.setReply(request.getParameter("reply"));
+			System.out.println(request.getParameter("reply"));
+			
+			request.setAttribute("cDto", cDto);
+			CommentService commentService = new CommentServiceImpl();
+			commentService.execute(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("borad.do?action=list");
+			rd.forward(request, response);
 		}
 	}
-
 }

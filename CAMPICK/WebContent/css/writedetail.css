@@ -61,7 +61,7 @@ header{
 }
 #inform{
     float:right;
-    width:300px;
+    width:600px;
     height:100px;
     padding-right:10px;
     font-size:18px;
@@ -114,7 +114,6 @@ nav{
     width: 800px;
     margin: 0 auto;
     border: 1px solid black;
-    height: 1000px;
     margin-top: 50px;
     margin-bottom: 50px;
     border-radius: 50px;
@@ -186,16 +185,12 @@ hr{
     width: 100%;
     height: 600px;
 }
-#writecontents>form>img{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,0);
+#writecontents>img{
+	margin: auto;
+    display: block;
 }
-#writecontents>form>p{
-    position: absolute;
-    left: 50%;
-    top: 400px;
-    transform: translate(-50%,-50%);
+#writecontents>p{
+	text-align: center;
 }
 #writecontents>#dat{
     position: absolute;
@@ -211,17 +206,17 @@ button{
 }
 #goList{
     position: absolute;
-    right: 210px;
+    right: 80px;
     bottom: 70px;
 }
 #w_remove{
     position: absolute;
-    right: 80px;
+    right: 145px;
     bottom: 70px;
 }
 #w_edit{
     position: absolute;
-    right: 145px;
+    right: 210px;
     bottom: 70px;
 }
 #w_good{
@@ -232,20 +227,20 @@ button{
 #datgle{
     position: relative;
     width: 100%;
-    height: 150px;
 }
 #datgle table{
-    position: absolute;
-    top: 25%;
-    left: 10%;
-    width: 80%;
+	margin-left:auto; 
+    margin-right:auto;
+    margin-bottom:20px;
+    width: 90%;
+    height:100px;
+}
+.tablefont{
+	font-size : 10px;
 }
 #datgle table, #datgle td{
     border-collapse: collapse;
-    border-right: 1px solid #eee;
-}
-#datgle td:not(#datcon){
-    text-align: center;
+
 }
 #datgle>form>input{
     position: absolute;
@@ -258,3 +253,32 @@ button{
     position: absolute;
     right: 85px;
 }
+.ganguk{
+	padding-left: 10px;
+}
+#insertComment{
+	text-align:center;
+	position: relative;
+	margin-bottom: 20px;
+}
+#insertComment table{
+	
+	margin-left:auto; 
+    margin-right:auto;
+    width:90%;
+}
+#insertComment table,#insertComment td{
+	border-collapse:collapse;
+}
+#insertComment textarea{
+	width:100%;
+	height:100%;
+	border: 0;
+	font-size:14px;
+	resize: none;
+}
+#insertComment button{
+}
+
+
+

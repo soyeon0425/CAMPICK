@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.campick.model.*"%>
+    pageEncoding="UTF-8" import="com.campick.model.* , com.comment.model.*, java.util.*"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	BoradDao dao = BoradDao.getInstance();
 	BoradDto dto = dao.getDB((int)session.getAttribute("boradid"));
+	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
 %>
+<jsp:useBean id="commentList" scope="request" class="java.util.ArrayList"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,9 +23,20 @@
                 </a>
             </div>
             <div id="inform">
-                <ul>
-                    <li><a href="login.jsp">로그인</a></li>
-                </ul>
+                <c:choose>
+		           	 <c:when test="${loginUser==null}">
+			           	 <ul>
+	              		 	<li><a href="login.jsp">로그인</a></li>
+	         		  	 </ul>
+         		     </c:when>
+            		<c:otherwise>
+             			<ul>
+            				<li><a href="user.do?action=logout">로그아웃</a></li>
+         	    			<li><a href="myPage.jsp">마이페이지</a></li>
+           					<li style="color:white;"><%=loginUser.getName() %>님</li>
+           		 		</ul>
+            		</c:otherwise>
+            	</c:choose>
             </div>
            <nav>
             <ul id="topMenu">
@@ -65,36 +79,54 @@
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
-            <form action="borad.do?action=edit" name="form1" method="post">
-                <img src="image/<%=dto.getBorad_img()%>" alt="이미지" width="500px">
-                <p>
-                	<%=dto.getBorad_text() %>
-                </p>
-                <button id="w_edit">수정</button>
-            </form>
-            <button onclick="goList()" id="goList">목록</button>
-            <button onclick="w_remove()" id="w_remove">삭제</button>
-            <button onclick="w_good()" id="w_good">추천</button>
-            <p id="dat">댓글 1개</p>
+            <img src="image/<%=dto.getBorad_img()%>" alt="이미지" width="500px" height="350px">
+            <p>
+             	<%=dto.getBorad_text() %>
+            </p>
+            <c:choose>
+            	<c:when test="${loginUser != null }">
+            	<%if(loginUser.getName().equals(dto.getName())){ %>
+		            <button onclick="w_edit()" id="w_edit">수정</button>
+		            <button onclick="w_remove()" id="w_remove">삭제</button>
+	            	<button onclick="goList()" id="goList">목록</button>
+    	        	<button onclick="w_good()" id="w_good">추천</button>
+	            <%}else{ %>
+		           	<button onclick="goList()" id="goList">목록</button>
+	            <%} %>
+            	</c:when>
+            </c:choose>
+           	<button onclick="goList()" id="goList">목록</button>
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="datgle">
-            <form action="#">
-                <input type="text" id="regit_datgle" placeholder="댓글을 입력하세요">
-                <button>등록</button>
-            </form>
-            <ul>
-                <li>
-                    <table>
-                        <tr>
-                            <td>닉네임</td>
-                            <td id="datcon">아뇨 별로 안이쁜데요?</td>
-                            <td>22-11-30</td>
-                            <td>17:42</td>
-                        </tr>
-                    </table>
-                </li>
-            </ul>
+        	<% for(CommentDto cDto : (ArrayList<CommentDto>)commentList){%>
+	        	<table>
+	        		<tr>
+	        			<td rowspan="2" align="center" width = "70px" style="border-right: 1px solid #eee "><%=cDto.getName() %></td>
+	        			<td colspan="4" class="ganguk" style="border-bottom: 1px solid #eee"><%=cDto.getReply() %></td>
+	        		</tr>
+	        		<tr class="tablefont">
+	        			<td height="10px" class="ganguk"><%=cDto.getReply_time() %></td>
+	        			<td align="center" width=35px>수정</td>
+	        			<td align="center" width=35px>삭제</td>
+	        			<td align="center" width=35px>답글</td>
+	        		</tr>
+	        	</table>
+	        <%} %>
+        </div>
+        <div id="insertComment">
+        	<form action="borad.do?action=comment" name=form3 method=post>
+        	<c:choose>
+            	<c:when test="${loginUser != null }">
+	        	<table>
+        			<tr>
+	        			<td width = "70px">작성자</td>
+        				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply"></textarea></td>
+        				<td width=30px><button onclick="regComment()">등록</button></td>
+        		</table>
+        		</c:when>
+        		</c:choose>
+        	</form>
         </div>
     </div>
 
@@ -107,8 +139,14 @@
             var check = confirm("삭제 하시겠습니까?");
             if(check === true){
                 alert('삭제 되었습니다.');
-                document.location.href="borad.do?action=delete"
+                document.location.href="borad.do?action=delete";
             }
+        }
+        function w_edit(){
+        	document.location.href="borad.do?action=edit";
+        }
+        function regComment(){
+        	alert('등록되었습니다.');
         }
     </script>
 </body>
