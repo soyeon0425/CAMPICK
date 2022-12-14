@@ -28,6 +28,8 @@ import com.comment.service.CommentListService;
 import com.comment.service.CommentListServiceImpl;
 import com.comment.service.CommentService;
 import com.comment.service.CommentServiceImpl;
+import com.comment.service.ReCommentService;
+import com.comment.service.ReCommentServiceImpl;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -175,7 +177,6 @@ public class BoradServlet extends HttpServlet {
 			
 			CommentDto cDto = new CommentDto();
 			cDto.setReply(request.getParameter("reply"));
-			System.out.println(request.getParameter("reply"));
 			
 			request.setAttribute("cDto", cDto);
 			CommentService commentService = new CommentServiceImpl();
@@ -185,8 +186,16 @@ public class BoradServlet extends HttpServlet {
 		//대댓글 입력 메소드
 		}else if(action.equals("recomment")){
 			System.out.println("recomment 진입");
+			
 			CommentDto cDto = new CommentDto();
 			cDto.setReply(request.getParameter("reply"));
+			
+			request.setAttribute("cDto", cDto);
+			ReCommentService reCommentService = new ReCommentServiceImpl();
+			
+			reCommentService.execute(request, response);
+			HttpSession session = request.getSession();
+			response.sendRedirect("borad.do?action=detail&borad_id="+(int)session.getAttribute("boradid"));
 		}
 	}
 }

@@ -100,7 +100,7 @@
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="datgle">
-        	<% for(CommentDto cDto : (ArrayList<CommentDto>)commentList){%>
+        	<% for(CommentDto cDto : (ArrayList<CommentDto>)commentList){ %>
 	        	<table>
 	        		<tr>
 	        			<td rowspan="2" align="center" width = "70px" style="border-right: 1px solid #eee "><%=cDto.getName() %></td>
@@ -108,6 +108,8 @@
 	        		</tr>
 	        		<tr class="tablefont">
 	        			<td height="10px" class="ganguk"><%=cDto.getReply_time() %></td>
+	        			<c:choose>
+            			<c:when test="${loginUser != null }">
 	        			<%if(loginUser.getName().equals(dto.getName())){ %>
 	        			<td align="center" width=35px>수정</td>
 	        			<td align="center" width=35px>삭제</td>
@@ -115,6 +117,8 @@
 	        			<%}else{ %>
 	        			<td width=35px><button class="reComment" onclick="togleReComment()">답글</button></td>
 	        			<%} %>
+	        			</c:when>
+	        			</c:choose>
 	        		</tr>
 	        	</table>
 	        	<div class="insertReComment">
