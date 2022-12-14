@@ -92,9 +92,9 @@ public class UserDao {
 			String id = rs.getString("id");
 			String pw = rs.getString("pw");
 			String name = rs.getString("name");
+			String addr = rs.getString("addr");
 			String phone = rs.getString("phone");
 			String email = rs.getString("email");
-			String addr = rs.getString("addr");
 			   
 			loginUser=new UserDto(id, pw, name, addr, phone, email);
 			
@@ -103,7 +103,7 @@ public class UserDao {
 			e.printStackTrace();
 		}finally {
 			try {
-				rs.close();
+//				rs.close();
 				pstmt.close();
 				conn.close();
 			}catch(Exception e) {
