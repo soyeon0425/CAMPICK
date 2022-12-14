@@ -79,7 +79,10 @@
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="writecontents">
-            <img src="image/<%=dto.getBorad_img()%>" alt="이미지" width="500px" height="350px">
+        	<c:set var="borad_img" value="<%=dto.getBorad_img() %>"></c:set>
+            <c:if test="${borad_img != null}">
+	            <img src="image/<%=dto.getBorad_img()%>" alt="이미지" width="500px" height="350px">
+            </c:if>
             <p>
              	<%=dto.getBorad_text() %>
             </p>

@@ -200,18 +200,18 @@ public class FrontServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
 		//대댓글 입력 메소드
-		}else if(command.equals("/boradRecomment.do")){
-			System.out.println("recomment 진입");
-			
-			CommentDto cDto = new CommentDto();
-			cDto.setReply(request.getParameter("reply"));
-			
-			request.setAttribute("cDto", cDto);
-			ReCommentService reCommentService = new ReCommentServiceImpl();
-			
-			reCommentService.execute(request, response);
-			HttpSession session = request.getSession();
-			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
+//		}else if(command.equals("/boradRecomment.do")){
+//			System.out.println("recomment 진입");
+//			
+//			CommentDto cDto = new CommentDto();
+//			cDto.setReply(request.getParameter("reply"));
+//			
+//			request.setAttribute("cDto", cDto);
+//			ReCommentService reCommentService = new ReCommentServiceImpl();
+//			
+//			reCommentService.execute(request, response);
+//			HttpSession session = request.getSession();
+//			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
 
 //-------------------------------------------------------------------------------------------------------------
 		//회원가입 메소드

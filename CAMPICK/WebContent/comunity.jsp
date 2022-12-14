@@ -63,11 +63,22 @@
             	%>
                 <a href="boradDetail.do?borad_id=<%=dto.getBorad_id()%>">
                     <li>
-                        <div class="photo"><img src="image/<%=dto.getBorad_img() %>"></div>
+                        <div class="photo">
+                        	<c:set var="borad_img" value="<%=dto.getBorad_img() %>"></c:set>
+                        	<c:choose>
+	                        	<c:when test="${borad_img == null}">
+	                        		<img src="image/noimage.png">
+	                        	</c:when>	
+	                        	<c:otherwise>
+		                        	<img src="image/<%=dto.getBorad_img() %>">
+	                        	</c:otherwise>
+                        	</c:choose>
+	                   	</div>
                         <div class="title"><%=dto.getBorad_name()%></div>
                         <div class="writer"><%=dto.getName() %> </div>
                         <div class="date"><%=dto.getBorad_date() %> </div>
-                    </li></a>
+                    </li>
+               </a>
                <%
             	}
                %>
