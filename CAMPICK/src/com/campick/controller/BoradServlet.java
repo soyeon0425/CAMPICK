@@ -177,10 +177,12 @@ public class BoradServlet extends HttpServlet {
 			cDto.setReply(request.getParameter("reply"));
 			System.out.println(request.getParameter("reply"));
 			
+			HttpSession session = request.getSession();
 			request.setAttribute("cDto", cDto);
 			CommentService commentService = new CommentServiceImpl();
 			commentService.execute(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("borad.do?action=list");
+			System.out.println("boriad 세션값은 : "+(int)session.getAttribute("boradid"));
+			RequestDispatcher rd = request.getRequestDispatcher("borad.do?action=detail&borad_id="+(int)session.getAttribute("boradid"));
 			rd.forward(request, response);
 		}
 	}

@@ -20,11 +20,7 @@ public class CommentServiceImpl implements CommentService{
 	public boolean execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		HttpSession session = request.getSession();
 		UserDto uDto = (UserDto)session.getAttribute("loginUser");
-		if(request.getAttribute("cDto") != null ){
-			return cDao.insertComment((CommentDto)request.getAttribute("cDto"), (int)session.getAttribute("boradid"), uDto.getName());
-		}else {
-			return false;
-		}
+		return cDao.insertComment((CommentDto)request.getAttribute("cDto"), (int)session.getAttribute("boradid"), uDto.getName());
 	}
 
 }

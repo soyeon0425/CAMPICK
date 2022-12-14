@@ -120,7 +120,7 @@
             	<c:when test="${loginUser != null }">
 	        	<table>
         			<tr>
-	        			<td width = "70px">작성자</td>
+	        			<td width = "70px"><%=loginUser.getName() %></td>
         				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply"></textarea></td>
         				<td width=30px><button onclick="regComment()">등록</button></td>
         		</table>
