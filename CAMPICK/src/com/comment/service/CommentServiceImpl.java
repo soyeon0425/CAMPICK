@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.campick.model.UserDto;
 import com.comment.model.CommentDao;
 import com.comment.model.CommentDto;
+import com.user.model.UserDto;
 
 public class CommentServiceImpl implements CommentService{
 	CommentDao cDao;
