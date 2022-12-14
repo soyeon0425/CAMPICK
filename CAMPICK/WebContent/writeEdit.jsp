@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.campick.model.*" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	BoradDto dto = BoradDao.getInstance().getDB((int)session.getAttribute("boradid"));
+	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,9 +22,20 @@
             </a>
         </div>
         <div id="inform">
-            <ul>
-                <li><a href="login.jsp">로그인</a></li>
-            </ul>
+             <c:choose>
+          		 <c:when test="${loginUser==null}">
+           			 <ul>
+            		 	<li><a href="login.jsp">로그인</a></li>
+       		  		 </ul>
+      		    </c:when>
+         		<c:otherwise>
+          			<ul>
+         				<li><a href="user.do?action=logout">로그아웃</a></li>
+      	    			<li><a href="myPage.jsp">마이페이지</a></li>
+        					<li style="color:white;"><%=loginUser.getName() %>님</li>
+        		 		</ul>
+         		</c:otherwise>
+           	</c:choose>
         </div>
 
 
@@ -71,7 +84,7 @@
                          <dt>첨부파일</dt>
                          <dd>
                              <div class="filebox">
-                                 <input class="upload-name" id="fileName" value="<%=dto.getBorad_img() %>" readonly>
+                                 <input class="upload-name" id="fileName" readonly>
                                  <label for="filename">업로드</label> 
                                  <input type="file" id="filename" class="upload-hidden" name="borad_img" accept=".gif, .jpg, .png" onchange="javascript:document.getElementById('fileName').value = this.value"> 
                              </div>
