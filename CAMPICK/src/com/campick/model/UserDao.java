@@ -210,12 +210,12 @@ public class UserDao {
 		
 	}
 	
-	public boolean idCheck(String checkID) {
+	public int idCheck(String checkID) {
 
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs= null;
-	    boolean result = false;
+	    int result = 0;
 	    
 	    try {
 	    	conn = getConnection();
@@ -226,9 +226,9 @@ public class UserDao {
 	        rs = pstmt.executeQuery();
 	        
 	        if(rs.next()){
-	        	result = false;
+	        	result = 0;
 	        }else {
-	        	result = true;
+	        	result = 1;
 	        }
 	    	
 	    }catch(SQLException e) {

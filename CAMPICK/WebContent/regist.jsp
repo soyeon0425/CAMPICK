@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,6 +9,7 @@
     <title>CAMPICK</title>
     <script src="js/registerCheck.js"></script>
     <link rel="stylesheet" href="css/register.css">
+ 
 </head>
 <body>
     <div id="container">
@@ -38,9 +41,10 @@
         <fieldset>
             <table>
                 <tr>
+
                     <td>아이디</td>
-                    <td><input type="text" name="user_id" required autofocus ></td>
-                       <td><button onclick="idCheck()">중복체크</button></td>
+                    <td><input type="text" name="user_id" required autofocus></td>
+                       <td><button type = "button" onclick="idCheck()">중복체크</button></td>
                        <input type="hidden" name="idCheckResult" value="idNotOk"/>
                 </tr>
                 <tr>

@@ -9,8 +9,8 @@
         	var idCheck = joinForm.idCheckResult.value;
         	
         	
-        	if(pw.length<5||pw.length>12){
-        		alert("비밀번호는 5자 이상 12자 이하로 해주세요.");
+        	if(pw.length<8||pw.length>12){
+        		alert("비밀번호는 8자 이상 12자 이하로 해주세요.");
         		joinForm.pw.focus();
         		return false;
         	}else if(pw!=pw2){
@@ -26,6 +26,37 @@
         	}
         
  function idCheck(){
+	 
 	 var id = joinForm.user_id.value;
+	 if(id!=null){
 
-        }
+		 var popup = window.open('idCheck.jsp', 'ID중복체크', 'width=500px,height=400px');
+	 }
+ }
+ 
+	// alert("id check!");
+	// var id = joinForm.user_id.value;
+	 
+	 
+	// if(id!=null){
+	//	 joinForm.method="post";
+	//	 joinForm.action="user.do?action=checkID";
+	//	 joinForm.submit();
+		 
+/*		 if(result){
+			 alert('사용 가능한 아이디입니다.');
+			 joinForm.idCheckResult.value = "idOK";
+			 joinForm.user_id.value = "thisisID";
+			 joinForm.user_id.readOnly = true;
+			 
+		 }else{
+			 alert('다른 아이디를 입력해 주세요.');
+		 }
+		*/
+	//	}
+     //  }
+ 
+ 
+ function resultCheck(){
+	 
+ }

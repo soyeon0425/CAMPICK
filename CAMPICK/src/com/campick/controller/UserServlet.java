@@ -203,19 +203,22 @@ public class UserServlet extends HttpServlet {
 			
 			IDCheckService idCheckService = new IDCheckServicelmpl();
 			
-			boolean result = idCheckService.execute(request, response);
-			request.setAttribute("result", result);
+			int result = (int)idCheckService.execute(request, response);
+			//request.setAttribute("result", result);
 			
-			  RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
-			  requestDispatcher.forward(request, response);
-			/*
-			 * PrintWriter out = response.getWriter(); if(result) { out.println
-			 * ("<script>alert ('사용할 수 있는 아이디입니다.')</script>");
-			 * request.setAttribute("result", result); RequestDispatcher requestDispatcher =
-			 * request.getRequestDispatcher("/regist.jsp");
-			 * requestDispatcher.forward(request, response); }else { out.println
-			 * ("<script>alert ('사용할 수 없는 아이디입니다.')</script>"); }
-			 */
+			//  RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
+			// requestDispatcher.forward(request, response);
+		
+			  PrintWriter out = response.getWriter();
+			  
+			  if(result==1) {
+				out.println ("<script>alert ('사용할 수 있는 아이디입니다.')</script>");
+				request.setAttribute("result", result);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/idCheck.jsp");
+				requestDispatcher.forward(request, response);
+				}else {
+				out.println("<script>alert ('사용할 수 없는 아이디입니다.')</script>"); }
+			
 		}
 	}
 
