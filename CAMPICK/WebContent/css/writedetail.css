@@ -197,11 +197,12 @@ hr{
     left: 9%;
     top: 95%
 }
-button{
+button:not(.reComment){
     background-color: #375959;
     color: white;
     width: 60px;
     height: 35px;
+    border: none;
     font-family: 'S-CoreDream-3Light';
 }
 #goList{
@@ -273,12 +274,42 @@ button{
 #insertComment textarea{
 	width:100%;
 	height:100%;
-	border: 0;
+	border: 1px solid black;
+	border-radius: 5px;
 	font-size:14px;
 	resize: none;
 }
-#insertComment button{
+.insertReComment{
+	text-align:center;
+	position: relative;
+	margin-bottom: 20px;
+	display:none;
 }
-
+.insertReComment table{
+	margin-left:auto; 
+    margin-right:auto;
+    width:90%;
+    height: 50px;
+}
+.insertReComment table,#insertComment td{
+	border-collapse:collapse;
+}
+.insertReComment textarea{
+	width:100%;
+	font-size:14px;
+	resize: none;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+.reComment {
+	witdh:100%;
+	height:100%;
+	background: none;
+	border: none;
+	font-size:10px;
+}
+.reComment:hover {
+	text-shadow: 0.3px -0.3px black;
+}
 
 

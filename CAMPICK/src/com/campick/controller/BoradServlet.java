@@ -139,7 +139,7 @@ public class BoradServlet extends HttpServlet {
 		}else if(action.equals("update")) {
 			System.out.println("update 진입");
 			
-			String saveFolder = "C:\\Project_camp\\CAMPICK\\CAMPICK\\WebContent\\image";		//사진을 저장할 경로
+			String saveFolder = request.getSession().getServletContext().getRealPath("/image");		//사진을 저장할 경로
 			String encType = "utf-8";				//변환형식
 			int maxSize=5*1024*1024;				//사진의 size
 			
@@ -177,13 +177,16 @@ public class BoradServlet extends HttpServlet {
 			cDto.setReply(request.getParameter("reply"));
 			System.out.println(request.getParameter("reply"));
 			
-			HttpSession session = request.getSession();
 			request.setAttribute("cDto", cDto);
 			CommentService commentService = new CommentServiceImpl();
 			commentService.execute(request, response);
-			System.out.println("boriad 세션값은 : "+(int)session.getAttribute("boradid"));
-			RequestDispatcher rd = request.getRequestDispatcher("borad.do?action=detail&borad_id="+(int)session.getAttribute("boradid"));
-			rd.forward(request, response);
+			HttpSession session = request.getSession();
+			response.sendRedirect("borad.do?action=detail&borad_id="+(int)session.getAttribute("boradid"));
+		//대댓글 입력 메소드
+		}else if(action.equals("recomment")){
+			System.out.println("recomment 진입");
+			CommentDto cDto = new CommentDto();
+			cDto.setReply(request.getParameter("reply"));
 		}
 	}
 }

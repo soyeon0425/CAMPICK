@@ -91,6 +91,7 @@
 	            	<button onclick="goList()" id="goList">목록</button>
     	        	<button onclick="w_good()" id="w_good">추천</button>
 	            <%}else{ %>
+    	        	<button onclick="w_good()" id="w_good">추천</button>
 		           	<button onclick="goList()" id="goList">목록</button>
 	            <%} %>
             	</c:when>
@@ -107,11 +108,30 @@
 	        		</tr>
 	        		<tr class="tablefont">
 	        			<td height="10px" class="ganguk"><%=cDto.getReply_time() %></td>
+	        			<%if(loginUser.getName().equals(dto.getName())){ %>
 	        			<td align="center" width=35px>수정</td>
 	        			<td align="center" width=35px>삭제</td>
-	        			<td align="center" width=35px>답글</td>
+	        			<td width=35px><button class="reComment" onclick="togleReComment()">답글</button></td>
+	        			<%}else{ %>
+	        			<td width=35px><button class="reComment" onclick="togleReComment()">답글</button></td>
+	        			<%} %>
 	        		</tr>
 	        	</table>
+	        	<div class="insertReComment">
+       			 	<form action="borad.do?action=recomment" name=form3 method=post>
+        				<c:choose>
+            				<c:when test="${loginUser != null }">
+	        					<table>
+        							<tr>
+        								<td width = 50px><img src="image/recomment.png" width="100%" height="100%"></td>
+	        							<td width = "70px"><%=loginUser.getName() %></td>
+        								<td><textarea rows="2" placeholder="댓글을 입력해주세요" name="reply" required></textarea></td>
+        								<td width=30px><button>등록</button></td>
+        						</table>
+        					</c:when>
+        				</c:choose>
+        			</form>
+        		</div>
 	        <%} %>
         </div>
         <div id="insertComment">
@@ -121,8 +141,8 @@
 	        	<table>
         			<tr>
 	        			<td width = "70px"><%=loginUser.getName() %></td>
-        				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply"></textarea></td>
-        				<td width=30px><button onclick="regComment()">등록</button></td>
+        				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply" required></textarea></td>
+        				<td width=30px><button>등록</button></td>
         		</table>
         		</c:when>
         		</c:choose>
@@ -145,8 +165,11 @@
         function w_edit(){
         	document.location.href="borad.do?action=edit";
         }
-        function regComment(){
-        	alert('등록되었습니다.');
+        function togleReComment(){
+       		document.querySelector('.insertReComment').style.display = 'block';
+       		
+//        		const comment = document.querySelectorAll(".insertReComment");
+       		
         }
     </script>
 </body>

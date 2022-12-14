@@ -84,7 +84,7 @@
                          <dt>첨부파일</dt>
                          <dd>
                              <div class="filebox">
-                                 <input class="upload-name" id="fileName" value="<%=dto.getBorad_img() %>" readonly>
+                                 <input class="upload-name" id="fileName" readonly>
                                  <label for="filename">업로드</label> 
                                  <input type="file" id="filename" class="upload-hidden" name="borad_img" accept=".gif, .jpg, .png" onchange="javascript:document.getElementById('fileName').value = this.value"> 
                              </div>
