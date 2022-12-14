@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="15">
+    <meta charset="UTF-8">
     <title>CAMPICK</title>
     <link rel="stylesheet" href="css/comunity.css">
 </head>
@@ -28,7 +28,7 @@
             </c:when>
             <c:otherwise>
              <ul>
-            	<li><a href="user.do?action=logout">로그아웃</a></li>
+            	<li><a href="userLogout.do">로그아웃</a></li>
          	    <li><a href="myPage.jsp">마이페이지</a></li>
            		<li style="color:white;"><%=loginUser.getName() %>님</li>
            	 </ul>
@@ -43,7 +43,7 @@
                 <li><a href="search.jsp">캠핑장찾기</a></li>
                 <li><a href="tagSearch.jsp">태그로 찾기</a></li>
                 <li><a href="analysis.jsp">캠핑 예측Pick</a></li>
-                <li><a href="borad.do?action=list">커뮤니티</a></li>
+                <li><a href="boradList.do">커뮤니티</a></li>
                 </ul>
         </nav>
     </header>
@@ -61,7 +61,7 @@
             	<%
             	for(BoradDto dto : (ArrayList<BoradDto>)boradList){
             	%>
-                <a href="borad.do?action=detail&borad_id=<%=dto.getBorad_id()%>">
+                <a href="boradDetail.do?borad_id=<%=dto.getBorad_id()%>">
                     <li>
                         <div class="photo"><img src="image/<%=dto.getBorad_img() %>"></div>
                         <div class="title"><%=dto.getBorad_name()%></div>

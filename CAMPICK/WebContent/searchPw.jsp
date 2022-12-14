@@ -15,7 +15,7 @@
         <h1> <a href="main.do">CAMPICK</a></h1>
     </div>
 <div id="contents">>
-    <form id="form" method="post" action="user.do?action=searchPW">
+    <form id="form" method="post" action="userSearchPW.do">
         <h2>비밀번호 찾기</h2>
         
         <c:choose>

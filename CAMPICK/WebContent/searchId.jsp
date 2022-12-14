@@ -17,7 +17,7 @@
      	   <h1> <a href="main.do">CAMPICK</a></h1>
     	</div>
 		<div id="contents">
-    		<form id="form" method = "post" action="user.do?action=searchID">
+    		<form id="form" method = "post" action="userSearchID.do">
        		 <h2>ID찾기</h2>
        		  <c:choose>
         		<c:when test="${searchUser==null}">

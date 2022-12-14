@@ -31,7 +31,7 @@
          		     </c:when>
             		<c:otherwise>
              			<ul>
-            				<li><a href="user.do?action=logout">로그아웃</a></li>
+            				<li><a href="userLogout.do">로그아웃</a></li>
          	    			<li><a href="myPage.jsp">마이페이지</a></li>
            					<li style="color:white;"><%=loginUser.getName() %>님</li>
            		 		</ul>
@@ -43,7 +43,7 @@
                 <li><a href="search.html">캠핑장찾기</a></li>
                 <li><a href="tagSearch.html">태그로 찾기</a></li>
                 <li><a href="analysis.html">캠핑 예측Pick</a></li>
-                <li><a href="borad.do?action=list">커뮤니티</a></li>
+                <li><a href="boradList.do">커뮤니티</a></li>
                 </ul>
             </nav>
         </header>
@@ -122,7 +122,7 @@
 	        		</tr>
 	        	</table>
 	        	<div class="insertReComment">
-       			 	<form action="borad.do?action=recomment" name=form3 method=post>
+       			 	<form action="boradRecomment.do" name=form3 method=post>
         				<c:choose>
             				<c:when test="${loginUser != null }">
 	        					<table>
@@ -139,7 +139,7 @@
 	        <%} %>
         </div>
         <div id="insertComment">
-        	<form action="borad.do?action=comment" name=form3 method=post>
+        	<form action="boradComment.do" name=form3 method=post>
         	<c:choose>
             	<c:when test="${loginUser != null }">
 	        	<table>
@@ -157,17 +157,17 @@
 </div>
     <script>
         function goList(){
-            document.location.href="borad.do?action=list";
+            document.location.href="boradList.do";
         }
         function w_remove(){
             var check = confirm("삭제 하시겠습니까?");
             if(check === true){
                 alert('삭제 되었습니다.');
-                document.location.href="borad.do?action=delete";
+                document.location.href="boradDelete.do";
             }
         }
         function w_edit(){
-        	document.location.href="borad.do?action=edit";
+        	document.location.href="boradEdit.do";
         }
         function togleReComment(){
        		document.querySelector('.insertReComment').style.display = 'block';
