@@ -278,6 +278,8 @@ button:not(.reComment){
 	border-radius: 5px;
 	font-size:14px;
 	resize: none;
+	padding-left: 10px;
+	padding-top: 10px;
 }
 .insertReComment{
 	text-align:center;

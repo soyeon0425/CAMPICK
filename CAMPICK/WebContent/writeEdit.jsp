@@ -30,7 +30,7 @@
       		    </c:when>
          		<c:otherwise>
           			<ul>
-         				<li><a href="user.do?action=logout">로그아웃</a></li>
+         				<li><a href="userLogout.do">로그아웃</a></li>
       	    			<li><a href="myPage.jsp">마이페이지</a></li>
         					<li style="color:white;"><%=loginUser.getName() %>님</li>
         		 		</ul>
@@ -44,7 +44,7 @@
             <li><a href="search.html">캠핑장찾기</a></li>
             <li><a href="tagSearch.html">태그로 찾기</a></li>
             <li><a href="analysis.html">캠핑 예측Pick</a></li>
-            <li><a href="borad.do?action=list">커뮤니티</a></li>
+            <li><a href="boradList.do">커뮤니티</a></li>
             </ul>
     </nav>
 	</header>
@@ -56,7 +56,7 @@
   		</div>
     <div class="tab">
         <div class="main" style="text-align:center">
-	        <form id="form2" method="post" action="borad.do?action=update" enctype="multipart/form-data">
+	        <form id="form2" method="post" action="boradUpdate.do" enctype="multipart/form-data">
 	            <ul>
 		        	<li><dt>제목<span class="font05"> *</span></dt><dd><input type="text" style="width:100%;" name="borad_name" value="<%=dto.getBorad_name() %>" required></input></dd></li>
                   	<li>
@@ -101,9 +101,7 @@
 
 </footer>
 <script>
-
     function submitWriter(){
-        alert("수정 되었습니다.");
     }
 </script>
 </body>

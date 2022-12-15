@@ -50,9 +50,9 @@ public class UserDao {
 	          pstmt.setString(1, user.getId());
 	          pstmt.setString(2, user.getPw());
 	          pstmt.setString(3, user.getName());
-	          pstmt.setString(4, user.getPhone());
-	          pstmt.setString(5, user.getEmail());
-	          pstmt.setString(6, user.getAddr());
+	          pstmt.setString(4, user.getAddr());
+	          pstmt.setString(5, user.getPhone());
+	          pstmt.setString(6, user.getEmail());
 	          
 	          pstmt.executeUpdate();
 	          

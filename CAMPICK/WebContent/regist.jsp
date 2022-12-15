@@ -29,7 +29,7 @@
 	                <li><a href="search.html">캠핑장찾기</a></li>
 	                <li><a href="tagSearch.html">태그로 찾기</a></li>
 	                <li><a href="analysis.html">캠핑 예측Pick</a></li>
-	                <li><a href="borad.do?action=list">커뮤니티</a></li>
+	                <li><a href="boradList.do">커뮤니티</a></li>
 				</ul>
       	  	</nav>
     	</header>

@@ -12,7 +12,14 @@ public class BoradDto {
 	private String name;
 	private String borad_text;
 	private String borad_img;
+	private int db_count;
 	
+	public int getDb_count() {
+		return db_count;
+	}
+	public void setDb_count(int db_count) {
+		this.db_count = db_count;
+	}
 	public int getBorad_id() {
 		return borad_id;
 	}
