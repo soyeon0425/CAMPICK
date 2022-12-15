@@ -136,7 +136,6 @@ ul#gallery{
       list-style: none;
       padding: 0;
       width: 1000px;
-      height: 1000px
   }
   
   ul#gallery> a> li{
@@ -221,4 +220,7 @@ ul#gallery{
     padding-top:5px;
     color:#375959;
     padding-right:5px;
+}
+#page_contorl{
+	margin:0 auto;
 }

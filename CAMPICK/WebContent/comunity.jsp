@@ -4,16 +4,7 @@
      
     <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");
     	BoradDao bDao = BoradDao.getInstance();
-    	int dbCount = bDao.getDBcount();
-    	
-    	int pageSize = 9;
-    	String pageNo = request.getParameter("page");
-    	if(pageNo == null){
-    		pageNo = "1";
-    	}
-    	int curPage = Integer.parseInt(pageNo);
-    	int startRow = ((curPage-1) * pageSize) +1 ;
-    	
+    	int count = bDao.getDBcount();
     %>
 <jsp:useBean id="boradList" scope="request" class="java.util.ArrayList"></jsp:useBean>
 <!DOCTYPE html>
@@ -94,6 +85,17 @@
                <%
             	}
                %>
+        </div>
+        <div id=page_contorl>
+        	<%
+        		if(count != 0){
+        			for(int i = 1; i<=(count/9)+1; i++){ %>
+        				<a href=boradList.do?page=<%=i%>><%=i %></a>
+        						
+        			<%}
+        		}
+        			
+        	%>
         </div>
 
     <footer>

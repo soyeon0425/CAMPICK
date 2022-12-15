@@ -18,7 +18,13 @@ public class BoradListServiceImpl implements BoradListService{
 	//List를 보여주는 메소드
 	@Override
 	public ArrayList<BoradDto> execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		// TODO Auto-generated method stub
-		return dao.getDBList();
+    	int pageSize = 9;
+    	String pageNo = request.getParameter("page");
+    	if(pageNo == null){
+    		pageNo = "1";
+    	}
+    	int curPage = Integer.parseInt(pageNo);
+    	int startRow = ((curPage-1) * pageSize) +1 ;
+		return dao.getDBList(startRow,pageSize);
 	}
 }
