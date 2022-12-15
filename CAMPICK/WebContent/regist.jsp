@@ -45,15 +45,16 @@
                     <td>아이디</td>
                     <td><input type="text" name="user_id" required autofocus></td>
                        <td><button type = "button" onclick="idCheck()">중복체크</button></td>
-                       <input type="hidden" name="idCheckResult" value="idNotOk"/>
+                      <!-- <input type="hidden" name="idCheckResult" value="idNotOk"/> -->
                 </tr>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password" name="user_pw" required placeholder="비밀번호 8~12자리 특수기호 포함"></td>
+                    <td><input type="password" name="user_pw" required placeholder="비밀번호 8~12자리 특수기호 포함" onkeyup="pw_Regular_Check()"></td>
                 </tr>
+                <tr> <td><p id="pwMsg"></p></td></tr>
                 <tr>
                     <td>비밀번호 확인</td>
-                    <td><input type="password" name="user_pw2" required></td>
+                    <td><input type="password" name="user_pw2" required onkeyup="pw_check()"></td>
                 </tr>
                 <tr>
                     <td>이름</td>

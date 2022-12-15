@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.campick.model.*" %>
+    pageEncoding="UTF-8" import="com.borad.model.* ,com.user.model.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%

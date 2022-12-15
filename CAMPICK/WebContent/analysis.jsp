@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.*, com.campick.model.*" %>
+    pageEncoding="UTF-8" import = "java.util.*,com.user.model.*" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
      
     <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
@@ -56,7 +56,7 @@
        <p><span class="highlight">지금 미리 예약해야할 캠핑장은?</span><p>
     </div>
 
-    <div id="topic">
+<!--     <div id="topic">
         <div class="graph">
             <img src="image/trend.PNG">
         </div>
@@ -69,7 +69,7 @@
 
         </div>
         <button type="button" onclick = "location.href = 'searchResult.jsp'">캠핑장 추천 받기</button>
-    </div>
+    </div> -->
     <hr>
     <div id="topic">
         <div class="graph">
