@@ -76,18 +76,20 @@ public class BoradDao {
 		return true;
 	}
 	//게시판 작성 글 목록을 불러오는 메소드
-	public ArrayList<BoradDto> getDBList() throws SQLException{
+	public ArrayList<BoradDto> getDBList(int startRow , int pageSize) throws SQLException{
 		
 		ArrayList<BoradDto> boradList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "select * from borad order by borad_id desc";
+		String sql = "select * from (select rownum num, a.* from borad a) where num BETWEEN ? and ?  order by borad_id desc;";
 		
 		
 		try {
 			connection = getConnection();
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, startRow+9);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoradDto dto = new BoradDto();
@@ -203,5 +205,32 @@ public class BoradDao {
 			pstmt.close();
 		}
 		return true;
+	}
+	//게시판 글 갯수 반환해주는 메소드
+	public int getDBcount() throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		BoradDto dto = new BoradDto();
+		
+		String sql = "SELECT count(*) as db_count from borad";
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setDb_count(rs.getInt("db_count"));
+				rs.close();
+			}
+			System.out.println("dto get 카운트 : "+dto.getDb_count());
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+		
+		return dto.getDb_count();
 	}
 }

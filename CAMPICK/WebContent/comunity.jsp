@@ -2,7 +2,19 @@
     pageEncoding="UTF-8" import="com.user.model.*,java.util.*, com.borad.model.*" %>
    	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
      
-    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
+    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+    	BoradDao bDao = BoradDao.getInstance();
+    	int dbCount = bDao.getDBcount();
+    	
+    	int pageSize = 9;
+    	String pageNo = request.getParameter("page");
+    	if(pageNo == null){
+    		pageNo = "1";
+    	}
+    	int curPage = Integer.parseInt(pageNo);
+    	int startRow = ((curPage-1) * pageSize) +1 ;
+    	
+    %>
 <jsp:useBean id="boradList" scope="request" class="java.util.ArrayList"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="ko">
