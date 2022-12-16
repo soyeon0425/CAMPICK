@@ -92,7 +92,7 @@
 		            <button onclick="w_edit()" id="w_edit">수정</button>
 		            <button onclick="w_remove()" id="w_remove">삭제</button>
 	            	<button onclick="goList()" id="goList">목록</button>
-    	        	<button onclick="w_good()" id="w_good">추천</button>
+    	        	<button onclick="w_like()" id="w_good">추천</button>
 	            <%}else{ %>
     	        	<button onclick="w_good()" id="w_good">추천</button>
 		           	<button onclick="goList()" id="goList">목록</button>
@@ -174,9 +174,9 @@
         }
         function togleReComment(){
        		document.querySelector('.insertReComment').style.display = 'block';
-       		
-//        		const comment = document.querySelectorAll(".insertReComment");
-       		
+        }
+        function w_like(){
+        	document.location = "boradSuggest.do";
         }
     </script>
 </body>

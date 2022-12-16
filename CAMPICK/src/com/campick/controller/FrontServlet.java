@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.borad.model.BoradDao;
 import com.borad.model.BoradDto;
 import com.borad.service.BoradDeleteService;
 import com.borad.service.BoradDeleteServiceImpl;
@@ -33,6 +34,10 @@ import com.comment.service.ReCommentService;
 import com.comment.service.ReCommentServiceImpl;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.suggest.model.SuggestDao;
+import com.suggest.model.SuggestDto;
+import com.suggest.service.SuggestService;
+import com.suggest.service.SuggestServiceImpl;
 import com.user.model.UserDto;
 import com.user.service.IDCheckService;
 import com.user.service.IDCheckServicelmpl;
@@ -110,7 +115,7 @@ public class FrontServlet extends HttpServlet {
 			
 		//글쓰기 화면에서 db로 입력
 		}else if(command.equals("/boradInsert.do")){
-			String saveFolder = "C:\\Project_camp\\CAMPICK\\CAMPICK\\WebContent\\image";		//사진을 저장할 경로
+			String saveFolder = request.getSession().getServletContext().getRealPath("/image");		//사진을 저장할 경로
 			String encType = "utf-8";				//변환형식
 			int maxSize=5*1024*1024;				//사진의 size
 			
@@ -212,7 +217,22 @@ public class FrontServlet extends HttpServlet {
 //			reCommentService.execute(request, response);
 //			HttpSession session = request.getSession();
 //			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
-
+		}else if(command.equals("/boradSuggest.do")) {
+			SuggestService ss = new SuggestServiceImpl();
+			PrintWriter out = response.getWriter();
+			HttpSession session = request.getSession();
+			try {
+				if(ss.execute(request, response) ==1) {
+					out.println("<script>alert('추천 하였습니다!'); location.href='boradDetail.do?borad_id="+(int)session.getAttribute("boradid")+"';</script>");
+					out.flush();
+				}else {
+					out.println("<script>alert('추천을 취소하였습니다!'); location.href='boradDetail.do?borad_id="+(int)session.getAttribute("boradid")+"';</script>");
+					out.flush();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //-------------------------------------------------------------------------------------------------------------
 		//회원가입 메소드
 		}else if(command.equals("/userRegister.do")) {
@@ -369,7 +389,6 @@ public class FrontServlet extends HttpServlet {
 				requestDispatcher.forward(request, response);
 				}else {
 				out.println("<script>alert ('사용할 수 없는 아이디입니다.')</script>"); }
-			
 		}
 	}
 }

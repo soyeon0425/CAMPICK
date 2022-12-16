@@ -4,7 +4,7 @@
      
     <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");
     	BoradDao bDao = BoradDao.getInstance();
-    	int count = bDao.getDBcount();
+    	int count = bDao.getDBcount(); //db에 잇는 게시글 수를 얻는다.
     %>
 <jsp:useBean id="boradList" scope="request" class="java.util.ArrayList"></jsp:useBean>
 <!DOCTYPE html>
@@ -87,15 +87,44 @@
                %>
         </div>
         <div id=page_contorl>
+        	<ul>
         	<%
         		if(count != 0){
-        			for(int i = 1; i<=(count/9)+1; i++){ %>
-        				<a href=boradList.do?page=<%=i%>><%=i %></a>
-        						
-        			<%}
-        		}
-        			
+        			String reqPage = request.getParameter("page");
+        	    	if(reqPage == null){
+        	    		reqPage = "1";
+        	    	}
+        	    	int curPage = Integer.parseInt(reqPage);
+        	    	if(curPage >1){
         	%>
+        	    		<li><li class=page_li>
+        	    			<a href="boradList.do?page=<%=curPage-1 %>">이전</a>
+        	    		</li>
+        	    		
+        	<%		}
+        			int pageSize = 9; // 페이지당 보ㅗ여주는 게시글 갯수
+        			int pageCount = count / pageSize + (count % pageSize == 0? 0:1); //페이지 갯수
+        			for(int i = 1; i<=pageCount; i++){ 
+        				if(i == curPage){
+        	%>
+    					<li class=page_li><a href="boradList.do?page=<%=i%>"  id=curPage><%=i %></a></li>
+    				<%	}else{ %>
+        				<li class=page_li>
+        					<a href=boradList.do?page=<%=i%>><%=i %></a>
+        				</li>
+        	<%			
+        				}
+        			}
+        			if(curPage < pageCount){
+        	%>
+        				<li class=page_li>
+        					<a href=boradList.do?page=<%=curPage +1 %>>다음</a>
+        				</li>
+        	<%
+        			}
+        		}
+        	%>
+        	</ul>
         </div>
 
     <footer>
