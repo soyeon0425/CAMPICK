@@ -20,7 +20,7 @@ public class ReCommentServiceImpl implements ReCommentService{
 	public boolean execute(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		HttpSession session = request.getSession();
 		UserDto uDto = (UserDto)session.getAttribute("loginUser");
-		return cDao.insertReComment((CommentDto)request.getAttribute("cDto"), (int)session.getAttribute("boradid"), uDto.getName());
+		return cDao.insertReComment((CommentDto)request.getAttribute("cDto"), (int)session.getAttribute("boradid"), uDto.getName(),(int)request.getAttribute("bundle_id"));
 	}
 
 }

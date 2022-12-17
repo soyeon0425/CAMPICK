@@ -82,6 +82,8 @@ public ArrayList<CommentDto> getDBList(int borad_id) throws SQLException{
 				cDto.setName(rs.getString("name"));
 				cDto.setReply(rs.getString("reply"));
 				cDto.setReply_time(rs.getString("reply_time"));
+				cDto.setBundle_id(rs.getInt("bundle_id"));
+				cDto.setDepth(rs.getInt("depth"));
 				commentList.add(cDto);
 			}
 			rs.close();
@@ -94,17 +96,18 @@ public ArrayList<CommentDto> getDBList(int borad_id) throws SQLException{
 		return commentList;
 	}
 
-	public boolean insertReComment(CommentDto dto, int borad_id, String name) throws SQLException {
+	public boolean insertReComment(CommentDto dto, int borad_id, String name, int bundle_id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		//DB에 insert할 sql문
-		String sql = "insert into borad_comment values (reply_id_seq.nextval,?,1,1,?,?,to_char(sysdate,'yyyy.mm.dd hh24:mi:ss'))";
+		String sql = "insert into borad_comment values (reply_id_seq.nextval,?,1,?,?,?,to_char(sysdate,'yyyy.mm.dd hh24:mi:ss'))";
 		try {
 			connection = getConnection();
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, borad_id);//borad_id 내용
-			pstmt.setString(2, name);//reply 댓글 내용
-			pstmt.setString(3, dto.getReply());//reply 댓글 내용
+			pstmt.setInt(2, bundle_id);
+			pstmt.setString(3, name);//reply 댓글 내용
+			pstmt.setString(4, dto.getReply());//reply 댓글 내용
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
