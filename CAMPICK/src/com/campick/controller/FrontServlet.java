@@ -197,7 +197,7 @@ public class FrontServlet extends HttpServlet {
 			System.out.println("comment 진입");
 			
 			CommentDto cDto = new CommentDto();
-			cDto.setReply(request.getParameter("reply"));
+			cDto.setReply(request.getParameter("reply")); //댓글 내용을 request 에 셋팅
 			
 			request.setAttribute("cDto", cDto);
 			CommentService commentService = new CommentServiceImpl();
