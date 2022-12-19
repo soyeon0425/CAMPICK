@@ -134,7 +134,7 @@
 	        	</c:if>
 <!-- 	        	대댓글 입력하는 곳 -->
 		        <div class="insertReComment">
-		        	<form action = "boradRecomment.do" name=form4 method=post>
+		        	<form action = "boradRecomment.do?bundle_id=${comment.bundle_id }" name=form4 method=post>
 		        		<c:choose>
 		        			<c:when test="${loginUser != null }">
 			        			<table>

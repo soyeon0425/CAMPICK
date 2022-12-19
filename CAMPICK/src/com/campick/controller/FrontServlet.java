@@ -211,7 +211,6 @@ public class FrontServlet extends HttpServlet {
 			CommentDto cDto = new CommentDto();
 			cDto.setReply(request.getParameter("reply"));
 			cDto.setBundle_id(Integer.parseInt(request.getParameter("bundle_id")));
-			
 			request.setAttribute("cDto", cDto);
 			ReCommentService reCommentService = new ReCommentServiceImpl();
 			
