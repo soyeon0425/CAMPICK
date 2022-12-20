@@ -64,29 +64,98 @@
                     </p>
                     <p>
                         <label id>캠핑 지역</label>
-                        <select id="location_cdo" name="location_cdo">
-                            <option value="">-- 시/도 --</option>
-                            <option value="1">서울시</option>
-                            <option value="2">부산시</option>
-                            <option value="3">대구시</option>
-                            <option value="4">인천시</option>
-                            <option value="5">광주시</option>
-                            <option value="6">대전시</option>
-                            <option value="7">울산시</option>
-                            <option value="8">세종시</option>
-                            <option value="9">경기도</option>
-                            <option value="10">강원도</option>
-                            <option value="11">충청북도</option>
-                            <option value="12">충청남도</option>
-                            <option value="13">전라북도</option>
-                            <option value="14">전라남도</option>
-                            <option value="15">경상북도</option>
-                            <option value="16">경상남도</option>
-                            <option value="17">제주도</option>
-                        </select>
-                        <select id="location_gungu" name="location_gungu">
-                            <option value="">-- 군/구 --</option>
-                        </select>
+<!--                         <select id="location_cdo" name="location_cdo"> -->
+<!--                             <option value="">-- 시/도 --</option> -->
+<!--                             <option value="1">서울시</option> -->
+<!--                             <option value="2">부산시</option> -->
+<!--                             <option value="3">대구시</option> -->
+<!--                             <option value="4">인천시</option> -->
+<!--                             <option value="5">광주시</option> -->
+<!--                             <option value="6">대전시</option> -->
+<!--                             <option value="7">울산시</option> -->
+<!--                             <option value="8">세종시</option> -->
+<!--                             <option value="9">경기도</option> -->
+<!--                             <option value="10">강원도</option> -->
+<!--                             <option value="11">충청북도</option> -->
+<!--                             <option value="12">충청남도</option> -->
+<!--                             <option value="13">전라북도</option> -->
+<!--                             <option value="14">전라남도</option> -->
+<!--                             <option value="15">경상북도</option> -->
+<!--                             <option value="16">경상남도</option> -->
+<!--                             <option value="17">제주도</option> -->
+<!--                         </select> -->
+							<input list="location_cdo" id="input_cdo" name="l_cdo" placeholder="-- 시/도 -- "/>
+                       		 <datalist id="location_cdo">
+                           		  <option value="경기도">
+                      		  </datalist>
+<!--                         <select id="location_gungu" name="location_gungu"> -->
+<!--                             <option value="">-- 군/구 --</option> -->
+<!--                             <option value="1">가평군</option> -->
+<!-- 							<option value="2">고양시</option> -->
+<!-- 							<option value="3">과천시</option> -->
+<!-- 							<option value="4">광명시</option> -->
+<!-- 							<option value="5">광주시</option> -->
+<!-- 							<option value="6">구리시</option> -->
+<!-- 							<option value="7">군포시</option> -->
+<!-- 							<option value="8">김포시</option> -->
+<!-- 							<option value="9">남양주시</option> -->
+<!-- 							<option value="10">동두천시</option> -->
+<!-- 							<option value="11">부천시</option> -->
+<!-- 							<option value="12">성남시</option> -->
+<!-- 							<option value="13">수원시</option> -->
+<!-- 							<option value="14">시흥시</option> -->
+<!-- 							<option value="15">안산시</option> -->
+<!-- 							<option value="16">안성시</option> -->
+<!-- 							<option value="17">안양시</option> -->
+<!-- 							<option value="18">양주시</option> -->
+<!-- 							<option value="19">양평군</option> -->
+<!-- 							<option value="20">여주시</option> -->
+<!-- 							<option value="21">연천군</option> -->
+<!-- 							<option value="22">오산시</option> -->
+<!-- 							<option value="23">용인시</option> -->
+<!-- 							<option value="24">의왕시</option> -->
+<!-- 							<option value="25">의정부시</option> -->
+<!-- 							<option value="26">이천시</option> -->
+<!-- 							<option value="27">파주시</option> -->
+<!-- 							<option value="28">평택시</option> -->
+<!-- 							<option value="29">포천시</option> -->
+<!-- 							<option value="30">하남시</option> -->
+<!-- 							<option value="31">화성시</option> -->
+<!--                         </select> -->
+						<input list="location_gungu" id="input_gungu" name="l_gungu" placeholder="-- 군/구 -- "/>
+                        <datalist id="location_gungu">
+                           	  <option value="가평군">
+                           	  <option value="고양시">
+                           	  <option value="과천시">
+                           	  <option value="광명시">
+                           	  <option value="광주시">
+                           	  <option value="구리시">
+                           	  <option value="군포시">
+                           	  <option value="김포시">
+                           	  <option value="남양주시">
+                           	  <option value="동두천시">
+                           	  <option value="부천시">
+                           	  <option value="성남시">
+                           	  <option value="수원시">
+                           	  <option value="시흥시">
+                           	  <option value="안산시">
+                           	  <option value="안성시">
+                           	  <option value="안양시">
+                           	  <option value="양주시">
+                           	  <option value="양평군">
+                           	  <option value="여주시">
+                           	  <option value="연천군">
+                           	  <option value="오산시">
+                           	  <option value="용인시">
+                           	  <option value="의왕시">
+                           	  <option value="의정부시">
+                           	  <option value="이천시">
+                           	  <option value="파주시">
+                           	  <option value="평택시">
+                           	  <option value="포천시">
+                           	  <option value="하남시">
+                           	  <option value="화성시">
+                        </datalist>
                     </p>
                     <p>
                         <label>캠핑 구분</label>

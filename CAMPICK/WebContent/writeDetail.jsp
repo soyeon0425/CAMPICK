@@ -40,11 +40,11 @@
             </div>
            <nav>
             <ul id="topMenu">
-                <li><a href="search.html">캠핑장찾기</a></li>
-                <li><a href="tagSearch.html">태그로 찾기</a></li>
-                <li><a href="analysis.html">캠핑 예측Pick</a></li>
-                <li><a href="boradList.do">커뮤니티</a></li>
-                </ul>
+                <li><a href="search.jsp">캠핑장찾기</a></li>
+	            <li><a href="tagSearch.jsp">태그로 찾기</a></li>
+	            <li><a href="analysis.jsp">캠핑 예측Pick</a></li>
+	            <li><a href="boradList.do">커뮤니티</a></li>
+          	</ul>
             </nav>
         </header>
 
