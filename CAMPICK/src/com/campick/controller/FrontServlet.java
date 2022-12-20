@@ -346,29 +346,28 @@ public class FrontServlet extends HttpServlet {
 			response.sendRedirect("search.jsp");
 			
 		//아이디 체크 메소드
-		}else if(command.contentEquals("//userCheckID.do")) {
+		}else if(command.contentEquals("/userCheckID.do")) {
 			System.out.println("idcheck 들어옴");
-			String checkID = request.getParameter("user_id");
+			String checkID = request.getParameter("id");
 			System.out.println(checkID);
 			request.setAttribute("checkID", checkID);
 			
 			IDCheckService idCheckService = new IDCheckServicelmpl();
+			int result = idCheckService.execute(request, response);
+			System.out.println("돌아온 결과값은"+result);
 			
-			int result = (int)idCheckService.execute(request, response);
-			//request.setAttribute("result", result);
-			
-			//  RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
-			// requestDispatcher.forward(request, response);
-		
-			  PrintWriter out = response.getWriter();
-			  
-			  if(result==1) {
-				out.println ("<script>alert ('사용할 수 있는 아이디입니다.')</script>");
-				request.setAttribute("result", result);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/idCheck.jsp");
+			if(result==1) {
+				RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
 				requestDispatcher.forward(request, response);
-				}else {
-				out.println("<script>alert ('사용할 수 없는 아이디입니다.')</script>"); }
+			}else {
+				System.out.println("사용 ㄴㄴㄴ");
+				PrintWriter out = response.getWriter();
+				out.println ("<script>alert ('사용할 수 없는 아이디입니다!'); location.href='regist.jsp'; </script>");
+				out.close ();
+				//out.println("<script>alert('사용할 수 없는 아이디입니다.')</script>");
+				//response.sendRedirect("regist.jsp");
+				
+			}
 			
 		}
 	}

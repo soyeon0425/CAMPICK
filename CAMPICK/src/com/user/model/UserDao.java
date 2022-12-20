@@ -37,6 +37,7 @@ public class UserDao {
 	      return connection;
 	}
 	
+	
 	public void register(UserDto user) {
 		System.out.println("dao까지 넘어옴~~");
 	      
@@ -44,19 +45,17 @@ public class UserDao {
 	      PreparedStatement pstmt = null;
 	      
 	      try {
-
 	          conn = getConnection();
 	          pstmt = conn.prepareStatement("INSERT INTO USER_TB VALUES(?, ?, ?, ?, ?, ?)");
 	          pstmt.setString(1, user.getId());
 	          pstmt.setString(2, user.getPw());
 	          pstmt.setString(3, user.getName());
-	          pstmt.setString(4, user.getAddr());
-	          pstmt.setString(5, user.getPhone());
-	          pstmt.setString(6, user.getEmail());
+	          pstmt.setString(4, user.getPhone());
+	          pstmt.setString(5, user.getEmail());
+	          pstmt.setString(6, user.getAddr());
 	          
 	          pstmt.executeUpdate();
 	          
-	      
 	      }catch(SQLException e) {
 	    	  System.out.println("register 오류!!");
 	    	  e.printStackTrace();

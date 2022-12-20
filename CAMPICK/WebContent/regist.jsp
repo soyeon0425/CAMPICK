@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%  %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,21 +41,45 @@
         
         <fieldset>
             <table>
+            <c:choose>
+            <c:when test="${checkID==null}">
                 <tr>
-
                     <td>아이디</td>
-                    <td><input type="text" name="user_id" required autofocus></td>
-                       <td><button type = "button" onclick="idCheck()">중복체크</button></td>
-                      <!-- <input type="hidden" name="idCheckResult" value="idNotOk"/> -->
+                    <td><input type="text" id = "user_id" name="user_id" required placeholder="2글자 이상 12글자 이하" autofocus onkeyup="idCheck()"></td>
+                  	<td><button type = "button" onclick="id_duplicate()">중복 체크</button></td>  
+                    <input type="hidden" id="idCheckResult" value="idNOTOk"/>
                 </tr>
+                <tr>
+                	<td></td>
+              		<td height="10px"><p id ="idCheckMsg"></p></td>
+              		<td></td>
+                </tr>
+             </c:when>
+             <c:otherwise>
+               <tr>
+                    <td>아이디</td>
+                    <td><input type="text" value = "${checkID}" id = "user_id" name="user_id" required readonly style="color:gray;"></td>
+                  	<td><button type = "button" onclick="id_edit()">ID 수정</button></td>  
+                    <input type="hidden" id="idCheckResult" value="idOk"/>
+                </tr>
+                <tr>
+                	<td></td>
+              		<td colspan="2" height="10px">버튼을 통해 수정 가능!</td>
+              		
+                </tr>
+             </c:otherwise>
+ 			</c:choose>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password" name="user_pw" required placeholder="비밀번호 8~12자리 특수기호 포함" onkeyup="pw_Regular_Check()"></td>
+                    <td><input type="password" id ="user_pw" name="user_pw" required placeholder="비밀번호 8~12자리 특수기호 포함" onkeyup="pwCheck()"></td>
+					<td><p id="pwMsg"></p></td>
                 </tr>
-                <tr> <td><p id="pwMsg"></p></td></tr>
+ 
+
                 <tr>
                     <td>비밀번호 확인</td>
-                    <td><input type="password" name="user_pw2" required onkeyup="pw_check()"></td>
+                    <td><input type="password" id = "user_pw2" name="user_pw2" required onkeyup="pw_duplicate()"></td>
+               		<td><p id="checkMsg"></p></td>
                 </tr>
                 <tr>
                     <td>이름</td>
@@ -138,9 +163,10 @@
         </fieldset>
       </div>
        -->
-  
-        <button type="submit" onclick="register()">가입하기</button>
+  <div id = "submit">
+        <button type="button" onclick="register()">가입하기</button>
         <button type="reset" value="다시 작성">다시작성</button>
+  </div>
     </form>
     </div>
 

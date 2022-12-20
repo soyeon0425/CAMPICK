@@ -15,7 +15,7 @@ public class IDCheckServicelmpl implements IDCheckService {
 	@Override
 	public int execute(HttpServletRequest request, HttpServletResponse response) {
 		String checkID = (String) request.getAttribute("checkID");
-//		System.out.println(checkID);
+		System.out.println("service로 넘어온 id는 "+checkID);
 		int result = userDao.idCheck(checkID);
 		return result;
 	}
