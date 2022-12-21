@@ -33,6 +33,9 @@ import com.comment.service.ReCommentService;
 import com.comment.service.ReCommentServiceImpl;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.searchcamp.model.SearchCampDto;
+import com.searchcamp.service.CampListService;
+import com.searchcamp.service.CampListServiceImpl;
 import com.suggest.service.SuggestService;
 import com.suggest.service.SuggestServiceImpl;
 import com.user.model.UserDto;
@@ -201,6 +204,7 @@ public class FrontServlet extends HttpServlet {
 			commentService.execute(request, response);
 			HttpSession session = request.getSession();
 			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
+			
 		//대댓글 입력 메소드
 		}else if(command.equals("/boradRecomment.do")){
 			System.out.println("recomment 진입");
@@ -215,6 +219,7 @@ public class FrontServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
 			
+		//게시판 추천 기능
 		}else if(command.equals("/boradSuggest.do")) {
 			SuggestService ss = new SuggestServiceImpl();
 			PrintWriter out = response.getWriter();
@@ -231,6 +236,39 @@ public class FrontServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+//			캠핑장 찾기 기능!
+		
+		}else if(command.equals("/campList.do")) {
+			System.out.println("CampList 들어옴!");
+			System.out.println("캠핑장 이름: "+request.getParameter("camp_name"));
+			System.out.println("시/도: "+request.getParameter("cdo"));
+			System.out.println("시/군/구: "+request.getParameter("sigungu"));
+			String[] camptype = request.getParameterValues("camptype");
+			if(camptype != null) {
+				for(int i = 0; i<camptype.length;i++) {
+					System.out.println("캠핑장 구분: "+camptype[i]);
+				}
+			}
+			CampListService cls = new CampListServiceImpl();
+			ArrayList<SearchCampDto> scDtoList = cls.execute(request, response);
+			request.setAttribute("scDtoList", scDtoList);
+			for(int i = 0; i<scDtoList.size();i++) {
+				System.out.println(scDtoList.get(i).getSubPlace());
+			}
+//			String[] subplaceList = request.getParameter("subplace").split(",");
+			
+//			for(int i=0; i<subplaceList.length;i++) {
+//				System.out.println("subplaceList: "+subplaceList);
+//			}
+//			request.setAttribute("subplaceList", subplaceList);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("searchResult.jsp");
+			rd.forward(request, response);
+			
+			
+			
+			
 //-------------------------------------------------------------------------------------------------------------
 		//회원가입 메소드
 		}else if(command.equals("/userRegister.do")) {

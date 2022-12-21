@@ -1,0 +1,98 @@
+package com.searchcamp.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class SearchCampDao {
+	
+	private static SearchCampDao instance = new SearchCampDao();
+	
+	private SearchCampDao() {
+		
+	}
+	
+	public static SearchCampDao getInstance() {
+		return instance;
+	}
+
+	private Connection getConnection() {
+		
+		Context context = null;
+		DataSource dataSource = null;
+		Connection connection = null;
+		try {
+			context = new InitialContext();
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle11g");
+			connection = dataSource.getConnection();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+	
+	public ArrayList<SearchCampDto> getDBList(String camp_name,String cdo, String sigungu,String[] camptype){
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ArrayList<SearchCampDto> scDtoList = new ArrayList<>();
+		
+		String sql = "select * from camp_info where "; //sql문
+		
+		//캠핑장명 입력 있으면 camp_name 입력 없으면 빈공간으로 해서 sql에  추가
+		if(camp_name != null) {	sql +="camp_name Like '%"+camp_name+"%' AND ";}
+		else {sql +="camp_name Like '%%' AND ";}
+		
+		//지역에 시/도 입력값 있으면 cdo 추가 없으면 %경기도%로 sql 추가
+		if(cdo != null) {sql +="donm Like '%"+cdo+"%' AND ";}
+		else {sql +="cdo Like '%경기도%' AND ";}
+		
+		// 시/군/구 입력값 있으면 sigungu , 없으면 빈공간으로 sql문 추가
+		if(sigungu != null) {sql +="sigungunm Like '%"+sigungu+"%' AND ";}
+		else {sql +="sigungu Like '%%' AND ";}
+		
+		if(camptype != null) {
+			//camptype 배열 값 만큼 돌리고 각 배열  value값을 sql문에 저장
+			for(int i=0; i<camptype.length;i++) {
+				sql += "facility LIKE '%"+camptype[i]+"%'";
+				if(i+1 == camptype.length) {
+					break; //뒤에 OR 안찍히게 하기위한 조건문
+				}
+				sql += " AND ";
+			}
+		}else {sql += "facility Like '%%';";}
+		
+		System.out.println("sql문: "+sql);
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				SearchCampDto scDto = new SearchCampDto();
+				scDto.setCamp_name(rs.getString("camp_name"));
+				scDto.setAddr(rs.getString("addr"));
+				scDto.setTel(rs.getString("tel"));
+				scDto.setSubPlace(rs.getString("subplace"));
+				scDto.setLineIntro(rs.getString("lineintro"));
+				scDtoList.add(scDto);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+				pstmt.close();
+			}catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return scDtoList;
+	}
+}

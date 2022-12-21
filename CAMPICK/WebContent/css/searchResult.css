@@ -131,8 +131,7 @@ hr {
   }
 
 #contents{
-    width:1100px;
-    height:700px;
+    width:1300px;
     /*background-color:rgb(255, 24, 24);*/
     margin:auto;
     padding:20px;
@@ -140,8 +139,8 @@ hr {
 
 
 .card{
-    width:1000px;
-    height:300px;
+    width:1200px;
+    height:330px;
    /* background-color:rgb(53, 255, 26);*/
     margin:auto;
 }
@@ -151,15 +150,16 @@ hr {
     margin-top:20px;
     margin-left:30px;
     width:340px;
-    height:260px;
+    height:330px;
 }
 
 .campinfo{
     float:left;
     background-color:#f1f1f1;
-    width:600px;
-    height:260px;
+    width:750px;
+    height:330px;
     margin-top:20px;
+    position: relative;
 }
 
 .campinfo_head{
@@ -178,7 +178,9 @@ hr {
 
 
 .wishlist{
-    float:right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 .wishlist>img{
     width:80px;

@@ -56,14 +56,14 @@
         <div id="contents">
             <h2>내게 맞는 캠핑장 검색하기</h2>
             <fieldset>
-               <form id="campSearch">
+               <form id="campSearch" method="post" name="form1" action="campList.do">
                     <h2>어디로 떠날까요?</h2>
                     <p>
-                        <label id>캠핑장 이름</label>
-                        <input id="campName" name="campName" type="search" autofocus>
+                        <label>캠핑장 이름</label>
+                        <input id="campName" name="camp_name" type="search" autofocus>
                     </p>
                     <p>
-                        <label id>캠핑 지역</label>
+                        <label>캠핑 지역</label>
 <!--                         <select id="location_cdo" name="location_cdo"> -->
 <!--                             <option value="">-- 시/도 --</option> -->
 <!--                             <option value="1">서울시</option> -->
@@ -84,7 +84,7 @@
 <!--                             <option value="16">경상남도</option> -->
 <!--                             <option value="17">제주도</option> -->
 <!--                         </select> -->
-							<input list="location_cdo" id="input_cdo" name="l_cdo" placeholder="-- 시/도 -- "/>
+							<input list="location_cdo" id="input_cdo" name="cdo" placeholder="-- 시/도 -- "/>
                        		 <datalist id="location_cdo">
                            		  <option value="경기도">
                       		  </datalist>
@@ -122,7 +122,7 @@
 <!-- 							<option value="30">하남시</option> -->
 <!-- 							<option value="31">화성시</option> -->
 <!--                         </select> -->
-						<input list="location_gungu" id="input_gungu" name="l_gungu" placeholder="-- 군/구 -- "/>
+						<input list="location_gungu" id="input_gungu" name="sigungu" placeholder="-- 군/구 -- "/>
                         <datalist id="location_gungu">
                            	  <option value="가평군">
                            	  <option value="고양시">
@@ -159,12 +159,12 @@
                     </p>
                     <p>
                         <label>캠핑 구분</label>
-                        <input type="checkbox" id="site_01" name="siteType" value="site_01">일반야영장
-                        <input type="checkbox" id="site_02" name="siteType" value="site_02">자동차야영장
-                        <input type="checkbox" id="site_03" name="siteType"  value="site_03">카라반
-                        <input type="checkbox" id="site_04" name="siteType" value="site_04">글램핑
+                        <input type="checkbox" id="site_01" name="camptype" value="일반야영장">일반야영장
+                        <input type="checkbox" id="site_02" name="camptype" value="자동차야영장">자동차야영장
+                        <input type="checkbox" id="site_03" name="camptype"  value="카라반">카라반
+                        <input type="checkbox" id="site_04" name="camptype" value="글램핑">글램핑
                     </p>
-                    <button type="button" onclick = "location.href = 'searchResult.jsp'"> 검색하기 </button> 
+                    <button type="button" onclick="submit()"> 검색하기 </button> 
                 </form>
                 <button id="detailbutton" onclick="showPopup(true)">+</button>
             </fieldset>
