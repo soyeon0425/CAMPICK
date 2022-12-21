@@ -92,7 +92,7 @@
 		            <button onclick="w_edit()" id="w_edit">수정</button>
 		            <button onclick="w_remove()" id="w_remove">삭제</button>
 	            	<button onclick="goList()" id="goList">목록</button>
-    	        	<button onclick="w_good()" id="w_good">추천</button>
+    	        	<button onclick="w_like()" id="w_good">추천</button>
 	            <%}else{ %>
     	        	<button onclick="w_good()" id="w_good">추천</button>
 		           	<button onclick="goList()" id="goList">목록</button>
@@ -103,44 +103,55 @@
         </div>
         <hr style="border: solid 2px #eee;" width="90%">
         <div id="datgle">
-        	<% for(CommentDto cDto : (ArrayList<CommentDto>)commentList){ %>
+        	<c:forEach var="comment" items="${commentList }" varStatus="status">
+		        <c:if test="${comment.depth == 0}">
 	        	<table>
 	        		<tr>
-	        			<td rowspan="2" align="center" width = "70px" style="border-right: 1px solid #eee "><%=cDto.getName() %></td>
-	        			<td colspan="4" class="ganguk" style="border-bottom: 1px solid #eee"><%=cDto.getReply() %></td>
+	        			<td rowspan="2" align="center" width = "70px" style="border-right: 1px solid #eee ">${comment.name }</td>
+	        			<td colspan="4" class="ganguk" style="border-bottom: 1px solid #eee">${comment.reply }</td>
 	        		</tr>
 	        		<tr class="tablefont">
-	        			<td height="10px" class="ganguk"><%=cDto.getReply_time() %></td>
+	        			<td height="10px" class="ganguk">${comment.reply_time }</td>
 	        			<c:choose>
             			<c:when test="${loginUser != null }">
-	        			<%if(loginUser.getName().equals(dto.getName())){ %>
-	        			<td align="center" width=35px>수정</td>
-	        			<td align="center" width=35px>삭제</td>
-	        			<td width=35px><button class="reComment" onclick="togleReComment()">답글</button></td>
-	        			<%}else{ %>
-	        			<td width=35px><button class="reComment" onclick="togleReComment()">답글</button></td>
-	        			<%} %>
+			        			<td width=35px><button class="reComment" onclick="togleReComment(${status.index})">답글</button></td>
 	        			</c:when>
 	        			</c:choose>
 	        		</tr>
 	        	</table>
-	        	<div class="insertReComment">
-       			 	<form action="boradRecomment.do" name=form3 method=post>
-        				<c:choose>
-            				<c:when test="${loginUser != null }">
-	        					<table>
-        							<tr>
-        								<td width = 50px><img src="image/recomment.png" width="100%" height="100%"></td>
-	        							<td width = "70px"><%=loginUser.getName() %></td>
-        								<td><textarea rows="2" placeholder="댓글을 입력해주세요" name="reply" required></textarea></td>
-        								<td width=30px><button>등록</button></td>
-        						</table>
-        					</c:when>
-        				</c:choose>
-        			</form>
-        		</div>
-	        <%} %>
-        </div>
+		        </c:if>
+	        	<c:if test ="${comment.depth == 1 }"> <%--recomment.bundle_id == comment.bundle_id --%>
+        			<table>
+		        		<tr>
+		        			<td width=70px rowspan="2"><img src="image/recomment.png" width=100% height=100%></td>
+		        			<td rowspan="2" align="center" width = "70px" style="border-right: 1px solid #eee ">${comment.name }</td>
+		        			<td colspan="4" class="ganguk" style="border-bottom: 1px solid #eee">${comment.reply }</td>
+		        		</tr>
+		        		<tr class="tablefont">
+		        			<td height="10px" class="ganguk">${comment.reply_time }</td>
+		        		</tr>
+		        	</table>
+	        	</c:if>
+<!-- 	        	대댓글 입력하는 곳 -->
+		        <div class="insertReComment">
+		        	<form action = "boradRecomment.do?bundle_id=${comment.bundle_id }" name=form4 method=post>
+		        		<c:choose>
+		        			<c:when test="${loginUser != null }">
+			        			<table>
+				        			<tr>
+				        				<td width=70px><img src="image/recomment.png" width=100% height=100%></td>
+					        			<td width = "70px"><%=loginUser.getName() %></td>
+				        				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply" required></textarea></td>
+				        				<td width=30px><button>등록</button></td>
+				        			</tr>
+				        		</table>
+		        			</c:when>
+		        		</c:choose>
+		        	</form>
+		        </div>
+        	</c:forEach>
+       </div>
+<!--    댓글 등록구역	 -->
         <div id="insertComment">
         	<form action="boradComment.do" name=form3 method=post>
         	<c:choose>
@@ -150,9 +161,10 @@
 	        			<td width = "70px"><%=loginUser.getName() %></td>
         				<td><textarea rows="3" placeholder="댓글을 입력해주세요" name="reply" required></textarea></td>
         				<td width=30px><button>등록</button></td>
+        			</tr>
         		</table>
         		</c:when>
-        		</c:choose>
+        	</c:choose>
         	</form>
         </div>
     </div>
@@ -172,11 +184,12 @@
         function w_edit(){
         	document.location.href="boradEdit.do";
         }
-        function togleReComment(){
-       		document.querySelector('.insertReComment').style.display = 'block';
-       		
-//        		const comment = document.querySelectorAll(".insertReComment");
-       		
+        function togleReComment(index){
+        	var select = document.querySelectorAll('.insertReComment');
+       		select[index].style.display = 'block';
+        }
+        function w_like(){
+        	document.location = "boradSuggest.do";
         }
     </script>
 </body>

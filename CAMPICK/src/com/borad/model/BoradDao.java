@@ -82,14 +82,15 @@ public class BoradDao {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "select * from (select rownum num, a.* from borad a) where num BETWEEN ? and ?  order by borad_id desc;";
+		String sql = "select * from (select rownum rn , a.* from (select b.* from borad b order by borad_id desc) a ) where rn >=? and rn <=?";
+//		String sql = "Select * from borad order by borad_id desc";
 		
 		
 		try {
 			connection = getConnection();
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, startRow+9);
+			pstmt.setInt(2, startRow+pageSize-1);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoradDto dto = new BoradDto();
@@ -232,5 +233,37 @@ public class BoradDao {
 		}
 		
 		return dto.getDb_count();
+	}
+	
+	public void increaseSuggest(int borad_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "update borad set borad_suggestion=borad_suggestion+1 where borad_id="+borad_id;
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate(sql);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+	}
+	
+	public void decreaseSuggest(int borad_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		String sql = "update borad set borad_suggestion=borad_suggestion-1 where borad_id="+borad_id;
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate(sql);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
 	}
 }

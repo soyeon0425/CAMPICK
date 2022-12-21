@@ -33,6 +33,8 @@ import com.comment.service.ReCommentService;
 import com.comment.service.ReCommentServiceImpl;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.suggest.service.SuggestService;
+import com.suggest.service.SuggestServiceImpl;
 import com.user.model.UserDto;
 import com.user.service.IDCheckService;
 import com.user.service.IDCheckServicelmpl;
@@ -110,7 +112,7 @@ public class FrontServlet extends HttpServlet {
 			
 		//글쓰기 화면에서 db로 입력
 		}else if(command.equals("/boradInsert.do")){
-			String saveFolder = "C:\\Project_camp\\CAMPICK\\CAMPICK\\WebContent\\image";		//사진을 저장할 경로
+			String saveFolder = request.getSession().getServletContext().getRealPath("/image");		//사진을 저장할 경로
 			String encType = "utf-8";				//변환형식
 			int maxSize=5*1024*1024;				//사진의 size
 			
@@ -200,19 +202,35 @@ public class FrontServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
 		//대댓글 입력 메소드
-//		}else if(command.equals("/boradRecomment.do")){
-//			System.out.println("recomment 진입");
-//			
-//			CommentDto cDto = new CommentDto();
-//			cDto.setReply(request.getParameter("reply"));
-//			
-//			request.setAttribute("cDto", cDto);
-//			ReCommentService reCommentService = new ReCommentServiceImpl();
-//			
-//			reCommentService.execute(request, response);
-//			HttpSession session = request.getSession();
-//			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
-
+		}else if(command.equals("/boradRecomment.do")){
+			System.out.println("recomment 진입");
+			
+			CommentDto cDto = new CommentDto();
+			cDto.setReply(request.getParameter("reply"));
+			cDto.setBundle_id(Integer.parseInt(request.getParameter("bundle_id")));
+			request.setAttribute("cDto", cDto);
+			ReCommentService reCommentService = new ReCommentServiceImpl();
+			
+			reCommentService.execute(request, response);
+			HttpSession session = request.getSession();
+			response.sendRedirect("boradDetail.do?borad_id="+(int)session.getAttribute("boradid"));
+			
+		}else if(command.equals("/boradSuggest.do")) {
+			SuggestService ss = new SuggestServiceImpl();
+			PrintWriter out = response.getWriter();
+			HttpSession session = request.getSession();
+			try {
+				if(ss.execute(request, response) ==1) {
+					out.println("<script>alert('추천 하였습니다!'); location.href='boradDetail.do?borad_id="+(int)session.getAttribute("boradid")+"';</script>");
+					out.flush();
+				}else {
+					out.println("<script>alert('추천을 취소하였습니다!'); location.href='boradDetail.do?borad_id="+(int)session.getAttribute("boradid")+"';</script>");
+					out.flush();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //-------------------------------------------------------------------------------------------------------------
 		//회원가입 메소드
 		}else if(command.equals("/userRegister.do")) {
