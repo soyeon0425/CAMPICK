@@ -150,7 +150,7 @@ public class FrontServlet extends HttpServlet {
 			rd.forward(request, response);
 
 		//수정화면으로 이동
-		}else if(command.equals("boradEdit.do")) {
+		}else if(command.equals("/boradEdit.do")) {
 			System.out.println("edit 진입");
 			RequestDispatcher rd = request.getRequestDispatcher("writeEdit.jsp");
 			rd.forward(request, response);
