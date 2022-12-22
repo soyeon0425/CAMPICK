@@ -255,6 +255,11 @@ public class FrontServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("searchResult.jsp");
 			rd.forward(request, response);
+		
+		
+		//캠핑장 상세 화면
+		}else if(command.equals("/campDetail.do")) {
+			System.out.println("CampDetail 들어옴!");
 			
 			
 			
