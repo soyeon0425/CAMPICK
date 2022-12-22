@@ -1,5 +1,9 @@
 package com.searchcamp.model;
 
+import java.util.ArrayList;
+
+import org.json.simple.JSONObject;
+
 public class SearchCampDto {
 	private int camp_id; //캠프 id
 	private String camp_name; //캠핑장 이름
@@ -27,7 +31,14 @@ public class SearchCampDto {
 	private String siteBottom4; //바닥 자갈
 	private String siteBottom5; //바닥 맨흙
 	
+	private ArrayList<SearchCampDto> imgUrl;
 	
+	public ArrayList<SearchCampDto> getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(ArrayList<SearchCampDto> imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 	public int getCamp_id() {
 		return camp_id;
 	}

@@ -193,8 +193,8 @@
                     <ul>
                         <h3>바닥 형태</h3>
                         <li><input type="checkbox" value="grass">잔디</li>
-                        <li><input type="checkbox" value="deck">데크</li>
                         <li><input type="checkbox" value="crushed">파쇄석</li>
+                        <li><input type="checkbox" value="deck">데크</li>
                         <li><input type="checkbox" value="Pebble">자갈</li>
                         <li><input type="checkbox" value="soil">맨흙</li>
                     </ul>

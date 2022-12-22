@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*,com.user.model.*"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
      
     <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
 <!DOCTYPE html>
@@ -56,7 +57,16 @@
     <div id="contents">
       <c:forEach var="scDto" items="${scDtoList }" varStatus="status">
       <div class="card">
-        <img src="image/example.jpg" alt="캠핑장 사이트 사진">
+      	<c:set var="check" value="1"></c:set>
+      	<c:forEach var="giDto" items="${giDtoList }" varStatus="gi_status">
+		    <c:if test="${scDto.camp_id == giDto.camp_id }">
+	          <img src="${giDto.imgUrl1 }" alt="캠핑장 사이트 사진" width=340px height=330px>
+              <c:set var="check" value="0"></c:set>
+		    </c:if>
+        </c:forEach>
+        <c:if test="${check ==1 }">
+	      <img src="image/noimage.png" alt="캠핑장 사이트 사진" width=340px height=330px>
+	    </c:if>
         <div class="campinfo">
           <div class="campinfo_head">
             <a href="campDetail.jsp">${scDto.camp_name }</a>
@@ -76,9 +86,12 @@
               </ul>
             </div>
             <div class="campinfo_detail">
+         	  <c:set var="subList" value="${fn:split(scDto.subPlace,',')}" />
               <ul>
-              	<c:forEach var="subplace" items="${subplaceList }" varStatus="status">
-	                <li>${subplace}</li>
+              	<c:forEach var="sub" items="${subList }" varStatus="status">
+           		  <c:if test="${sub != null }">
+	                <li>${sub}</li>
+	              </c:if>
               	</c:forEach>
               </ul>
             </div>

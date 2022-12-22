@@ -143,23 +143,22 @@ hr {
     height:330px;
    /* background-color:rgb(53, 255, 26);*/
     margin:auto;
+    margin:20px;
+    margin-bottom:40px;
 }
 
 .card img{
     float:left;
-    margin-top:20px;
-    margin-left:30px;
-    width:340px;
-    height:330px;
+    margin-left:50px;
 }
 
 .campinfo{
-    float:left;
+    float:right;
     background-color:#f1f1f1;
     width:750px;
     height:330px;
-    margin-top:20px;
     position: relative;
+    margin-right:60px;
 }
 
 .campinfo_head{
@@ -198,8 +197,9 @@ hr {
 }
 .campinfo_contents li{
     float:left;
-    margin-right:30px;
-    margin-left:40px;
+    margin-right:40px;
+    margin-left:50px;
+    margin-bottom:10px;
     font-size:18px;
     list-style-image:url(../image/button.png);
     font-family: 'S-CoreDream-3Light';
@@ -207,11 +207,11 @@ hr {
 }
 
 .campinfo_detail{
-    width:550px;
-    height:100px;
-    margin-top:60px;
-    margin-left:20px;
+   width:650px;
    border:1px solid #D1433A;background-color:rgb(255, 255, 255);
+   position: absolute;
+   top: 200px;
+   left: 30px;
 }
 
 .campinfo_detail ul{
@@ -221,7 +221,8 @@ hr {
 
 .campinfo_detail li{
     margin-left:25px;
-    margin-top:20px;
+    margin-top:10px;
+    margin-bottom:10px;
     position:relative; height:100%; width:20%; float:left;
     list-style-image:url(../image/next_tab.png);
     font-family: 'NanumBarunGothic';
@@ -232,4 +233,5 @@ footer{
     width:100%;
     height:100px;
     background-color:#050e07;
+    margin-top: 50px;
 }

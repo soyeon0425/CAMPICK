@@ -9,5 +9,5 @@ import javax.servlet.http.HttpServletResponse;
 import com.searchcamp.model.SearchCampDto;
 
 public interface CampListService {
-	public ArrayList<SearchCampDto> execute(HttpServletRequest request, HttpServletResponse response) throws SQLException;
+	public ArrayList<SearchCampDto> execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

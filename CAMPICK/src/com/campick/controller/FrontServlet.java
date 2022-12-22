@@ -31,6 +31,9 @@ import com.comment.service.CommentService;
 import com.comment.service.CommentServiceImpl;
 import com.comment.service.ReCommentService;
 import com.comment.service.ReCommentServiceImpl;
+import com.getimg.model.GetImgDto;
+import com.getimg.service.GetImgService;
+import com.getimg.service.GetImgServiceImpl;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.searchcamp.model.SearchCampDto;
@@ -74,7 +77,7 @@ public class FrontServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			actionDo(request,response);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -87,12 +90,12 @@ public class FrontServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			actionDo(request,response);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	protected void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	protected void actionDo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
@@ -241,27 +244,14 @@ public class FrontServlet extends HttpServlet {
 		
 		}else if(command.equals("/campList.do")) {
 			System.out.println("CampList 들어옴!");
-			System.out.println("캠핑장 이름: "+request.getParameter("camp_name"));
-			System.out.println("시/도: "+request.getParameter("cdo"));
-			System.out.println("시/군/구: "+request.getParameter("sigungu"));
-			String[] camptype = request.getParameterValues("camptype");
-			if(camptype != null) {
-				for(int i = 0; i<camptype.length;i++) {
-					System.out.println("캠핑장 구분: "+camptype[i]);
-				}
-			}
+			
 			CampListService cls = new CampListServiceImpl();
 			ArrayList<SearchCampDto> scDtoList = cls.execute(request, response);
 			request.setAttribute("scDtoList", scDtoList);
-			for(int i = 0; i<scDtoList.size();i++) {
-				System.out.println(scDtoList.get(i).getSubPlace());
-			}
-//			String[] subplaceList = request.getParameter("subplace").split(",");
 			
-//			for(int i=0; i<subplaceList.length;i++) {
-//				System.out.println("subplaceList: "+subplaceList);
-//			}
-//			request.setAttribute("subplaceList", subplaceList);
+			GetImgService gis = new GetImgServiceImpl(); 
+			ArrayList<GetImgDto> giDtoList = gis.execute(request, response);
+			request.setAttribute("giDtoList", giDtoList);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("searchResult.jsp");
 			rd.forward(request, response);

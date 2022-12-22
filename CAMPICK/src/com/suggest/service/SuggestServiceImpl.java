@@ -24,7 +24,7 @@ public class SuggestServiceImpl implements SuggestService{
 		int borad_id = (int)hs.getAttribute("boradid");
 		SuggestDto sDto = sDao.checkDB(borad_id, uDto.getId(), uDto.getName());
 		
-		
+		//체크값이 0이면 생성 2면 추천안한사람 1이면 추천한사람
 		if(sDto.getChecked() == 0){
 			sDao.insertDB(borad_id, uDto.getId(), uDto.getName());
 			sDto = sDao.checkDB(borad_id, uDto.getId(), uDto.getName());
