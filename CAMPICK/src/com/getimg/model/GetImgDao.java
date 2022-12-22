@@ -70,4 +70,33 @@ private static GetImgDao instance = new GetImgDao();
 		}
 		return giDtoList;
 	}
+	
+	public GetImgDto getDB(int camp_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		GetImgDto giDto = new GetImgDto();
+		
+		String sql = "SELECT * from camp_img where camp_id ="+camp_id;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				giDto.setImgUrl1(rs.getString("imgUrl1"));
+				giDto.setImgUrl2(rs.getString("imgUrl2"));
+				giDto.setImgUrl3(rs.getString("imgUrl3"));
+				rs.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+		
+		return giDto;
+	}
 }

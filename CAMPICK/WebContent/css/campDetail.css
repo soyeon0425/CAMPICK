@@ -114,7 +114,6 @@ nav{
 
 #contents{
     width:100%;
-    height:750px;
 }
 
 .headline{
@@ -180,14 +179,14 @@ input:checked + label {
 table, tr, td, th{
     border:1px solid #727272;
     border-collapse:collapse;
+    font-family: 'GangwonEdu_OTFBoldA';
 
 }
 table{
     font-size:18px;
     margin:auto;
     margin-top:30px;
-    height:300px;
-    width:700px;
+    width:900px;
     font-family: 'NanumBarunGothic';
 
 }
@@ -198,6 +197,21 @@ th{
 #content2 img{
     width:600px;
     height:400px;
+}
+#intro{
+	padding:20px;
+	text-align:left;
+	word-spacing: 3px;
+	font-family: 'GangwonEdu_OTFBoldA';
+}
+a{
+	color:black;
+}
+#content1 img{
+	width:900px;
+}
+a:hover{
+	text-shadow: 0.3px 0.3px black;
 }
 
 footer{

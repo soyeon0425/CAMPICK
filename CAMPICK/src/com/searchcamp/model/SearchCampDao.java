@@ -1,10 +1,5 @@
 package com.searchcamp.model;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +9,6 @@ import java.util.ArrayList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 public class SearchCampDao {
 	
@@ -155,6 +146,38 @@ public class SearchCampDao {
 		}
 		
 		return scDto.getCamp_count();
+	}
+	public SearchCampDto getDB(int camp_id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		SearchCampDto scDto = new SearchCampDto();
+		
+		String sql = "SELECT * from camp_info where camp_id ="+camp_id;
+		
+		try {
+			connection = getConnection();
+			pstmt = connection.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				scDto.setCamp_name(rs.getString("camp_name"));
+				scDto.setAddr(rs.getString("addr"));
+				scDto.setTel(rs.getString("tel"));
+				scDto.setPlace(rs.getString("place"));
+				scDto.setFacility(rs.getString("facility"));
+				scDto.setHomepage(rs.getString("homepage"));
+				scDto.setIntro(rs.getString("intro"));
+				rs.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			pstmt.close();
+		}
+		
+		return scDto;
 	}
 	
 }

@@ -32,11 +32,15 @@ import com.comment.service.CommentServiceImpl;
 import com.comment.service.ReCommentService;
 import com.comment.service.ReCommentServiceImpl;
 import com.getimg.model.GetImgDto;
+import com.getimg.service.GetImgListService;
+import com.getimg.service.GetImgListServiceImpl;
 import com.getimg.service.GetImgService;
 import com.getimg.service.GetImgServiceImpl;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.searchcamp.model.SearchCampDto;
+import com.searchcamp.service.CampDetailService;
+import com.searchcamp.service.CampDetailServiceImpl;
 import com.searchcamp.service.CampListService;
 import com.searchcamp.service.CampListServiceImpl;
 import com.suggest.service.SuggestService;
@@ -261,7 +265,16 @@ public class FrontServlet extends HttpServlet {
 		}else if(command.equals("/campDetail.do")) {
 			System.out.println("CampDetail 들어옴!");
 			
+			CampDetailService cds = new CampDetailServiceImpl();
+			SearchCampDto scDto = cds.execute(request, response);
+			request.setAttribute("scDto", scDto);
 			
+			GetImgListService gils = new GetImgListServiceImpl();
+			GetImgDto giDto = gils.execute(request, response);
+			request.setAttribute("giDto", giDto);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("campDetail.jsp");
+			rd.forward(request, response);
 			
 			
 //-------------------------------------------------------------------------------------------------------------

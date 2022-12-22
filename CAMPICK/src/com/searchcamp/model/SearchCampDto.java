@@ -2,8 +2,6 @@ package com.searchcamp.model;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
-
 public class SearchCampDto {
 	private int camp_id; //캠프 id
 	private String camp_name; //캠핑장 이름

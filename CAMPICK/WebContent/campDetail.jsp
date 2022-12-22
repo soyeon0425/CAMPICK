@@ -49,7 +49,7 @@
     </nav>
     <div id="contents">
     <div class="headline">
-    <h1>중앙 정보 캠핑장</h1>
+    <h1>${scDto.camp_name }</h1>
     <h2>캠핑장 정보 자세히보기</h2>
     </div>
     <div class="tab">
@@ -64,26 +64,31 @@
             <label for="tab3">날씨정보</label>
          
             <section id="content1" style="margin-bottom:20px;">
+            	<img src="${giDto.imgUrl1 }">
                 <table>
                     <tr>
-                        <th>주소</th>
-                        <td>서울시 마포구 신촌로 176 5층</td>
+                    	<th width="100px">소개글</th>
+                    	<td id="intro">${scDto.intro }</td>
                     </tr>
                     <tr>
-                        <th>번호</th>
-                        <td>010-3333-4444</td>
+                        <th width="100px" height=80px>주소</th>
+                        <td>${scDto.addr }</td>
                     </tr>
                     <tr>
-                        <th>캠핑장 환경</th>
-                        <td>숲, 산</td>
+                        <th width="100px" height=80px>번호</th>
+                        <td>${scDto.tel }</td>
                     </tr>
                     <tr>
-                        <th>캠핑장 유형</th>
-                        <td>일반야영장</td>
+                        <th width="100px" height=80px>캠핑장 환경</th>
+                        <td>${scDto.place }</td>
                     </tr>
                     <tr>
-                        <th>홈페이지</th>
-                        <td>홈페이지 바로가기</td>
+                        <th width="100px" height=80px>캠핑장 유형</th>
+                        <td>${scDto.facility }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=80px>홈페이지</th>
+                        <td><a href="${scDto.homepage }">${scDto.homepage }</a></td>
                     </tr>
                 </table>
             </section>
