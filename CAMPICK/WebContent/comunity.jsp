@@ -94,7 +94,17 @@
         	    	if(reqPage == null){
         	    		reqPage = "1";
         	    	}
+        			int pageSize = 9; // 페이지당 보여주는 게시글 갯수
+        			int pageCount = count / pageSize + (count % pageSize == 0? 0:1); //페이지 갯수
         	    	int curPage = Integer.parseInt(reqPage);
+        	    	int pageBlock = 10;
+        	    	
+        	    	int startPage = ((curPage-1)/pageBlock)*pageBlock+1;
+        	    	
+        	    	int endPage = startPage + pageBlock-1;
+        	    	if(endPage > pageCount){
+        	    		endPage = pageCount;
+        	    	}
         	    	if(curPage >1){
         	%>
         	    		<li><li class=page_li>
@@ -102,20 +112,18 @@
         	    		</li>
         	    		
         	<%		}
-        			int pageSize = 9; // 페이지당 보ㅗ여주는 게시글 갯수
-        			int pageCount = count / pageSize + (count % pageSize == 0? 0:1); //페이지 갯수
-        			for(int i = 1; i<=pageCount; i++){ 
+        			for(int i = startPage; i<=endPage; i++){ 
         				if(i == curPage){
         	%>
     					<li class=page_li><a href="boradList.do?page=<%=i%>"  id=curPage><%=i %></a></li>
-    				<%	}else{ %>
+    		<%			}else{ %>
         				<li class=page_li>
         					<a href=boradList.do?page=<%=i%>><%=i %></a>
         				</li>
         	<%			
         				}
         			}
-        			if(curPage < pageCount){
+        			if(endPage < pageCount){
         	%>
         				<li class=page_li>
         					<a href=boradList.do?page=<%=curPage +1 %>>다음</a>

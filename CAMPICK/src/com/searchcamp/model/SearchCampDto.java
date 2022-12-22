@@ -30,14 +30,23 @@ public class SearchCampDto {
 	private String siteBottom3; //바닥 파쇄석
 	private String siteBottom4; //바닥 자갈
 	private String siteBottom5; //바닥 맨흙
+	private int camp_count; // 캠핑장 카운트
 	
-	private ArrayList<SearchCampDto> imgUrl;
+	private ArrayList<SearchCampDto> imgUrl; //이미지 주소
 	
 	public ArrayList<SearchCampDto> getImgUrl() {
 		return imgUrl;
 	}
 	public void setImgUrl(ArrayList<SearchCampDto> imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	
+	
+	public int getCamp_count() {
+		return camp_count;
+	}
+	public void setCamp_count(int camp_count) {
+		this.camp_count = camp_count;
 	}
 	public int getCamp_id() {
 		return camp_id;

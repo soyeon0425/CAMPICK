@@ -3,7 +3,10 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
      
-    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
+    <%
+    	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+    	int count = (int)request.getAttribute("camp_count");
+    %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,7 +53,7 @@
     </nav>
 
     <div id="resultCount">
-        <p>총  ${scDtoList.size()}개의 결과가 검색되었습니다.</p>
+        <p>총  <%=count %>개의 결과가 검색되었습니다.</p>
         <hr>
     </div>
 
@@ -69,7 +72,7 @@
 	    </c:if>
         <div class="campinfo">
           <div class="campinfo_head">
-            <a href="campDetail.jsp">${scDto.camp_name }</a>
+            <a href="campDetail.do?camp_id=${scDto.camp_id}">${scDto.camp_name }</a>
               <div class="wishlist">
                 <img src="image/wishlist.png" onclick="alert('찜 list에 추가되었습니다.')">
               </div>
@@ -99,6 +102,54 @@
       </div>
       </c:forEach>
     </div>
+    <div id=page_contorl>
+        	<ul>
+        	<%
+        		if(count != 0){
+        			String reqPage = request.getParameter("page");
+        	    	if(reqPage == null){
+        	    		reqPage = "1";
+        	    	}
+        			int pageSize = 9; // 페이지당 보여주는 게시글 갯수
+        			int pageCount = count / pageSize + (count % pageSize == 0? 0:1); //페이지 갯수
+        	    	int curPage = Integer.parseInt(reqPage);
+        	    	int pageBlock = 10;
+        	    	
+        	    	int startPage = ((curPage-1)/pageBlock)*pageBlock+1;
+        	    	
+        	    	int endPage = startPage + pageBlock-1;
+        	    	if(endPage > pageCount){
+        	    		endPage = pageCount;
+        	    	}
+        	    	if(curPage >1){
+        	%>
+        	    		<li><li class=page_li>
+        	    			<a href="campList.do?page=<%=curPage-1 %>">이전</a>
+        	    		</li>
+        	    		
+        	<%		}
+        			for(int i = startPage; i<=endPage; i++){ 
+        				if(i == curPage){
+        	%>
+    					<li class=page_li><a href="campList.do?page=<%=i%>"  id=curPage><%=i %></a></li>
+    		<%			}else{ %>
+        				<li class=page_li>
+        					<a href=campList.do?page=<%=i%>><%=i %></a>
+        				</li>
+        	<%			
+        				}
+        			}
+        			if(endPage < pageCount){
+        	%>
+        				<li class=page_li>
+        					<a href=campList.do?page=<%=curPage +1 %>>다음</a>
+        				</li>
+        	<%
+        			}
+        		}
+        	%>
+        	</ul>
+        </div>
     <footer>
 
     </footer>

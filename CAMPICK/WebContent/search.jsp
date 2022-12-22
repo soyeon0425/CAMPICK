@@ -84,7 +84,7 @@
 <!--                             <option value="16">경상남도</option> -->
 <!--                             <option value="17">제주도</option> -->
 <!--                         </select> -->
-							<input list="location_cdo" id="input_cdo" name="cdo" placeholder="-- 시/도 -- "/>
+							<input list="location_cdo" id="input_cdo" name="donm" placeholder="-- 시/도 -- "/>
                        		 <datalist id="location_cdo">
                            		  <option value="경기도">
                       		  </datalist>
@@ -161,7 +161,7 @@
                         <label>캠핑 구분</label>
                         <input type="checkbox" id="site_01" name="camptype" value="일반야영장">일반야영장
                         <input type="checkbox" id="site_02" name="camptype" value="자동차야영장">자동차야영장
-                        <input type="checkbox" id="site_03" name="camptype"  value="카라반">카라반
+                        <input type="checkbox" id="site_03" name="camptype" value="카라반">카라반
                         <input type="checkbox" id="site_04" name="camptype" value="글램핑">글램핑
                     </p>
                     <button type="button" onclick="submit()"> 검색하기 </button> 

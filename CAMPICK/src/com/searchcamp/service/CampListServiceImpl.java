@@ -28,10 +28,19 @@ public class CampListServiceImpl implements CampListService{
 	@Override
 	public ArrayList<SearchCampDto> execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String camp_name = request.getParameter("camp_name");
-		String cdo = request.getParameter("cdo");
+		String donm = request.getParameter("donm");
 		String sigungu = request.getParameter("sigungu");
 		String[] camptype = request.getParameterValues("camptype");
 		
-		return scDao.getDBList(camp_name, cdo, sigungu, camptype);
+		request.setAttribute("camp_count", scDao.getDBcount(camp_name, donm, sigungu, camptype));
+		int pageSize = 9;
+    	String pageNo = request.getParameter("page");
+    	if(pageNo == null){
+    		pageNo = "1";
+    	}
+    	int curPage = Integer.parseInt(pageNo);
+    	int startRow = ((curPage-1) * pageSize) +1 ;
+		
+		return scDao.getDBList(camp_name, donm, sigungu, camptype,startRow,pageSize);
 	}
 }
