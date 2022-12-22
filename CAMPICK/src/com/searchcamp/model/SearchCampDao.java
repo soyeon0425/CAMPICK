@@ -83,7 +83,6 @@ public class SearchCampDao {
 				scDto.setAddr(rs.getString("addr"));
 				scDto.setTel(rs.getString("tel"));
 				scDto.setSubPlace(rs.getString("subplace"));
-				scDto.setLineIntro(rs.getString("lineintro"));
 				scDtoList.add(scDto);
 			}
 			rs.close();
@@ -167,6 +166,14 @@ public class SearchCampDao {
 				scDto.setFacility(rs.getString("facility"));
 				scDto.setHomepage(rs.getString("homepage"));
 				scDto.setIntro(rs.getString("intro"));
+				scDto.setSubPlace(rs.getString("subPlace"));
+				scDto.setLineIntro(rs.getString("lineintro"));
+				scDto.setEqpmnlendcl(rs.getString("eqpmnlendcl"));
+				scDto.setExprnprogrm(rs.getString("exprnprogrm"));
+				scDto.setOperdate(rs.getString("operdate"));
+				scDto.setSeason(rs.getString("season"));
+				scDto.setThema(rs.getString("thema"));
+				scDto.setPlayPlace(rs.getString("playPlace"));
 				rs.close();
 			}
 			

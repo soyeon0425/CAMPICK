@@ -71,23 +71,43 @@
                     	<td id="intro">${scDto.intro }</td>
                     </tr>
                     <tr>
-                        <th width="100px" height=80px>주소</th>
+                        <th width="100px" height=50px>주소</th>
                         <td>${scDto.addr }</td>
                     </tr>
                     <tr>
-                        <th width="100px" height=80px>번호</th>
+                        <th width="100px" height=50px>번호</th>
                         <td>${scDto.tel }</td>
                     </tr>
                     <tr>
-                        <th width="100px" height=80px>캠핑장 환경</th>
+                        <th width="100px" height=50px>캠핑장 환경</th>
                         <td>${scDto.place }</td>
                     </tr>
                     <tr>
-                        <th width="100px" height=80px>캠핑장 유형</th>
-                        <td>${scDto.facility }</td>
+                        <th width="100px" height=50px>테마</th>
+                        <td>${scDto.thema }</td>
                     </tr>
                     <tr>
-                        <th width="100px" height=80px>홈페이지</th>
+                        <th width="100px" height=50px>놀거리</th>
+                        <td>${scDto.playPlace }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=50px>계절</th>
+                        <td>${scDto.season }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=50px>가능한 날</th>
+                        <td>${scDto.operdate }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=50px>대여장비</th>
+                        <td>${scDto.eqpmnlendcl }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=50px>체험,프로그램</th>
+                        <td>${scDto.exprnprogrm }</td>
+                    </tr>
+                    <tr>
+                        <th width="100px" height=50px>홈페이지</th>
                         <td><a href="${scDto.homepage }">${scDto.homepage }</a></td>
                     </tr>
                 </table>
