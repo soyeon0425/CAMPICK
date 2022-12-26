@@ -1,18 +1,9 @@
 package com.searchcamp.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import javax.servlet.http.HttpSession;
 
 import com.searchcamp.model.SearchCampDao;
 import com.searchcamp.model.SearchCampDto;
@@ -27,12 +18,27 @@ public class CampListServiceImpl implements CampListService{
 	
 	@Override
 	public ArrayList<SearchCampDto> execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		
 		String camp_name = request.getParameter("camp_name");
 		String donm = request.getParameter("donm");
 		String sigungu = request.getParameter("sigungu");
-		String[] camptype = request.getParameterValues("camptype");
+		String[] camptype = null;
+		if(request.getParameterValues("camptype") != null) {
+			camptype = request.getParameterValues("camptype");
+		}
+		if(request.getParameter("camptypes") != null) {
+			String camptypes = request.getParameter("camptypes");
+			camptype = camptypes.split(",");
+		}
+		
+		session.setAttribute("camp_name", camp_name);
+		session.setAttribute("donm", donm);
+		session.setAttribute("sigungu", sigungu);
+		session.setAttribute("camptype", camptype);
 		
 		request.setAttribute("camp_count", scDao.getDBcount(camp_name, donm, sigungu, camptype));
+		
 		int pageSize = 9;
     	String pageNo = request.getParameter("page");
     	if(pageNo == null){

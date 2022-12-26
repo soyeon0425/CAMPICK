@@ -59,11 +59,15 @@ public class SearchCampDao {
 		if(camptype != null) {
 			//camptype 배열 값 만큼 돌리고 각 배열  value값을 sql문에 저장
 			for(int i=0; i<camptype.length;i++) {
-				sql += "facility LIKE '%"+camptype[i]+"%'";
+				if(sigungu != null) {
+					sql += "(sigungunm like '%"+sigungu+"%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+				}else {
+					sql += "(sigungunm like '%%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+				}
 				if(i+1 == camptype.length) {
 					break; //뒤에 OR 안찍히게 하기위한 조건문
 				}
-				sql += " AND ";
+				sql += " or ";
 			}
 		}else {sql += "facility Like '%%'";}
 		
@@ -83,6 +87,7 @@ public class SearchCampDao {
 				scDto.setAddr(rs.getString("addr"));
 				scDto.setTel(rs.getString("tel"));
 				scDto.setSubPlace(rs.getString("subplace"));
+				scDto.setFacility(rs.getString("facility"));
 				scDtoList.add(scDto);
 			}
 			rs.close();
@@ -118,11 +123,15 @@ public class SearchCampDao {
 		if(camptype != null) {
 			//camptype 배열 값 만큼 돌리고 각 배열  value값을 sql문에 저장
 			for(int i=0; i<camptype.length;i++) {
-				sql += "facility LIKE '%"+camptype[i]+"%'";
+				if(sigungu != null) {
+					sql += "(sigungunm like '%"+sigungu+"%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+				}else {
+					sql += "(sigungunm like '%%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+				}
 				if(i+1 == camptype.length) {
 					break; //뒤에 OR 안찍히게 하기위한 조건문
 				}
-				sql += " AND ";
+				sql += " or ";
 			}
 		}else {sql += "facility Like '%%'";}
 		

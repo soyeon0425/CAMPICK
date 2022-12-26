@@ -79,6 +79,10 @@
                         <td>${scDto.tel }</td>
                     </tr>
                     <tr>
+                        <th width="100px" height=50px>캠핑장 유형</th>
+                        <td>${scDto.facility }</td>
+                    </tr>
+                    <tr>
                         <th width="100px" height=50px>캠핑장 환경</th>
                         <td>${scDto.place }</td>
                     </tr>
@@ -125,5 +129,6 @@
 <footer>
 
 </footer>
+</div>
 </body>
 </html>

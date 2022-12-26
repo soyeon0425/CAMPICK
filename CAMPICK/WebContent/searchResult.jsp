@@ -6,6 +6,19 @@
     <%
     	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
     	int count = (int)request.getAttribute("camp_count");
+    	String camp_name = (String)session.getAttribute("camp_name");
+    	String donm = (String)session.getAttribute("donm");
+    	String sigungu = (String)session.getAttribute("sigungu");
+    	String[] camptype = (String[])session.getAttribute("camptype");
+  		String camptypes = "";
+    	for (int i =0; i<camptype.length; i++){
+    		camptypes += camptype[i];
+    		if(i+1 == camptype.length){
+    			break;
+    		}
+    		camptypes += ",";
+    	}
+    	
     %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -72,7 +85,7 @@
 	    </c:if>
         <div class="campinfo">
           <div class="campinfo_head">
-            <a href="campDetail.do?camp_id=${scDto.camp_id}">${scDto.camp_name }</a>
+            <a href="campDetail.do?camp_id=${scDto.camp_id}">${scDto.camp_name }<span id=campFont>(${scDto.facility})</span></a>
               <div class="wishlist">
                 <img src="image/wishlist.png" onclick="alert('찜 list에 추가되었습니다.')">
               </div>
@@ -103,6 +116,7 @@
       </c:forEach>
     </div>
     <div id=page_contorl>
+    	<c:set var="scDto">${scDtoList }</c:set>
         	<ul>
         	<%
         		if(count != 0){
@@ -124,25 +138,25 @@
         	    	if(curPage >1){
         	%>
         	    		<li><li class=page_li>
-        	    			<a href="campList.do?page=<%=curPage-1 %>">이전</a>
+        	    			<a href="campList.do?page=<%=curPage-1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>">이전</a>
         	    		</li>
         	    		
         	<%		}
         			for(int i = startPage; i<=endPage; i++){ 
         				if(i == curPage){
         	%>
-    					<li class=page_li><a href="campList.do?page=<%=i%>"  id=curPage><%=i %></a></li>
+    						<li class=page_li><a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>"  id=curPage><%=i %></a></li>
     		<%			}else{ %>
-        				<li class=page_li>
-        					<a href=campList.do?page=<%=i%>><%=i %></a>
-        				</li>
+        					<li class=page_li>
+        						<a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>"><%=i %></a>
+        					</li>
         	<%			
         				}
         			}
         			if(endPage < pageCount){
         	%>
         				<li class=page_li>
-        					<a href=campList.do?page=<%=curPage +1 %>>다음</a>
+        					<a href="campList.do?page=<%=curPage +1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>">다음</a>
         				</li>
         	<%
         			}
@@ -153,5 +167,6 @@
     <footer>
 
     </footer>
+    </div>
 </body>
 </html>
