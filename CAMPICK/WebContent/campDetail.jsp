@@ -64,7 +64,15 @@
             <label for="tab3">날씨정보</label>
          
             <section id="content1" style="margin-bottom:20px;">
-            	<img src="${giDto.imgUrl1 }">
+              <div class="carousel-wrapper">
+                <div class="carousel">
+             	  <img src="${giDto.imgUrl1 }">
+	              <img src="${giDto.imgUrl2 }">
+	              <img src="${giDto.imgUrl3 }">
+                </div>
+                <button class="prev" type="button" id="prevButton">&lt;</button>
+   			    <button class="next" type="button" id="nextButton">&gt;</button>
+              </div>
                 <table>
                     <tr>
                     	<th width="100px">소개글</th>
@@ -131,4 +139,35 @@
 </footer>
 </div>
 </body>
+	<script>
+		const prevButton = document.querySelector('.prev');
+		const nextButton = document.querySelector('.next');
+		const carousel = document.querySelector('.carousel');
+		
+		let index = 0;
+		
+		prevButton.addEventListener('click', function () {
+			   if (index === 2){
+				   carousel.style.transform = 'translate(-840px,0)';
+				   index -= 1;
+			   }else if (index === 1){
+				   carousel.style.transform = 'translate(0,0)';
+				   index -=1;
+			   }else if (index === 0){
+				   return;
+			   }
+		});
+		nextButton.addEventListener('click', function () {
+			   if (index === 0){
+				   carousel.style.transform = 'translate(-840px,0)';
+				   index += 1;
+			   }else if (index === 1){
+				   carousel.style.transform = 'translate(-1680px,0)';
+				   index +=1;
+			   }else if (index === 2){
+				   return;
+			   }
+		});
+	</script>
+
 </html>

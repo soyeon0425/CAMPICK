@@ -186,7 +186,7 @@ table{
     font-size:18px;
     margin:auto;
     margin-top:30px;
-    width:900px;
+    width:840px;
     font-family: 'NanumBarunGothic';
 
 }
@@ -207,11 +207,43 @@ th{
 a{
 	color:black;
 }
-#content1 img{
-	width:900px;
-}
 a:hover{
 	text-shadow: 0.3px 0.3px black;
+}
+.carousel-wrapper {
+  width: 840px;
+  height: 700px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-wrapper > .carousel {
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.carousel-wrapper > .carousel > img {
+	width: 840px;
+	height: 700px;
+}
+.prev{
+	position: absolute;
+	top: 0.1%;
+	left: 2%;
+}
+.next{
+	position: absolute;
+	top: 0.1%;
+	right: 2%;
+}
+#prevButton,#nextButton{
+	background-color:transparent;
+	border: none;
+    width: 32px;
+    height: 100%;
+    cursor: pointer;
+    font-size: 50px;
+    color: rgba(252,252,252,0.3);
 }
 
 footer{

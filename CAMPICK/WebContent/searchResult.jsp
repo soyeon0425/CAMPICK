@@ -6,19 +6,61 @@
     <%
     	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
     	int count = (int)request.getAttribute("camp_count");
-    	String camp_name = (String)session.getAttribute("camp_name");
-    	String donm = (String)session.getAttribute("donm");
-    	String sigungu = (String)session.getAttribute("sigungu");
-    	String[] camptype = (String[])session.getAttribute("camptype");
-  		String camptypes = "";
-    	for (int i =0; i<camptype.length; i++){
-    		camptypes += camptype[i];
-    		if(i+1 == camptype.length){
-    			break;
-    		}
-    		camptypes += ",";
+    	String camp_name = (String)request.getAttribute("camp_name");
+    	//캠핑장 명이 없을 때 초기화
+    	if(camp_name == null){
+    		camp_name = "";
     	}
     	
+    	String donm = (String)request.getAttribute("donm");
+    	String sigungu = (String)request.getAttribute("sigungu");
+    	
+    	String[] camptype = (String[])request.getAttribute("camptype");
+  		String camptypes = "";
+  		if(camptype != null){
+	    	for (int i =0; i<camptype.length; i++){
+	    		camptypes += camptype[i];
+	    		if(i+1 == camptype.length){
+	    			break;
+	    		}
+	    		camptypes += ",";
+	    	}
+  		}
+  		
+    	String[] place = (String[])request.getAttribute("place");
+  		String places = "";
+  		if(place != null){
+	    	for (int i =0; i<place.length; i++){
+	    		places += place[i];
+	    		if(i+1 == place.length){
+	    			break;
+	    		}
+	    		places += ",";
+	    	}
+  		}
+    	String[] thema = (String[])request.getAttribute("thema");
+  		String themas = "";
+  		if(thema != null){
+	    	for (int i =0; i<thema.length; i++){
+	    		themas += thema[i];
+	    		if(i+1 == thema.length){
+	    			break;
+	    		}
+	    		themas += ",";
+	    	}
+  		}
+    	String[] subplace = (String[])request.getAttribute("subplace");
+  		String subplaces = "";
+  		if(subplace != null){
+	    	for (int i =0; i<subplace.length; i++){
+	    		subplaces += subplace[i];
+	    		if(i+1 == subplace.length){
+	    			break;
+	    		}
+	    		subplaces += ",";
+	    	}
+  		}
+  		
     %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -138,17 +180,17 @@
         	    	if(curPage >1){
         	%>
         	    		<li><li class=page_li>
-        	    			<a href="campList.do?page=<%=curPage-1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>">이전</a>
+        	    			<a href="campList.do?page=<%=curPage-1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>&places=<%=places%>&themas=<%=themas%>&subplace=<%=subplaces%>">이전</a>
         	    		</li>
         	    		
         	<%		}
         			for(int i = startPage; i<=endPage; i++){ 
         				if(i == curPage){
         	%>
-    						<li class=page_li><a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>"  id=curPage><%=i %></a></li>
+    						<li class=page_li><a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>&places=<%=places%>&themas=<%=themas%>&subplace=<%=subplaces%>"  id=curPage><%=i %></a></li>
     		<%			}else{ %>
         					<li class=page_li>
-        						<a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>"><%=i %></a>
+        						<a href="campList.do?page=<%=i%>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>&places=<%=places%>&themas=<%=themas%>&subplaces=<%=subplaces%>"><%=i %></a>
         					</li>
         	<%			
         				}
@@ -156,7 +198,7 @@
         			if(endPage < pageCount){
         	%>
         				<li class=page_li>
-        					<a href="campList.do?page=<%=curPage +1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>">다음</a>
+        					<a href="campList.do?page=<%=curPage +1 %>&camp_name=<%=camp_name%>&donm=<%=donm%>&sigungu=<%=sigungu%>&camptypes=<%=camptypes%>&places=<%=places%>&themas=<%=themas%>&subplace=<%=subplaces%>">다음</a>
         				</li>
         	<%
         			}

@@ -96,8 +96,8 @@
         	    	}
         			int pageSize = 9; // 페이지당 보여주는 게시글 갯수
         			int pageCount = count / pageSize + (count % pageSize == 0? 0:1); //페이지 갯수
-        	    	int curPage = Integer.parseInt(reqPage);
-        	    	int pageBlock = 10;
+        	    	int curPage = Integer.parseInt(reqPage); //현재 페이지
+        	    	int pageBlock = 10; //페이지 보여주는 갯수 
         	    	
         	    	int startPage = ((curPage-1)/pageBlock)*pageBlock+1;
         	    	

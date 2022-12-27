@@ -37,39 +37,122 @@ public class SearchCampDao {
 		return connection;
 	}
 	
-	public ArrayList<SearchCampDto> getDBList(String camp_name,String donm, String sigungu,String[] camptype, int startRow, int pageSize) throws Exception{
+	public ArrayList<SearchCampDto> getDBList(String camp_name,String donm, String sigungu,String[] camptype,String[] place,String[] thema,String[] subplace, int startRow, int pageSize) throws Exception{
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ArrayList<SearchCampDto> scDtoList = new ArrayList<>();
 		
 		String sql = "select * from (select rownum rn , a.* from (select b.* from camp_info b where "; //sql문
 		
-		//캠핑장명 입력 있으면 camp_name 입력 없으면 빈공간으로 해서 sql에  추가
-		if(camp_name != null) {	sql +="camp_name Like '%"+camp_name+"%' AND ";}
-		else {sql +="camp_name Like '%%' AND ";}
-		
-		//지역에 시/도 입력값 있으면 cdo 추가 없으면 %경기도%로 sql 추가
-		if(donm != null) {sql +="donm Like '%경기%' AND ";}
-		else {sql +="donm Like '%경기도%' AND ";}
-		
-		// 시/군/구 입력값 있으면 sigungu , 없으면 빈공간으로 sql문 추가
-		if(sigungu != null) {sql +="sigungunm Like '%"+sigungu+"%' AND ";}
-		else {sql +="sigungunm Like '%%' AND ";}
-		
 		if(camptype != null) {
-			//camptype 배열 값 만큼 돌리고 각 배열  value값을 sql문에 저장
-			for(int i=0; i<camptype.length;i++) {
-				if(sigungu != null) {
-					sql += "(sigungunm like '%"+sigungu+"%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
-				}else {
-					sql += "(sigungunm like '%%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+			if(sigungu != null) {
+				for(int i=0; i<camptype.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND facility like '%"+camptype[i]+"%')";
+					if(i+1 == camptype.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
 				}
-				if(i+1 == camptype.length) {
-					break; //뒤에 OR 안찍히게 하기위한 조건문
+			}else {
+				for(int i=0; i<camptype.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND facility like '%"+camptype[i]+"%')";
+					if(i+1 == camptype.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
 				}
-				sql += " or ";
 			}
-		}else {sql += "facility Like '%%'";}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND facility like '%%') OR ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND facility like '%%') OR ";
+			}
+		}
+		
+		if(place != null) {
+			if(sigungu != null) {
+				for(int i=0; i<place.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND place like '%"+place[i]+"%')";
+					if(i+1 == place.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<place.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND place like '%"+place[i]+"%')";
+					if(i+1 == place.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND place like '%%') OR ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND place like '%%') OR ";
+			}
+		}
+		
+		if(thema != null) {
+			if(sigungu != null) {
+				for(int i=0; i<thema.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND thema like '%"+thema[i]+"%')";
+					if(i+1 == thema.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<thema.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%"+thema[i]+"%')";
+					if(i+1 == thema.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND thema like '%%') AND ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%%') AND ";
+			}
+		}
+		
+		if(subplace != null) {
+			if(sigungu != null) {
+				for(int i=0; i<subplace.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND subplace like '%"+subplace[i]+"%')";
+					if(i+1 == subplace.length) {
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<subplace.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%"+subplace[i]+"%')";
+					if(i+1 == subplace.length) {
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND subplace like '%%')";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND subplace like '%%')";
+			}
+		}
 		
 		sql +=" )a ) where rn>=? and rn <=?";
 		
@@ -92,7 +175,6 @@ public class SearchCampDao {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
@@ -104,36 +186,121 @@ public class SearchCampDao {
 		}
 		return scDtoList;
 	}
-	public int getDBcount(String camp_name,String donm, String sigungu,String[] camptype) throws SQLException {
+	public int getDBcount(String camp_name,String donm, String sigungu,String[] camptype,String[] place,String[] thema,String[] subplace) throws SQLException {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		SearchCampDto scDto = new SearchCampDto();
 		
 		String sql = "SELECT count(*) as camp_count from camp_info where ";
-		if(camp_name != null) {	sql +="camp_name Like '%"+camp_name+"%' AND ";}
-		else {sql +="camp_name Like '%%' AND ";}
-		
-		//지역에 시/도 입력값 있으면 cdo 추가 없으면 %경기도%로 sql 추가
-		if(donm != null) {sql +="donm Like '%경기%' AND ";}
-		else {sql +="donm Like '%경기도%' AND ";}
-		
-		// 시/군/구 입력값 있으면 sigungu , 없으면 빈공간으로 sql문 추가
-		if(sigungu != null) {sql +="sigungunm Like '%"+sigungu+"%' AND ";}
-		else {sql +="sigungunm Like '%%' AND ";}
 		if(camptype != null) {
-			//camptype 배열 값 만큼 돌리고 각 배열  value값을 sql문에 저장
-			for(int i=0; i<camptype.length;i++) {
-				if(sigungu != null) {
-					sql += "(sigungunm like '%"+sigungu+"%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
-				}else {
-					sql += "(sigungunm like '%%' AND donm like '%경기%' and facility LIKE '%"+camptype[i]+"%')";
+			if(sigungu != null) {
+				for(int i=0; i<camptype.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND facility like '%"+camptype[i]+"%')";
+					if(i+1 == camptype.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
 				}
-				if(i+1 == camptype.length) {
-					break; //뒤에 OR 안찍히게 하기위한 조건문
+			}else {
+				for(int i=0; i<camptype.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND facility like '%"+camptype[i]+"%')";
+					if(i+1 == camptype.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
 				}
-				sql += " or ";
 			}
-		}else {sql += "facility Like '%%'";}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND facility like '%%') OR ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND facility like '%%') OR ";
+			}
+		}
+		
+		if(place != null) {
+			if(sigungu != null) {
+				for(int i=0; i<place.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND place like '%"+place[i]+"%')";
+					if(i+1 == place.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<place.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND place like '%"+place[i]+"%')";
+					if(i+1 == place.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND place like '%%') OR ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND place like '%%') OR ";
+			}
+		}
+		
+		if(thema != null) {
+			if(sigungu != null) {
+				for(int i=0; i<thema.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND thema like '%"+thema[i]+"%')";
+					if(i+1 == thema.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<thema.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%"+thema[i]+"%')";
+					if(i+1 == thema.length) {
+						sql += " OR ";
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND thema like '%%') AND ";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%%') AND ";
+			}
+		}
+		
+		if(subplace != null) {
+			if(sigungu != null) {
+				for(int i=0; i<subplace.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND subplace like '%"+subplace[i]+"%')";
+					if(i+1 == subplace.length) {
+						break;
+					}
+					sql += " OR ";
+				}
+			}else {
+				for(int i=0; i<subplace.length;i++) {
+					sql += "(donm Like '%경기%' AND sigungunm like '%%' AND thema like '%"+subplace[i]+"%')";
+					if(i+1 == subplace.length) {
+						break;
+					}
+					sql += " OR ";
+				}
+			}
+		}else {
+			if(sigungu != null) {
+				sql += "(donm Like '%경기%' AND sigungunm like '%"+sigungu+"%' AND subplace like '%%')";
+			}else {
+				sql += "(donm Like '%경기%' AND sigungunm like '%%' AND subplace like '%%')";
+			}
+		}
 		
 		try {
 			connection = getConnection();
@@ -195,5 +362,4 @@ public class SearchCampDao {
 		
 		return scDto;
 	}
-	
 }

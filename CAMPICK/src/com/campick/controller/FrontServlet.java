@@ -2,7 +2,6 @@ package com.campick.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -71,18 +70,15 @@ public class FrontServlet extends HttpServlet {
      */
     public FrontServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			actionDo(request,response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -91,11 +87,9 @@ public class FrontServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			actionDo(request,response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -240,12 +234,11 @@ public class FrontServlet extends HttpServlet {
 					out.flush();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-//			캠핑장 찾기 기능!
-		
+
+		//			캠핑장 찾기 기능!
 		}else if(command.equals("/campList.do")) {
 			System.out.println("CampList 들어옴!");
 			
@@ -259,8 +252,7 @@ public class FrontServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("searchResult.jsp");
 			rd.forward(request, response);
-		
-		
+			
 		//캠핑장 상세 화면
 		}else if(command.equals("/campDetail.do")) {
 			System.out.println("CampDetail 들어옴!");
