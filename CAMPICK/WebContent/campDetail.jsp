@@ -64,15 +64,17 @@
             <label for="tab3">날씨정보</label>
          
             <section id="content1" style="margin-bottom:20px;">
-              <div class="carousel-wrapper">
-                <div class="carousel">
-             	  <img src="${giDto.imgUrl1 }">
-	              <img src="${giDto.imgUrl2 }">
-	              <img src="${giDto.imgUrl3 }">
-                </div>
-                <button class="prev" type="button" id="prevButton">&lt;</button>
-   			    <button class="next" type="button" id="nextButton">&gt;</button>
-              </div>
+              <c:if test="${giDto.imgUrl1 != null }">
+	            <div class="carousel-wrapper">
+                  <div class="carousel">
+               	    <img src="${giDto.imgUrl1 }"> <%--이미지 1번째 --%>
+	                <img src="${giDto.imgUrl2 }"> <%--이미지 2번째 --%>
+	                <img src="${giDto.imgUrl3 }"> <%--이미지 3번째 --%>
+                  </div>
+                  <button class="prev" type="button" id="prevButton">&lt;</button>
+   			      <button class="next" type="button" id="nextButton">&gt;</button>
+	            </div>
+              	</c:if>
                 <table>
                     <tr>
                     	<th width="100px">소개글</th>
@@ -128,7 +130,7 @@
                 <img src="image/map.PNG">
             </section>
             <section id="content3" style="margin-bottom:20px;">
-                날씨정보
+               	 날씨정보
             </section>
     </div>
 </div>

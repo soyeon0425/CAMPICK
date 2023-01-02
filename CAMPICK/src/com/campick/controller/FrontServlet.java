@@ -94,17 +94,17 @@ public class FrontServlet extends HttpServlet {
 		}
 	}
 	protected void actionDo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
 		
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String command = uri.substring(conPath.length());
 		
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
-		
 		if(command.equals("/main.do")) {
 			RequestDispatcher rd = request.getRequestDispatcher("search.jsp");
 			rd.forward(request, response);
+			
 		//게시판 리스트 메소드
 		}else if(command.equals("/boradList.do")) {
 			System.out.println("list 진입");
