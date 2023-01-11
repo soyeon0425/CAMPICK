@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.*,com.user.model.*"%>
+    pageEncoding="UTF-8" import = "java.util.*,com.user.model.*, com.tag.model.*"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-     
-    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+    <%  UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+    int count = (int)request.getAttribute("camp_count");
+    String[] tag =(String[])request.getAttribute("tag");
+    String retag = String.join(",", tag);
+
+    %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,7 +37,7 @@
            <c:otherwise>
              <ul>
             	<li><a href="userLogout.do">로그아웃</a></li>
-         	    <li><a href="myPage.jsp">마이페이지</a></li>
+         	    <li><a href="mypage.do">마이페이지</a></li>
            		<li style="color:white;"><%=loginUser.getName() %>님</li>
            	 </ul>
            </c:otherwise>
@@ -52,77 +59,130 @@
 
     <div id="contents">
             <ul>
-                <li><input type="checkbox" id="반려견동반"><label for="반려견동반" class="labelAfterCheckBox">#반려견동반</label></li>
-                <li><input type="checkbox" id="아이들 놀기 좋은"><label for="아이들 놀기 좋은" class="labelAfterCheckBox">#아이들 놀기 좋은</label></li>
-                <li><input type="checkbox" id="물맑은"><label for="물맑은" class="labelAfterCheckBox">#물맑은</label></li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
 
             <h2 id="result">
-                테마를 선택한 당신에게 추천하는 캠핑장
+                당신에게 추천하는 캠핑장은
+
             </h2>
 
-
-            <div class="card">
-                <img src="image/example.jpg" alt="캠핑장 사이트 사진">
-                <div class="campinfo">
-                    <div class="campinfo_head">
-                        <a href="campDetail.jsp">중앙 정보 캠핑장</a>
-                        <div class="wishlist">
-                            <img src="image/wishlist.png" onclick="alert('찜 list에 추가되었습니다.')">
-                        </div>
-                    </div>
-                    <div class="campinfo_contents">
-                        <ul>
-                            <li>서울시 마포구 신촌로 176 5층</li>
-                            <li>010-3333-4444</li>
-                        </ul>
-                    </div>
-                    <div class="campinfo_detail">
-                        <ul>
-                            <li>전기</li>
-                            <li>와이파이</li>
-                            <li>장작판매</li>
-                            <li>온수로</li>
-                            <li>놀이터</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-                <div class="card">
-                    <img src="image/example2.jpg" alt="캠핑장 사이트 사진">
+	  <c:forEach var="tagDto" items="${tagSearchList}" varStatus="status">
+               <div class="card">
+     
+                <img src="image/example2.jpg" alt="캠핑장 사이트 사진">
                     <div class="campinfo">
                         <div class="campinfo_head">
-                            <a href="campDetail.jsp">대한민국 캠핑장</a>
+                            <a href="tagDetail.do?camp_id=${tagDto.camp_id}">${tagDto.camp_name}</a>
                             <div class="wishlist">
-                                <img src="image/wishlist.png" onclick="alert('찜 list에 추가되었습니다.')">
+                            <c:choose>
+                             <c:when test="${loginUser==null}">
+        			   		 </c:when>
+         				  	<c:otherwise>
+                            <a href="zzim.do?camp_id=${tagDto.camp_id}&user_id=${loginUser.id}"><img src="image/wishlist.png" id="jjim"></a>
+                             <!--    <img src="image/wishlist.png" onclick="alert('찜 list에 추가되었습니다.')"> -->
+                             </c:otherwise>
+                             </c:choose>
                             </div>
                         </div>
                         <div class="campinfo_contents">
                             <ul>
-                                <li>서울특별시 종로구 한길 29-12</li>
-                                <li>02-1234-5678</li>
+                                <li>${tagDto.addr}</li>
+                                <li>${tagDto.tel}</li>
                             </ul>
                         </div>
                         <div class="campinfo_detail">
-                            <ul>
-                                <li>전기</li>
-                                <li>와이파이</li>
-                                <li>장작판매</li>
-                                <li>온수로</li>
-                                <li>놀이터</li>
-                                <li>산책로</li>
-                                <li>마트,편의점</li>
-                            </ul>
+                         <ul>
+                        <c:set var = "subplace" value = "${fn:split(tagDto.subplace, ',')}" />
+                       <c:forEach var="sub" items="${subplace}" varStatus="status">
+           				  <c:if test="${sub != null }">
+	              		  <li>${sub}</li>
+	            		  </c:if>
+              			</c:forEach>
+                       <!--  <li>${tagDto.subplace}</li>  --> 
+
+                         </ul>
                         </div>
     
                         </div>
-                    </div>
+                    </div> 
+                    
+     	</c:forEach>  
+     	
+     	
+       <!-- 페이징 처리 -->  
+       <div id="page_control">
+       <ul>
+       <%
+       if(count !=0){
+   		int pageSize = 3;
+       	String pageNo = request.getParameter("page");
+       	if(pageNo == null){
+       		pageNo = "1";
+       	}
+       	int currentPage = Integer.parseInt(pageNo);
+       	int startRow = ((currentPage-1) * pageSize) +1 ;
+    	   int pageCount = count / pageSize + (count%pageSize==0?0:1);
+    	   int pageBlock = 10;
+    	   int startPage = ((currentPage-1)/pageBlock)*pageBlock+1;
+    	   
+    	   int endPage = startPage + pageBlock-1;
+    	   if(endPage > pageCount){
+    		   endPage = pageCount;
+    	   }
+	    	if(currentPage >1){
+	%>
+	    		<li class=page_li>
+	    			<a href="tagSearch.do?page=<%=currentPage-1 %>&retag=<%=retag%>">이전</a>
+	    		</li>
+	    		
+	<%		}
+			for(int i = startPage; i<=endPage; i++){ 
+				if(i == currentPage){
+	%>
+					<li class=page_li><a href="tagSearch.do?page=<%=i%>&retag=<%=retag%>" id=currentPage><%=i %></a></li>
+	<%			}else{ %>
+					<li class=page_li>
+						<a href="tagSearch.do?page=<%=i%>&retag=<%=retag%>"><%=i %></a>
+					</li>
+	<%			
+				}
+			}
+			if(endPage < pageCount){
+	%>
+				<li class=page_li>
+					<a href="tagSearch.do?page=<%=currentPage +1%>&retag=<%=retag%>">다음</a>
+				</li>
+	<%
+			}  
+    	   
+       }
+
+	   %>
+	   </ul>
+       
+       </div>
+
+		
     </div>
 
     <footer>
 
     </footer>
     </div>
+    
+    <script>
+    
+    function jjim(){
+const jjim = document.getElementById("jjim");
+jjim.addEventListener('click',function(event){
+	document.location.href = "jjim.do?camp_name=${dto.camp_name}";
+});
+    }
+    
+    </script>
     
 </body>
 </html>

@@ -49,7 +49,7 @@
     </nav>
     <div id="contents">
     <div class="headline">
-    <h1>${scDto.camp_name }</h1>
+    <h1>${campDetail.camp_name }</h1>
     <h2>캠핑장 정보 자세히보기</h2>
     </div>
     <div class="tab">
@@ -64,63 +64,51 @@
             <label for="tab3">날씨정보</label>
          
             <section id="content1" style="margin-bottom:20px;">
-              <div class="carousel-wrapper">
-                <div class="carousel">
-             	  <img src="${giDto.imgUrl1 }">
-	              <img src="${giDto.imgUrl2 }">
-	              <img src="${giDto.imgUrl3 }">
-                </div>
-                <button class="prev" type="button" id="prevButton">&lt;</button>
-   			    <button class="next" type="button" id="nextButton">&gt;</button>
-              </div>
+            	<img src="${giDto.imgUrl1 }">
                 <table>
                     <tr>
                     	<th width="100px">소개글</th>
-                    	<td id="intro">${scDto.intro }</td>
+                    	<td id="intro">${campDetail.intro }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>주소</th>
-                        <td>${scDto.addr }</td>
+                        <td>${campDetail.addr}</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>번호</th>
-                        <td>${scDto.tel }</td>
-                    </tr>
-                    <tr>
-                        <th width="100px" height=50px>캠핑장 유형</th>
-                        <td>${scDto.facility }</td>
+                        <td>${campDetail.tel}</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>캠핑장 환경</th>
-                        <td>${scDto.place }</td>
+                        <td>${campDetail.place }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>테마</th>
-                        <td>${scDto.thema }</td>
+                        <td>${campDetail.thema }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>놀거리</th>
-                        <td>${scDto.playPlace }</td>
+                        <td>${campDetail.playplace }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>계절</th>
-                        <td>${scDto.season }</td>
+                        <td>${campDetail.season }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>가능한 날</th>
-                        <td>${scDto.operdate }</td>
+                        <td>${campDetail.operdate }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>대여장비</th>
-                        <td>${scDto.eqpmnlendcl }</td>
+                        <td>${campDetail.eqpmnLendCl }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>체험,프로그램</th>
-                        <td>${scDto.exprnprogrm }</td>
+                        <td>${campDetail.exprnProgrm }</td>
                     </tr>
                     <tr>
                         <th width="100px" height=50px>홈페이지</th>
-                        <td><a href="${scDto.homepage }">${scDto.homepage }</a></td>
+                        <td><a href="${campDetail.homepage }">${campDetail.homepage }</a></td>
                     </tr>
                 </table>
             </section>
@@ -137,37 +125,5 @@
 <footer>
 
 </footer>
-</div>
 </body>
-	<script>
-		const prevButton = document.querySelector('.prev');
-		const nextButton = document.querySelector('.next');
-		const carousel = document.querySelector('.carousel');
-		
-		let index = 0;
-		
-		prevButton.addEventListener('click', function () {
-			   if (index === 2){
-				   carousel.style.transform = 'translate(-840px,0)';
-				   index -= 1;
-			   }else if (index === 1){
-				   carousel.style.transform = 'translate(0,0)';
-				   index -=1;
-			   }else if (index === 0){
-				   return;
-			   }
-		});
-		nextButton.addEventListener('click', function () {
-			   if (index === 0){
-				   carousel.style.transform = 'translate(-840px,0)';
-				   index += 1;
-			   }else if (index === 1){
-				   carousel.style.transform = 'translate(-1680px,0)';
-				   index +=1;
-			   }else if (index === 2){
-				   return;
-			   }
-		});
-	</script>
-
 </html>

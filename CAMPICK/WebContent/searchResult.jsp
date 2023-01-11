@@ -118,7 +118,7 @@
       	<c:set var="check" value="1"></c:set>
       	<c:forEach var="giDto" items="${giDtoList }" varStatus="gi_status">
 		    <c:if test="${scDto.camp_id == giDto.camp_id }">
-	          <img src="${giDto.imgUrl1 }" alt="캠핑장 사이트 사진" width=340px height=330px>
+	          <img src="${giDto.imgUrl1}" alt="캠핑장 사이트 사진" width=340px height=330px>
               <c:set var="check" value="0"></c:set>
 		    </c:if>
         </c:forEach>

@@ -78,21 +78,24 @@
             </div>
             <div id="pick" class="tabContent">
                 <h2><span>■</span>캠핑장 찜List</h2>
+                <c:forEach var ="tagDto" items="${myList}" varStatus="status">
                 <ul>
                     <li>
-                        <h3>중앙 정보 캠핑장</h3> <button onclick="jjimRemove()">찜삭제</button>
+                        <h3>${tagDto.camp_name}</h3> <button onclick="jjimRemove()">찜삭제</button>
                     </li>
                     <li>
                         <table>
                             <tr>
                                 <td bgcolor="#375959">주소</td>
-                                <td>서울시 서대문구</td>
+                                <td>${tagDto.addr}</td>
                                 <td bgcolor="#375959">번호</td>
-                                <td>010-1234-1234</td>
+                                <td>${tagDto.tel}</td>
                             </tr>
                         </table>
                     </li>
                 </ul>
+                 </c:forEach>  
+ 
             </div>
             
         </div>

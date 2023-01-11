@@ -3,6 +3,7 @@ package com.campick.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,6 +45,11 @@ import com.searchcamp.service.CampListService;
 import com.searchcamp.service.CampListServiceImpl;
 import com.suggest.service.SuggestService;
 import com.suggest.service.SuggestServiceImpl;
+import com.tag.model.TagSearchDto;
+import com.tag.service.TagDetailService;
+import com.tag.service.TagDetailServicelmpl;
+import com.tag.service.TagSearchService;
+import com.tag.service.TagSearchServicelmpl;
 import com.user.model.UserDto;
 import com.user.service.IDCheckService;
 import com.user.service.IDCheckServicelmpl;
@@ -57,6 +63,12 @@ import com.user.service.UnregisterService;
 import com.user.service.UnregisterServicelmpl;
 import com.user.service.UserService;
 import com.user.service.UserServicelmpl;
+import com.zzim.service.ZzimCheckService;
+import com.zzim.service.ZzimCheckServicelmpl;
+import com.zzim.service.ZzimListService;
+import com.zzim.service.ZzimListServicelmpl;
+import com.zzim.service.ZzimPlusService;
+import com.zzim.service.ZzimPlusServicelmpl;
 
 /**
  * Servlet implementation class CampickServlet
@@ -94,17 +106,17 @@ public class FrontServlet extends HttpServlet {
 		}
 	}
 	protected void actionDo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
 		
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String command = uri.substring(conPath.length());
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
+		
 		if(command.equals("/main.do")) {
 			RequestDispatcher rd = request.getRequestDispatcher("search.jsp");
 			rd.forward(request, response);
-			
 		//게시판 리스트 메소드
 		}else if(command.equals("/boradList.do")) {
 			System.out.println("list 진입");
@@ -327,7 +339,7 @@ public class FrontServlet extends HttpServlet {
 			}else {
 				System.out.println("로그인 실패!");
 				out.println ("<script>alert ('비밀번호 또는 아이디를 다시 입력해주세요'); location.href='login.jsp'; </script>"); 
-				out.close ();
+				out.close();
 			}
 		
 		// 로그아웃 메소드
@@ -359,7 +371,7 @@ public class FrontServlet extends HttpServlet {
 			  
 			  } else { out.println
 			  ("<script>alert ('이름 또는 번호를 다시 확인해 주세요.'); location.href='searchId.jsp'; </script>"
-			  ); out.close ();
+			  ); out.close();
 			  }
 		
 		//비밀번호 찾기 
@@ -383,7 +395,7 @@ public class FrontServlet extends HttpServlet {
 			  
 			  } else {
 			  out.println ("<script>alert ('해당 회원이 없습니다. 정보를 다시 확인해 주세요.'); location.href='searchPw.jsp'; </script>");
-			  out.close ();
+			  out.close();
 			  }
 			  
 		//회원탈퇴 하는 메소드
@@ -402,7 +414,7 @@ public class FrontServlet extends HttpServlet {
 			response.sendRedirect("search.jsp");
 			
 		//아이디 체크 메소드
-		}else if(command.contentEquals("/userCheckID.do")) {
+		}else if(command.equals("/userCheckID.do")) {
 			System.out.println("idcheck 들어옴");
 			String checkID = request.getParameter("id");
 			System.out.println(checkID);
@@ -412,18 +424,85 @@ public class FrontServlet extends HttpServlet {
 			int result = idCheckService.execute(request, response);
 			System.out.println("돌아온 결과값은"+result);
 			
-			if(result==1) {
+			if(result==1){
 				RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/regist.jsp");
 				requestDispatcher.forward(request, response);
 			}else {
 				System.out.println("사용 ㄴㄴㄴ");
 				PrintWriter out = response.getWriter();
 				out.println ("<script>alert ('사용할 수 없는 아이디입니다!'); location.href='regist.jsp'; </script>");
-				out.close ();
-				//out.println("<script>alert('사용할 수 없는 아이디입니다.')</script>");
-				//response.sendRedirect("regist.jsp");
-				
+				out.close();
+
 			}
+			
+		}else if(command.equals("/tagSearch.do")) {
+	
+	//		String tag = request.getParameter("tag");
+	//		String[] tag = request.getParameterValues("tag");
+	//		System.out.println(Arrays.toString(tag));
+	//		request.setAttribute("tag", tag);
+
+			
+			TagSearchService tagService = new TagSearchServicelmpl();
+			ArrayList<TagSearchDto> tagSearchList = tagService.execute(request, response);
+			
+		//	System.out.println("tagSearchList의 크기 : " + tagSearchList.size());
+			request.setAttribute("tagSearchList", tagSearchList);
+			RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/tagResult.jsp");
+			requestDispatcher.forward(request, response);
+			
+
+			//image 가져오기
+			GetImgService gis = new GetImgServiceImpl(); 
+			ArrayList<GetImgDto> giDtoList = gis.execute(request, response);
+			request.setAttribute("giDtoList", giDtoList);
+			System.out.println("giDtoList의 크기는"+giDtoList.size());
+			
+
+		
+		}else if(command.equals("/tagDetail.do")) {
+			System.out.println("tag Datail 들어옴");
+			System.out.println("camp id는"+request.getParameter("camp_id"));
+			TagDetailService tagDetailService = new TagDetailServicelmpl();
+			TagSearchDto tto = tagDetailService.execute(request, response);
+			request.setAttribute("campDetail", tto);
+			RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/tagcampDetail.jsp");
+			requestDispatcher.forward(request, response);
+			
+			
+			
+		}else if(command.equals("/zzim.do")) {
+			System.out.println("jjim list 입성");
+
+	//	     String user_id=request.getParameter("user_id");
+	//	     System.out.println(user_id);
+	//	     int camp_id=Integer.parseInt(request.getParameter("camp_id"));
+	//	     System.out.println(camp_id);
+		     
+		     ZzimCheckService zzimCheck = new ZzimCheckServicelmpl();
+		     int count = zzimCheck.execute(request, response);
+		     System.out.println(count);
+		     PrintWriter out = response.getWriter();
+		     
+		     if(count==0) {
+		    	 ZzimPlusService zzim = new ZzimPlusServicelmpl();
+		    	 zzim.execute(request, response);
+		    	 out.println ("<script>alert ('찜 목록에 추가되었습니다!'); location.href='javascript:history.back();'; </script>");
+		     }else{
+		    	 out.println ("<script>alert ('이미 찜 추가 되었습니다.'); location.href='javascript:history.back();'; </script>");
+		     
+		     }
+		     out.close();
+
+		}else if(command.contentEquals("/mypage.do")) {
+			//System.out.println("mapage 진입");
+			
+			ZzimListService zzimListService = new ZzimListServicelmpl();
+			ArrayList<TagSearchDto> myList = zzimListService.execute(request, response);
+			request.setAttribute("myList", myList);
+			
+			RequestDispatcher requestDispatcher =  request.getRequestDispatcher("/myPage.jsp");
+			requestDispatcher.forward(request, response);
 			
 		}
 	}

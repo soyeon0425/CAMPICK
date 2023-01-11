@@ -34,9 +34,7 @@
             </ul>
             </c:otherwise>
             </c:choose>
-<!--                 <ul>
-                    <li><a href="login.jsp">로그인</a></li>
-                </ul> -->
+
             </div>
 
 
@@ -53,41 +51,70 @@
     <div id="contents">
 
         <h2>어떤 캠핑장을 찾으시나요?<br><br>▼</h2>
-        <form id="tag_search" action="tagResult.html" method="post">
+        
+        <form name="tag_search" method="post" action="tagSearch.do">
             <ul>
-                <li><input type="checkbox" id="반려견동반"><label for="반려견동반" class="labelAfterCheckBox">#반려견동반</label></li>
-                <li><input type="checkbox" id="아이들 놀기 좋은"><label for="아이들 놀기 좋은" class="labelAfterCheckBox">#아이들 놀기 좋은</label></li>
-                <li><input type="checkbox" id="물맑은"><label for="물맑은" class="labelAfterCheckBox">#물맑은</label></li>
-                <li><input type="checkbox" id="별보기좋은"><label for="별보기좋은" class="labelAfterCheckBox">#별보기좋은</label></li>
-                <li><input type="checkbox" id="가을"><label for="가을" class="labelAfterCheckBox">#가을</label></li>
-                <li><input type="checkbox" id="둘레길"><label for="둘레길" class="labelAfterCheckBox">#둘레길</label></li>
-                <li><input type="checkbox" id="캠핑카"><label for="캠핑카" class="labelAfterCheckBox">#캠핑카</label></li>
-                <li><input type="checkbox" id="봄"><label for="봄" class="labelAfterCheckBox">#봄</label></li>
-                <li><input type="checkbox" id="가족"><label for="가족" class="labelAfterCheckBox">#가족</label></li>
-                <li><input type="checkbox" id="커플"><label for="커플" class="labelAfterCheckBox">#커플</label></li>
-                <li><input type="checkbox" id="수영장 있는"><label for="수영장 있는" class="labelAfterCheckBox">#수영장 있는</label></li>
-                <li><input type="checkbox" id="그늘이 많은"><label for="그늘이 많은" class="labelAfterCheckBox">#그늘이 많은</label></li>
-                <li><input type="checkbox" id="여름"><label for="여름" class="labelAfterCheckBox">#여름</label></li>
-                <li><input type="checkbox" id="힐링"><label for="힐링" class="labelAfterCheckBox">#힐링</label></li>
-                <li><input type="checkbox" id="계곡옆"><label for="계곡옆" class="labelAfterCheckBox">#계곡옆</label></li>
-                <li><input type="checkbox" id="물놀이 하기 좋은"><label for="물놀이 하기 좋은" class="labelAfterCheckBox">#물놀이 하기 좋은</label></li>
-                <li><input type="checkbox" id="겨울"><label for="겨울" class="labelAfterCheckBox">#겨울</label></li>
-                
-                <li><input type="checkbox" id="차대기 편한"><label for="차대기 편한" class="labelAfterCheckBox">#차대기 편한</label></li>
-                <li><input type="checkbox" id="바다가 보이는"><label for="바다가 보이는" class="labelAfterCheckBox">#바다가 보이는</label></li>
-                <li><input type="checkbox" id="깨끗한"><label for="깨끗한" class="labelAfterCheckBox">#깨끗한</label></li>
+                <li><input type="checkbox" name="tag" value="반려" id="dog"><label for="dog" class="labelAfterCheckBox">#반려견동반</label></li>
+                <li><input type="checkbox" name="tag" value="아이" id="kids"><label for="kids" class="labelAfterCheckBox">#아이들 놀기 좋은</label></li>
+                <li><input type="checkbox" name="tag" value="맑은" id="cleanWater"><label for="cleanWater" class="labelAfterCheckBox">#물맑은</label></li>
+                <li><input type="checkbox" name="tag" value="조용" id="silence"><label for="silence" class="labelAfterCheckBox">#조용한</label></li>
+                <li><input type="checkbox" name="tag" value="가을" id="fall"><label for="fall" class="labelAfterCheckBox">#가을</label></li>
+                <li><input type="checkbox" name="tag" value="산책" id="walk"><label for="walk" class="labelAfterCheckBox">#산책할 수 있는</label></li>
+                <li><input type="checkbox" name="tag" value="체험" id="experience"><label for="experience" class="labelAfterCheckBox">#체험 가능한</label></li>
+                <li><input type="checkbox" name="tag" value="계곡" id="valley"><label for="valley" class="labelAfterCheckBox">#계곡옆</label></li>
+                <li><input type="checkbox" name="tag" value="봄" id="spring"><label for="spring" class="labelAfterCheckBox">#봄</label></li>
+                <li><input type="checkbox" name="tag" value="가족" id="family"><label for="family" class="labelAfterCheckBox">#가족</label></li>
+                <li><input type="checkbox" name="tag" value="커플" id="couple"><label for="couple" class="labelAfterCheckBox">#커플</label></li>
+                <li><input type="checkbox" name="tag" value="수영장" id="swimmingPool"><label for="swimmingPool" class="labelAfterCheckBox">#수영장 있는</label></li>
+                <li><input type="checkbox" name="tag" value="그늘" id="shade"><label for="shade" class="labelAfterCheckBox">#그늘이 많은</label></li>
+                <li><input type="checkbox" name="tag" value="여름" id="summer"><label for="summer" class="labelAfterCheckBox">#여름</label></li>
+                <li><input type="checkbox" name="tag" value="간격" id="largeSite"><label for="largeSite" class="labelAfterCheckBox">#사이트 간격 넓은</label></li>
+                <li><input type="checkbox" name="tag" value="힐링" id="healing"><label for="healing" class="labelAfterCheckBox">#힐링</label></li>
+                <li><input type="checkbox" name="tag" value="경관" id="goodView"><label for="goodView" class="labelAfterCheckBox">#경관이 멋진</label></li>
+                <li><input type="checkbox" name="tag" value="물놀이" id="swim"><label for="swim" class="labelAfterCheckBox">#물놀이 하기 좋은</label></li>
+                <li><input type="checkbox" name="tag" value="겨울" id="winter"><label for="winter" class="labelAfterCheckBox">#겨울</label></li>
+                <li><input type="checkbox" name="tag" value="주차" id="parking"><label for="parking" class="labelAfterCheckBox">#주차가 편한</label></li>
+                <li><input type="checkbox" name="tag" value="바다" id="OceanView"><label for="OceanView" class="labelAfterCheckBox">#바다 옆</label></li>
+                <li><input type="checkbox" name="tag" value="깨끗" id="clean"><label for="clean" class="labelAfterCheckBox">#깨끗한</label></li>
+                <li><input type="checkbox" name="tag" value="접근성" id="accessibility"><label for="accessibility" class="labelAfterCheckBox">#접근성 좋은</label></li>
             </ul>
 
-      <button type="button" onclick = "location.href = 'tagResult.jsp'">검색하기</button>
+      <button type="submit">검색하기</button>
         </form>
 
 
     </div>
+    
+    <footer>
+    
+    </footer>
     </div>
     <script>
-        function searching(){
-            document.location.href="tagResult.html";
-        }
+
+    function getLabelText(event)  {
+    	  const checkId = event.target.id; //체크된 id
+    	  const query = 'label[for="'+ checkId + '"]' //그 아이디의 for값
+    	  const text = 
+    	        document.querySelector(query).innerText; //그 label의 text
+    	  alert(text);
+
+    //	  const text = 
+    //	        document.querySelector(query).innerText;
+    	  
+    //	  document.getElementById('result').innerText = text;
+    	} 
+    
+   function labelText(){
+    if(document.getElementsByClassName('labelAfterCheckBox').checked==true){
+    	alert(document.querySelector('labelAfterCheckBox').innerText);
+    }
+   //  const text = 
+	   //     document.querySelector(label).innerText; 
+  //   for(var i = 0; i < label.length; i++){
+      //  alert(label[i].text());
+    // }
+   } 
+    
     </script>    
 </body>
 </html>
